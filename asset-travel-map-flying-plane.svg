@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 140">
+<defs>
+ <linearGradient id="paper" x2=".3" y2="1"><stop stop-color="#fff8e6"/><stop offset=".48" stop-color="#e9dcc2"/><stop offset="1" stop-color="#bca98a"/></linearGradient>
+ <linearGradient id="body" x2="0" y2="1"><stop stop-color="#fff9e9"/><stop offset=".5" stop-color="#e8dbc3"/><stop offset="1" stop-color="#b4a184"/></linearGradient>
+ <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".55" numOctaves="3" seed="8" result="noise"/><feComposite in="noise" in2="SourceGraphic" operator="in" result="texture"/><feBlend in="SourceGraphic" in2="texture" mode="soft-light"/></filter>
+</defs>
+<!-- Replaceable silhouette study: the source video does not resolve tiny plane details. Nose points right. -->
+<g stroke="#fff5dc" stroke-width="5" stroke-linejoin="round" paint-order="stroke fill" filter="url(#grain)">
+ <path d="M66 66L34 11L46 9L97 65L97 77L40 128L29 127L64 76Z" fill="url(#paper)"/>
+ <path d="M28 65L9 40L20 39L47 66L47 76L16 101L6 100L28 75Z" fill="#c2b096"/>
+ <path d="M14 67Q53 61 113 63Q141 64 149 71Q139 79 113 79L24 76L12 73Z" fill="url(#body)"/>
+</g>
+<path d="M112 65L124 67L129 71L113 71Z" fill="#607b83" opacity=".85"/>
+<path d="M109 73H47" stroke="#86604d" stroke-width="1.5" opacity=".7"/>
+<path d="M96 67H48" stroke="#5e6b6c" stroke-width="2" stroke-dasharray="3 5"/>
+<path d="M34 12L67 66M31 126L66 76" fill="none" stroke="#958975" stroke-width="1.2" opacity=".7"/>
+<path d="M17 42L32 64M14 98L29 78" stroke="#9d5d50" stroke-width="4" opacity=".75"/>
+</svg>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>去曼谷见你 · piu</title>
+<link rel="stylesheet" href="map-preview.css"><link rel="stylesheet" href="flight-preview.css"><link rel="stylesheet" href="scratch-preview.css"><link rel="stylesheet" href="slot-preview.css"></head><body>
+<main class="map-scene" aria-label="从武汉出发，去曼谷见你">
+<svg id="atlas" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-label="真实世界地图，武汉至曼谷" role="group">
+<defs><radialGradient id="pinHead" cx="32%" cy="24%"><stop stop-color="#e8ac96"/><stop offset=".48" stop-color="#b76358"/><stop offset="1" stop-color="#723a37"/></radialGradient><filter id="pinShadow" x="-100%" y="-100%" width="300%" height="300%"><feDropShadow dx="1" dy="2" stdDeviation="1.3" flood-opacity=".28"/></filter></defs>
+<g id="world"><image href="asset-travel-map-world.svg" width="1600" height="900"/><path id="route-shadow" fill="none" stroke="#f7e9bd" stroke-width="3.5" opacity=".28"/><path id="route" fill="none" stroke="#947649" stroke-width="1.7" stroke-dasharray="4 5"/>
+<g id="departure"><path d="M-4,-4L4,4M-4,4L4,-4" stroke="#665e48" stroke-width="1.5"/><text x="14" y="-9" class="city-caption">武汉 · 出发</text></g>
+<g id="bangkok" role="button" tabindex="0" aria-label="打开曼谷见面的回忆"><rect class="hit" x="-155" y="-34" width="185" height="64" fill="transparent"/><path d="M0,-12L0,0" stroke="#83715a" stroke-width="2"/><circle cy="-14" r="7" fill="url(#pinHead)" filter="url(#pinShadow)"/><g class="place-label"><path d="M-143,-25L-20,-26L-19,11L-144,12Z" fill="#f2e9d3" stroke="#c9b99a" stroke-width=".6"/><text x="-81" y="-9" text-anchor="middle">曼谷 · 见到你</text><text x="-81" y="4" text-anchor="middle" class="place-en">BANGKOK</text></g></g></g></svg>
+<div class="paper-heading"><p>这一站，去曼谷见你。</p><span>WUHAN → BANGKOK</span></div>
+<svg class="bunting" viewBox="0 0 330 60" aria-hidden="true"><path d="M0 4Q160 52 330 5" fill="none" stroke="#e8d9b7" stroke-width="1"/><g stroke="#d6c8a7" stroke-width=".5"><path d="M16 8L34 12L22 34Z" fill="#b96f61"/><path d="M48 16L66 20L54 42Z" fill="#c8ab66"/><path d="M81 24L99 26L88 47Z" fill="#eae3cc"/><path d="M115 29L133 30L124 52Z" fill="#eae3cc"/><path d="M150 30L168 30L159 52Z" fill="#9aa694"/><path d="M185 28L203 26L197 49Z" fill="#eae3cc"/><path d="M220 23L238 20L232 45Z" fill="#eae3cc"/><path d="M254 16L272 13L267 37Z" fill="#eae3cc"/><path d="M288 10L306 7L303 31Z" fill="#c8ab66"/></g></svg>
+<svg class="compass" viewBox="0 0 150 150" aria-hidden="true"><g transform="translate(75 75)" stroke="#d8d6bb" fill="none" opacity=".7"><circle r="42" stroke-width=".7"/><circle r="34" stroke-width=".5"/><path d="M0,-58V58M-58,0H58M-39,-39L39,39M-39,39L39,-39" stroke-width=".7"/><path d="M0,-56L9,-9L56,0L9,9L0,56L-9,9L-56,0L-9,-9Z" stroke-width=".7"/><path d="M0,-56V0L9,-9ZM56,0H0L9,9ZM0,56V0L-9,9ZM-56,0H0L-9,-9Z" fill="#d8d6bb" stroke="none"/><circle r="4" fill="#d8d6bb"/></g><g fill="#e0dcc5" font-family="Georgia,serif" font-size="11" text-anchor="middle"><text x="75" y="12">N</text><text x="75" y="147">S</text><text x="8" y="79">W</text><text x="142" y="79">E</text></g></svg>
+<button class="docked-stub" id="replay-boarding" aria-label="重看登机牌撕开动画" hidden><img src="asset-boarding-pass-plane-stub.png" alt="蓝色飞机登机牌票根" draggable="false"></button>
+<div class="map-controls"><button id="focus-route" aria-pressed="false">看看两座城</button><button id="open-boarding">收好这次见面 <span>→</span></button></div>
+<p id="map-status" aria-live="polite"></p><span class="map-credit">Natural Earth · 地理底图</span>
+</main>
+<dialog id="memory" aria-labelledby="memory-title"><div class="paper-card"><img class="card-texture" src="asset-travel-card-card-transparent.png" alt="" draggable="false"><span class="card-pin" aria-hidden="true"></span><button class="close" id="close-memory" aria-label="关闭回忆卡片">×</button>
+<div class="photos" id="photos">
+<button class="polaroid p1" data-slot="0" aria-label="为曼谷回忆选择第1张照片"><span class="photo-window"><span class="empty">把这次见面<br>放在这里</span></span><img class="photo-frame" src="asset-polaroid-frame-frame-transparent.png" alt=""><span class="photo-note">01 · 去见你</span></button>
+<button class="polaroid p2" data-slot="1" aria-label="为曼谷回忆选择第2张照片"><span class="photo-window"><span class="empty">留住<br>这一个瞬间</span></span><img class="photo-frame" src="asset-polaroid-frame-frame-transparent.png" alt=""><span class="photo-note">02 · 在曼谷</span></button>
+<button class="polaroid p3" data-slot="2" aria-label="为曼谷回忆选择第3张照片"><span class="photo-window"><span class="empty">还有<br>我们的照片</span></span><img class="photo-frame" src="asset-polaroid-frame-frame-transparent.png" alt=""><span class="photo-note">03 · 和你</span></button>
+</div>
+<div class="memory-words"><span class="eyebrow">OUR ONE LITTLE STOP</span><h1 id="memory-title">曼谷</h1><p class="subtitle">这一次，<br>我飞过来见你。</p><p class="small-copy">地图上的这一站，<br>是和你见面的回忆。</p><button id="spread-photos">翻开这次见面 <span>→</span></button></div>
+<button id="gather-photos" hidden>收好照片 ↙</button><p class="photo-help" id="photo-status" aria-live="polite">点击相纸，放入我们的照片。</p><span class="card-caption">武汉 → 曼谷 · 去见你</span>
+</div></dialog><input id="memory-file" type="file" accept="image/*" hidden>
+<dialog id="boarding" aria-label="武汉到曼谷的登机牌" aria-describedby="boarding-help">
+<button id="close-boarding" class="boarding-close" aria-label="回到地图">×</button>
+<div class="boarding-stage" id="boarding-stage">
+<div class="boarding-main" id="boarding-main"><img src="asset-boarding-pass-main-ticket.png" alt="" draggable="false">
+<div class="boarding-copy"><span class="boarding-kicker">这一次，飞过来见你。</span><div class="boarding-cities"><span>武汉<small>WUHAN</small></span><span class="boarding-arrow">→</span><span>曼谷<small>BANGKOK</small></span></div><span class="boarding-note">把见面的回忆，好好收藏。</span></div></div>
+<img class="boarding-stub fixed-stub" id="fixed-stub" src="asset-boarding-pass-plane-stub.png" alt="" draggable="false">
+<button class="boarding-stub moving-stub" id="tear-boarding" aria-label="撕下右侧飞机票根"><img src="asset-boarding-pass-plane-stub.png" alt="" draggable="false"></button>
+</div>
+<p id="boarding-help" aria-live="polite">向右下轻轻撕开飞机票根 <span>也可以点击</span></p>
+</dialog>
+<dialog id="flight" aria-label="下一站，我们的以后">
+<div class="flight-veil" aria-hidden="true"></div>
+<svg id="flight-svg" class="flight-svg" aria-hidden="true"><defs><filter id="heart-ink" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="14" result="grain"/><feDisplacementMap in="SourceGraphic" in2="grain" scale="2" xChannelSelector="R" yChannelSelector="G"/><feDropShadow dx="0" dy="0" stdDeviation="2" flood-color="#e77a70" flood-opacity=".35"/></filter></defs><path id="flight-route" class="flight-line"/><g id="flight-heart" class="flight-heart"><path id="heart-wash" class="heart-wash"/><path id="heart-outline" class="heart-outline"/></g></svg>
+<img id="flight-plane" class="flight-plane" src="asset-travel-map-flying-plane.svg" alt="" draggable="false">
+<div class="heart-words" aria-hidden="true"><p>下一站</p><span>我们的以后</span></div>
+<button id="close-flight" class="flight-close" aria-label="回到地图">×</button>
+<div class="flight-actions"><button id="pause-flight" aria-pressed="false">暂停飞行</button><button id="replay-flight" hidden>再飞一次 ↗</button><button id="next-scratch" hidden>刮开一点好运 →</button></div>
+<span id="flight-status" class="visually-hidden" role="status"></span>
+</dialog>
+<script src="slot-preview.js"></script><script src="scratch-preview.js"></script><script src="flight-preview.js"></script><script src="map-preview.js"></script><script src="journey-bridge.js"></script></body></html>

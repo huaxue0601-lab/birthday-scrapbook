@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>piu · 这一卷是我们的日常</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}body{background:#eee8dc url('asset-envelope-background-paper.jpg') center/cover;color:#494438;font-family:'Kaiti SC','STKaiti',KaiTi,serif}button{font:inherit;color:inherit}button:focus-visible{outline:3px dashed #557b64;outline-offset:6px}
+.stage{position:absolute;left:50%;top:50%;width:1600px;height:900px;transform:translate(-50%,-50%) scale(var(--scale));transform-origin:center}h1{position:absolute;left:85px;top:78px;font-weight:400;font-size:34px;letter-spacing:3px;margin:0;transform:rotate(-1deg)}
+.cartridge{position:absolute;left:64px;top:205px;width:300px;z-index:3;pointer-events:none;filter:drop-shadow(3px 6px 3px #51433226)}
+.viewport{position:absolute;left:309px;top:275px;width:1240px;height:460px;overflow:hidden;touch-action:pan-y;cursor:grab}.viewport.dragging{cursor:grabbing}.track{position:relative;width:1600px;height:446.65px;will-change:transform;user-select:none}.frame{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
+.photo{position:absolute;border:0;padding:0;background:#e7decc;overflow:hidden;cursor:inherit;display:grid;place-items:center;font-size:25px;letter-spacing:2px;color:#89816f}.photo img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;pointer-events:none}.photo span{pointer-events:none}.photo.filled span{display:none}
+.controls{position:absolute;left:400px;right:80px;bottom:54px;display:flex;gap:24px;align-items:center}.controls button{background:transparent;border:0;font-size:30px;cursor:pointer;padding:12px}.controls button:disabled{opacity:.25;cursor:default}.progress{height:2px;flex:1;background:#8a7c5928;position:relative}.progress i{position:absolute;height:2px;width:33.333%;background:#7f8771;left:var(--progress,0%)}.hint{margin:0 12px;font-size:20px;white-space:nowrap}.caption{position:absolute;left:85px;bottom:75px;font-size:20px;letter-spacing:1px;line-height:1.7;margin:0}.status{position:absolute;left:400px;bottom:120px;font-size:18px;color:#857a67;margin:0}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style></head><body>
+<main class="stage" aria-label="胶卷回忆互动预览">
+<h1>这一卷，是我们的日常。</h1>
+<img class="cartridge" src="asset-film-cartridge-cartridge-transparent.png" alt="绿色复古胶卷筒" draggable="false">
+<div class="viewport" id="viewport" aria-label="左右拖动胶片"><div class="track" id="track"><img class="frame" src="asset-film-strip-strip-transparent.png" alt="旧胶片边框" draggable="false"></div></div>
+<p class="caption">留给我们的<br>三个瞬间。</p>
+<p class="status" id="status" aria-live="polite">照片待补 · 点空白格放入照片</p>
+<nav class="controls" aria-label="浏览胶片"><button id="previous" aria-label="查看前一格">←</button><div class="progress"><i id="progress"></i></div><p class="hint">轻轻拉动，往后看</p><button id="next" aria-label="查看后一格">→</button></nav>
+</main><input type="file" accept="image/*" id="file" hidden>
+<script>
+const viewport=document.getElementById('viewport'),track=document.getElementById('track'),input=document.getElementById('file'),status=document.getElementById('status'),previous=document.getElementById('previous'),next=document.getElementById('next');
+let scale=1,offset=0,start=null,moved=false,active=null,photoURLs=new Map();const maxOffset=360;
+function fit(){scale=Math.min(innerWidth/1600,innerHeight/900);document.documentElement.style.setProperty('--scale',scale)}fit();addEventListener('resize',fit);
+function setOffset(value){offset=Math.max(0,Math.min(maxOffset,value));track.style.transform=`translateX(${-offset}px)`;document.getElementById('progress').style.left=`${offset/maxOffset*66.667}%`;previous.disabled=offset===0;next.disabled=offset===maxOffset;if(offset===maxOffset)document.dispatchEvent(new Event('scene:complete'))}setOffset(0);
+fetch('asset-film-strip-geometry.json').then(r=>{if(!r.ok)throw Error();return r.json()}).then(g=>{
+ g.windows.forEach((w,i)=>{const b=document.createElement('button');b.className='photo';b.setAttribute('aria-label',`为第${i+1}格选择照片`);b.style.cssText=`left:${(w.x-2)/g.width*100}%;top:${(w.y-2)/g.height*100}%;width:${(w.width+4)/g.width*100}%;height:${(w.height+4)/g.height*100}%`;b.innerHTML=`<span>第 ${i+1} 格 · 放入照片</span>`;b.addEventListener('click',e=>{if(moved){e.preventDefault();return}active=b;input.value='';input.click()});track.prepend(b)});
+}).catch(()=>{status.textContent='胶片素材未能加载，请刷新重试。'});
+viewport.addEventListener('pointerdown',e=>{if(e.button!==0)return;moved=false;start={x:e.clientX,offset,id:e.pointerId}});
+viewport.addEventListener('pointermove',e=>{if(!start||e.pointerId!==start.id)return;const delta=e.clientX-start.x;if(Math.abs(delta)>6&&!moved){moved=true;viewport.setPointerCapture(e.pointerId);viewport.classList.add('dragging')}if(moved){e.preventDefault();setOffset(start.offset-delta/scale)}});
+function end(e){if(!start||e.pointerId!==start.id)return;start=null;viewport.classList.remove('dragging');if(viewport.hasPointerCapture(e.pointerId))viewport.releasePointerCapture(e.pointerId)}
+viewport.addEventListener('pointerup',end);viewport.addEventListener('pointercancel',end);
+previous.addEventListener('click',()=>setOffset(offset-635));next.addEventListener('click',()=>setOffset(offset+635));
+viewport.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();setOffset(offset+(e.key==='ArrowRight'?635:-635))}});
+input.addEventListener('change',()=>{const file=input.files[0],target=active;if(!file||!target)return;const url=URL.createObjectURL(file),img=new Image();img.alt='你选择的回忆照片';img.draggable=false;img.onload=()=>{const old=photoURLs.get(target);if(old)URL.revokeObjectURL(old);photoURLs.set(target,url);target.querySelector('img')?.remove();target.append(img);target.classList.add('filled');status.textContent=`已放入 ${photoURLs.size} 张照片 · 点击可更换`;};img.onerror=()=>{URL.revokeObjectURL(url);status.textContent='图片未能读取，请换一张。'};img.src=url});
+</script><style>.in-journey .controls{bottom:100px}.in-journey .caption{bottom:95px}.in-journey .status{bottom:145px}</style><script src="journey-bridge.js"></script></body></html>

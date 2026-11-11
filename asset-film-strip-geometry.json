@@ -1,0 +1,25 @@
+{
+  "width": 3421,
+  "height": 955,
+  "windows": [
+    {
+      "x": 75,
+      "y": 150,
+      "width": 1061,
+      "height": 657
+    },
+    {
+      "x": 1190,
+      "y": 152,
+      "width": 1071,
+      "height": 652
+    },
+    {
+      "x": 2311,
+      "y": 151,
+      "width": 1056,
+      "height": 654
+    }
+  ],
+  "sprocketHoles": 72
+}

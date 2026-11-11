@@ -1,0 +1,39 @@
+body[data-scratch-standalone]{margin:0;background:#e9e2d3}
+#scratch{position:fixed;inset:0;width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;border:0;overflow:hidden;box-sizing:border-box;background:#eee9df url('asset-envelope-background-paper.jpg') center/cover;color:#37332f;font-family:'Kaiti SC','STKaiti',KaiTi,serif;animation:none;isolation:isolate}
+#scratch::backdrop{background:#eee9df;backdrop-filter:none}
+#scratch:before{content:'';position:absolute;inset:0;background:#fffefa40;pointer-events:none;z-index:-1}
+#scratch button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+#scratch button:focus-visible{outline:2px dashed #9a544e;outline-offset:5px}
+.scratch-heading{position:absolute;top:29px;left:33px;margin:0;font-size:17px;letter-spacing:2px;transform:rotate(-2deg)}
+.scratch-bunting{position:absolute;right:45px;top:22px;width:150px;opacity:.65;pointer-events:none}
+.scratch-close{position:absolute;right:18px;top:15px;z-index:4;border:0;background:none;padding:8px;font-size:28px!important;color:#766c60!important}
+.scratch-layout{position:absolute;inset:0;animation:scratch-arrive .65s cubic-bezier(.2,.7,.2,1) both;pointer-events:none}
+.scratch-card{position:absolute;left:50%;top:49%;width:min(420px,54vh,52vw);aspect-ratio:1089/1705;transform:translate(-50%,-50%);filter:drop-shadow(3px 6px 5px #594a3829);container-type:inline-size;pointer-events:auto}
+.scratch-paper{display:block;width:100%;height:100%;user-select:none;pointer-events:none}
+.scratch-title{position:absolute;left:4.8%;right:4.8%;top:10.3%;margin:0;text-align:center;color:#fff0d7;font-family:'Helvetica Neue',Arial,sans-serif;font-size:19cqw;font-weight:300;line-height:1;letter-spacing:-.065em;text-shadow:0 .3px .3px #853e3a30;pointer-events:none}
+.scratch-title span{display:block;white-space:nowrap}
+.scratch-title{transform:none}
+.scratch-window{position:absolute;padding:0;border:0;background:none;touch-action:none;user-select:none;-webkit-user-select:none;overflow:hidden;cursor:crosshair!important}
+.scratch-window:focus-visible{outline-offset:2px!important}
+.scratch-window canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:1;transition:opacity .38s ease}
+.scratch-window.is-revealed canvas{opacity:0}
+.scratch-window.is-revealed{cursor:default!important}
+.scratch-prize{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;writing-mode:vertical-rl;font-size:5.4cqw;letter-spacing:.15em;line-height:1.4;padding:10%;color:#914646;pointer-events:none}
+.scratch-hint{position:absolute;left:calc(50% + min(235px,30vh,29vw));top:47%;width:25%;max-width:280px;line-height:1.9;font-size:15px;letter-spacing:2px;transform:rotate(-2deg)}
+.scratch-hint p{margin:0}.scratch-hint .scratch-count{font-size:11px;letter-spacing:1px;color:#8d8171;margin-top:13px}
+.scratch-footer{position:absolute;bottom:19px;left:0;width:100%;text-align:center;font-size:12px;color:#827567;letter-spacing:1px}
+.scratch-footer button{background:none;border:0;border-bottom:1px solid #b7a591;padding:7px 5px}
+.scratch-footer button[hidden]{display:none}
+.scratch-footer #next-slot{margin-left:25px}
+.scratch-keyboard-hint{position:absolute;left:33px;bottom:24px;font-size:11px;color:#8f8275;opacity:0;transition:opacity .2s;pointer-events:none}
+#scratch:has(.scratch-window:focus-visible) .scratch-keyboard-hint{opacity:1}
+.scratch-stamp{position:absolute;left:8%;top:55%;width:84%;aspect-ratio:3.15;display:grid;place-items:center;transform:rotate(-11deg);background:#272422;color:#fbf2de;clip-path:polygon(0 3%,8% 0,22% 2%,40% 0,58% 1%,81% 0,100% 2%,99% 36%,100% 64%,99% 99%,74% 98%,52% 100%,29% 98%,0 100%,1% 72%,0 40%);filter:drop-shadow(2px 3px 2px #57453842);opacity:0;pointer-events:none;visibility:hidden}
+.scratch-stamp:before{content:'';position:absolute;inset:7% 2.5%;border:1px solid #eee4d27a}
+.scratch-stamp:after{content:'';position:absolute;inset:0;opacity:.08;background-image:url('asset-travel-map-land-paper.jpg');background-size:190px;mix-blend-mode:screen;pointer-events:none}
+.scratch-stamp strong{font-family:'Kaiti SC','STKaiti',KaiTi,serif;font-size:11.2cqw;font-weight:900;letter-spacing:.04em;padding-left:.04em;white-space:nowrap}
+.scratch-card.is-complete .scratch-stamp{visibility:visible;opacity:1;animation:scratch-stamp .48s cubic-bezier(.2,.8,.2,1) both}
+@keyframes scratch-arrive{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes scratch-stamp{0%{opacity:0;transform:translate(20px,-38px) rotate(-17deg) scale(1.65)}65%{opacity:1;transform:translate(0,0) rotate(-11deg) scale(.97)}100%{opacity:1;transform:translate(0,0) rotate(-11deg) scale(1)}}
+@media(max-width:700px) and (orientation:portrait){.scratch-heading{top:26px;left:20px;font-size:15px}.scratch-bunting{top:64px;right:22px;width:120px}.scratch-card{width:min(79vw,45vh);top:48%}.scratch-hint{left:0;top:auto;bottom:10%;width:100%;max-width:none;text-align:center;font-size:14px;transform:none}.scratch-hint .scratch-count{margin-top:4px;font-size:10px}.scratch-footer{bottom:24px}.scratch-keyboard-hint{left:0;bottom:65px;width:100%;text-align:center;font-size:10px}.scratch-close{right:10px;top:17px}}
+@media(max-height:500px) and (orientation:landscape){.scratch-card{width:48vh;top:48%}.scratch-heading{font-size:13px;top:18px}.scratch-hint{left:calc(50% + 29vh);font-size:12px}.scratch-footer{bottom:8px;font-size:10px}.scratch-bunting{width:110px}}
+@media(prefers-reduced-motion:reduce){#scratch *,#scratch *:before,#scratch *:after{animation:none!important;transition:none!important}}
