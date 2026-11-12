@@ -24,7 +24,7 @@
  let stampTimer=0,returnFocus=null;
  const slots=[...dialog.querySelectorAll('.scratch-window')].map((button,index)=>{
   const canvas=button.querySelector('canvas'),ctx=canvas.getContext('2d',{willReadFrequently:true});
-  return {button,canvas,ctx,index,done:false,pointer:null,previous:null,lastCheck:0};
+  return {button,canvas,ctx,index,done:false,pointer:null,previous:null,lastCheck:0,touched:false};
  });
  function coat(slot){
   const {canvas,ctx}=slot,w=canvas.width,h=canvas.height;
@@ -38,8 +38,8 @@
   ctx.putImageData(pixels,0,0);
   ctx.strokeStyle='rgba(238,236,221,.06)';ctx.lineWidth=1;
   for(let y=4;y<h;y+=9){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y+2);ctx.stroke();}
-  ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='#eee9df';ctx.font='22px "Kaiti SC", STKaiti, serif';ctx.fillText('刮 开',w/2,h/2);
-  ctx.strokeStyle='#e8e4db66';ctx.beginPath();ctx.moveTo(w*.34,h/2+23);ctx.lineTo(w*.66,h/2+23);ctx.stroke();
+  ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='#eee9df';ctx.font='46px BirthdayWenKai, sans-serif';ctx.fillText('刮 开',w/2,h/2-30);ctx.font='34px BirthdayMali, sans-serif';ctx.fillText('ขูดตรงนี้',w/2,h/2+30);
+  ctx.strokeStyle='#e8e4db66';ctx.beginPath();ctx.moveTo(w*.34,h/2+57);ctx.lineTo(w*.66,h/2+57);ctx.stroke();
  }
  function stopPointer(slot){
   const id=slot.pointer;slot.pointer=null;slot.previous=null;
@@ -66,7 +66,7 @@
   return BirthdayScratchGeometry.point(event.clientX,event.clientY,r,{width:card.offsetWidth,height:card.offsetHeight},[m.a,m.b,m.c,m.d],{left:slot.button.offsetLeft,top:slot.button.offsetTop,width:slot.button.offsetWidth,height:slot.button.offsetHeight},slot.canvas);
  }
  function erase(slot,p){
-  if(!p)return;
+  if(!p)return;slot.touched=true;
   const {ctx,canvas}=slot;ctx.globalCompositeOperation='destination-out';ctx.strokeStyle='#000';ctx.fillStyle='#000';ctx.lineWidth=canvas.width*.33;ctx.lineCap='round';ctx.lineJoin='round';
   ctx.beginPath();const prev=slot.previous||p;ctx.moveTo(prev.x,prev.y);ctx.lineTo(p.x,p.y);ctx.stroke();
   ctx.beginPath();ctx.arc(p.x,p.y,ctx.lineWidth/2,0,Math.PI*2);ctx.fill();slot.previous=p;
@@ -89,7 +89,7 @@
  function resetCard(){
   clearTimeout(stampTimer);card.classList.remove('is-complete');reset.hidden=true;nextSlot.hidden=true;
   instruction.textContent='轻轻刮开，看看里面。';status.textContent='已刮开 0 / 3 栏';
-  for(const slot of slots){stopPointer(slot);slot.done=false;slot.lastCheck=0;slot.button.classList.remove('is-revealed');slot.button.setAttribute('aria-label',`刮开第${slot.index+1}栏`);coat(slot);}
+  for(const slot of slots){stopPointer(slot);slot.done=false;slot.lastCheck=0;slot.touched=false;slot.button.classList.remove('is-revealed');slot.button.setAttribute('aria-label',`刮开第${slot.index+1}栏`);coat(slot);}
  }
  function open(){
   if(dialog.open)return;returnFocus=document.activeElement;
@@ -106,5 +106,5 @@
  nextSlot.addEventListener('click',()=>{slots.forEach(stopPointer);dialog.close();if(standalone)location.href='slot-preview.html';else document.dispatchEvent(new Event('slot:open'));});
  addEventListener('resize',()=>slots.forEach(stopPointer));
  document.addEventListener('scratch:open',open);
- resetCard();if(standalone)open();
+ resetCard();document.fonts?.ready.then(()=>slots.forEach(slot=>{if(!slot.done&&!slot.touched)coat(slot);}));if(standalone)open();
 })();

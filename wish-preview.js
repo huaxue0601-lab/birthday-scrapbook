@@ -2,21 +2,21 @@
  const scene=document.getElementById('wish-scene'),arena=document.getElementById('arena'),notes=[...document.querySelectorAll('.note')],guide=document.getElementById('guide'),candle=document.getElementById('candle'),status=document.getElementById('status');
  const place=document.getElementById('place'),light=document.getElementById('light'),blow=document.getElementById('blow'),replay=document.getElementById('replay');
  const steps=['第一片 · 给26岁的你','第二片 · 被爱，也自由','第三片 · 小小的愿望','第四片 · 以后的每一年','最后一片 · 生日快乐'];
- const widths=[1,.88,.68,.54,.36],heights=[.285,.27,.25,.25,.17],turns=[-3,3,-9,2,-4];
+ const widths=[1,.92,.80,.70,.52],heights=[.34,.36,.34,.33,.23],turns=[-3,3,-9,2,-4];
  let count=0,state='building',drag=null,targets=[],pending=null,active=false,suppress=false,free=null;
  function pose(note,p){note.style.transform=`translate(${p.x}px,${p.y}px) rotate(${p.angle||0}deg)`;}
  function layout(){
-  const w=arena.clientWidth,h=arena.clientHeight;if(!w||!h)return;
-  const mobile=innerWidth<=700;document.getElementById('instruction').innerHTML=mobile?'把纸条向上拖到虚线处，也可以轻点纸条':'把纸条拖到左边的虚线处<br><span>也可以轻点纸条</span>';const b=Math.min(mobile?w*.86:w*.42,h*(mobile?.60:1.06),mobile?350:420),cx=mobile?w*.5:w*.31;
-  let bottom=mobile?Math.min(h*.73,b*1.12+30):h*.94;
+  document.documentElement.classList.add('wish-page');const w=arena.clientWidth,h=arena.clientHeight;if(!w||!h)return;
+  const mobile=innerWidth<=700;const paperHeights=mobile?[.30,.34,.29,.30,.20]:[.31,.34,.30,.30,.20];document.getElementById('instruction').innerHTML=mobile?'把纸条向上拖到虚线处，也可以轻点纸条':'把纸条拖到左边的虚线处<br><span>也可以轻点纸条</span>';const b=Math.min(mobile?w*.86:w*.42,h*(mobile?.66:.65),mobile?350:420),cx=mobile?w*.5:w*.31;
+  let bottom=mobile?Math.min(h*.75,b*1.54+40):h*.98;
   targets=[];
   for(let i=0;i<5;i++){
-   const width=b*widths[i],height=b*heights[i],p={x:cx-width/2,y:bottom-height,width,height,angle:turns[i]};
+   const width=b*widths[i],height=b*paperHeights[i],p={x:cx-width/2,y:bottom-height,width,height,angle:turns[i]};
    targets.push(p);notes[i].style.width=width+'px';notes[i].style.height=height+'px';
    notes[i].style.zIndex=i+2;
    // Text scales with its actual paper, not the whole viewport.
    notes[i].querySelector('span').style.fontSize=Math.max(15,Math.min(mobile?18:23,b*(i===4?.058:(i===1||i===3)?.050:.055)))+'px';
-   bottom-=height*.84;
+   bottom-=height*.91;
    if(i<count)pose(notes[i],p);
   }
   const top=targets[4];candle.style.left=cx+'px';candle.style.top=(top.y-(mobile?67:84))+'px';
@@ -27,13 +27,13 @@
  }
  function put(){
   if(state!=='building'||count>=5)return;
-  const note=notes[count];note.classList.remove('dragging');note.classList.add('placed');note.disabled=true;pose(note,targets[count]);count++;free=null;guide.classList.remove('near');
+  scene.classList.add('started');const note=notes[count];note.classList.remove('dragging');note.classList.add('placed');note.disabled=true;pose(note,targets[count]);count++;free=null;guide.classList.remove('near');
   if(count===5){state='ready';scene.classList.add('ready');candle.hidden=false;light.hidden=false;place.hidden=true;guide.hidden=true;status.textContent='五层祝福拼成了生日蛋糕，点亮蜡烛吧。';}
   else {notes[count].hidden=false;document.getElementById('step').textContent=steps[count];status.textContent=`已贴好${count}片，继续拼下一片。`;}
   layout();
  }
- function illuminate(){if(state!=='ready')return;state='lit';scene.classList.add('lit');light.hidden=true;blow.hidden=false;candle.setAttribute('aria-label','许好愿后吹灭蜡烛');document.getElementById('plate-caption').hidden=true;status.textContent='蜡烛点亮了。许好愿后，点击吹灭蜡烛。';}
- function extinguish(){if(state!=='lit')return;state='finished';scene.classList.remove('lit');scene.classList.add('finished');blow.hidden=true;replay.hidden=false;candle.disabled=true;document.getElementById('wish-line').innerHTML='愿你的愿望，<br>都在路上。';document.getElementById('wish-small').textContent='26岁，生日快乐，我的宝贝。';status.textContent='蜡烛吹灭了。愿你的愿望都在路上。';document.dispatchEvent(new Event('scene:complete'));}
+ function illuminate(){if(state!=='ready')return;state='lit';scene.classList.add('lit');light.hidden=true;blow.hidden=false;candle.setAttribute('aria-label','许好愿后吹灭蜡烛');document.getElementById('plate-caption').hidden=true;status.textContent='蜡烛点亮了。许好愿后，点击吹灭蜡烛。';layout();}
+ function extinguish(){if(state!=='lit')return;state='finished';scene.classList.remove('lit');scene.classList.add('finished');blow.hidden=true;replay.hidden=false;candle.disabled=true;document.getElementById('wish-line').innerHTML='愿你的愿望，<br>都在路上。';document.getElementById('wish-small').textContent='26岁，生日快乐，我的宝贝。';status.textContent='蜡烛吹灭了。愿你的愿望都在路上。';layout();document.dispatchEvent(new Event('scene:complete'));}
  function finish(e,cancel=false){
   if(!drag||drag.id!==e.pointerId)return;
   if(!cancel)move(e);

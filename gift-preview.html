@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>最后的小纸条 · piu</title><link rel="stylesheet" href="gift-preview.css?v=e0a329980a27"><link rel="stylesheet" href="cursors.css?v=e0a329980a27"><link rel="stylesheet" href="bilingual.css?v=e0a329980a27"></head>
+<body><main id="gift-scene" class="gift-scene" aria-label="礼盒与小纸条">
+ <div class="paper-texture" aria-hidden="true"></div>
+ <svg class="bunting" viewBox="0 0 240 55" aria-hidden="true"><path d="M0 3Q120 40 240 3" fill="none" stroke="#a99a82"/><path d="M15 7L35 12L22 32Z" fill="#af7064"/><path d="M57 17L77 21L65 42Z" fill="#c5ae70"/><path d="M101 24L121 25L110 48Z" fill="#8fa493"/><path d="M145 23L165 20L160 44Z" fill="#c7a2a0"/><path d="M190 14L210 10L205 34Z" fill="#d2bc86"/></svg>
+ <div class="gift-layout">
+  <div class="gift-column"><button id="gift" class="gift" aria-label="轻点礼盒，找出小纸条" aria-controls="letter"><img src="asset-gift-box-gift-transparent.png" width="860" height="1005" alt="紫粉色彩铅礼盒，系着绿色丝带和黄色蝴蝶结，包装上有蓝色星星" draggable="false"></button><p id="gift-hint" class="gift-hint">轻轻点一下 ♡</p></div>
+  <section class="letter-column" aria-label="留给你的小纸条">
+   <div class="greeting"><p class="ding">叮咚——</p><h1>还有一份惊喜，<br>留给你。</h1><p class="invitation">我们慢慢看。</p></div>
+   <div class="letter-pocket" id="letter-pocket" hidden>
+    <button id="letter" class="letter paper" aria-label="放大小纸条" aria-haspopup="dialog" aria-controls="letter-dialog"><span class="tape" aria-hidden="true"></span><span class="letter-content"></span></button>
+    <button class="read-link" id="read">看看小纸条 ↗</button>
+   </div>
+  </section>
+ </div>
+ <p class="closing" id="closing" hidden>生日快乐，我的宝贝。</p>
+ <a class="standalone-return" id="return" href="index.html" hidden>从头再看一次 ↻</a>
+ <p class="sr-only" id="status" role="status">轻点礼盒，找出一张小纸条。</p>
+</main>
+<dialog id="letter-dialog" aria-label="小纸条"><div class="letter-view"><div class="paper enlarged-paper"><span class="tape" aria-hidden="true"></span><div class="letter-content"></div></div><button id="close-letter" class="close-letter" autofocus>收好小纸条 ↙</button></div></dialog>
+<script src="gift-preview.js?v=e0a329980a27"></script><script src="journey-bridge.js?v=e0a329980a27"></script><script src="bilingual-copy.js?v=e0a329980a27"></script><script src="bilingual.js?v=e0a329980a27"></script></body></html>
