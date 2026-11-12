@@ -1,4 +1,216 @@
-<!doctype html><html lang="zh-CN" class="childhood-page"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>小时候的我们 · piu</title><link rel="stylesheet" href="childhood-preview.css?v=0ebb5534bc02"><link rel="stylesheet" href="cursors.css?v=0ebb5534bc02"><link rel="stylesheet" href="bilingual.css?v=0ebb5534bc02"></head><body>
+<!doctype html><html lang="zh-CN" class="childhood-page"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>小时候的我们 · piu</title><style>*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden}body{background:#fffefb;color:#534d43;font-family:'Kaiti SC',STKaiti,KaiTi,serif}button{font:inherit;color:inherit;cursor:pointer}button:focus-visible{outline:2px dashed #927f68;outline-offset:5px}[hidden]{display:none!important}.childhood-scene{position:relative;width:100%;height:100%}.chapter{position:absolute;left:5%;top:4%;font-size:23px;letter-spacing:2px;transform:rotate(-2deg)}.bunting{position:absolute;right:5%;top:0;width:155px;opacity:.7}
+.keepsake{position:absolute;left:43%;top:49%;width:min(330px,39vh);height:min(620px,76vh);transform:translate(-50%,-50%);border:2px solid transparent;border-radius:44px;transition:border-color .9s,box-shadow .9s}.phone-screen{position:absolute;inset:0;border-radius:40px}.collage{position:absolute;left:50%;bottom:17%;width:145%;margin:0;transform:translateX(-50%) rotate(-3deg);filter:drop-shadow(2px 4px 3px #796c5936);transition:width 1s,bottom 1s,transform 1s}.collage>img{display:block;width:100%;height:auto}.collage figcaption{position:absolute;left:3%;right:3%;bottom:0;padding:9px 0;background:#f9f6edc9;border-top:1px solid #ddd4c2;text-align:center;font-size:22px;letter-spacing:4px;transition:opacity .5s}
+.words{position:absolute;left:65%;right:5%;top:35%;font-size:25px;line-height:1.9;letter-spacing:2px;transform:rotate(2deg)}.words p{margin:0 0 12px}.lockscreen-words{opacity:0;transform:translateY(8px);transition:opacity .7s .4s,transform .7s .4s}.wallpaper,.phone-shade{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .8s}.wallpaper{object-fit:cover;filter:blur(8px) saturate(.65);transform:scale(1.1)}.phone-shade{background:linear-gradient(#4e514655,#a1a58d44 45%,#74796955)}
+.clock{position:absolute;z-index:2;top:10%;left:0;width:100%;text-align:center;color:#fff;opacity:0;transition:opacity .7s .3s;text-shadow:0 1px 4px #4a463040}.clock span{font:16px system-ui,sans-serif}.clock strong{display:block;font:300 clamp(52px,8vh,74px)/1.2 system-ui,sans-serif;letter-spacing:-3px}.phone-top,.phone-bottom{position:absolute;z-index:3;opacity:0;transition:opacity .6s}.phone-top{top:9px;left:35%;width:30%;height:19px;border-radius:20px;background:#252525}.phone-bottom{bottom:12px;left:33%;width:34%;height:4px;border-radius:4px;background:#fff}
+.lockscreen .keepsake{border-color:#262827;box-shadow:0 0 0 4px #a5a8a1,6px 10px 20px #6a65552b}.lockscreen .phone-screen{overflow:hidden}.lockscreen .wallpaper,.lockscreen .phone-shade,.lockscreen .clock,.lockscreen .phone-top,.lockscreen .phone-bottom,.lockscreen .lockscreen-words{opacity:1}.lockscreen .lockscreen-words{transform:none}.lockscreen .collage{width:136%;bottom:0;transform:translateX(-50%) rotate(0)}.lockscreen .collage figcaption{opacity:0}
+.scene-actions{position:absolute;left:65%;right:5%;bottom:20%;display:flex}.scene-actions button{border:0;border-bottom:1px solid #b7a88e;background:none;padding:9px;font-size:17px}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.assembled-photo{opacity:0}.photo-piece{position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;background:none;touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab;transition:transform .65s cubic-bezier(.22,.75,.25,1),opacity .4s;filter:drop-shadow(2px 2px 1px #fffdf2);opacity:0}
+.photo-piece img{display:block;width:100%;height:100%;pointer-events:none}.piece-left{clip-path:polygon(0 0,49% 0,50% 12%,48.8% 25%,50.2% 38%,49% 52%,50.3% 65%,49.1% 80%,50% 100%,0 100%);transform:translate(-70%,12%) rotate(-15deg)}.piece-right{clip-path:polygon(49% 0,100% 0,100% 100%,50% 100%,49.1% 80%,50.3% 65%,49% 52%,50.2% 38%,48.8% 25%,50% 12%);transform:translate(70%,-12%) rotate(15deg)}
+.is-active .piece-left{transform:translate(-27%,5%) rotate(-7deg);opacity:1}.is-active .piece-right{transform:translate(27%,-5%) rotate(7deg);opacity:1}.photo-piece.dragging{transition:none;cursor:grabbing;z-index:3}.photo-piece.snapped{transform:translate(0,0) rotate(0)!important;pointer-events:none}
+.collage figcaption{opacity:0;transform:translateY(9px);transition:opacity .5s,transform .5s}.assembled .assembled-photo{opacity:1}.assembled .photo-piece{visibility:hidden}.assembled .collage figcaption{opacity:1;transform:none}.lockscreen .collage figcaption{opacity:0}.assembly-hint{position:absolute;left:20%;width:46%;bottom:12%;margin:0;text-align:center;font-size:17px;letter-spacing:2px;transition:opacity .3s}.assembled .assembly-hint{opacity:0;pointer-events:none}.scene-actions{gap:15px;flex-wrap:wrap}.scene-actions #replay{font-size:13px;color:#9a8d7a;border:0}.photo-piece:focus-visible{outline:3px dashed #927f68;outline-offset:-10px}
+@media(max-width:700px){.chapter{left:7%;top:20px;font-size:19px}.bunting{right:6%;width:100px}.keepsake{left:50%;top:43%;height:min(56vh,480px);width:min(61vw,248px)}.collage{width:150%;bottom:16%}.collage figcaption{font-size:18px;padding:7px}.words{left:7%;right:7%;top:75%;font-size:19px;text-align:center;line-height:1.5}.words p{display:inline;margin-right:8px}.words br{display:none}.lockscreen-words{display:block!important;margin-top:5px!important}.scene-actions{left:7%;right:7%;bottom:75px;justify-content:center}.scene-actions button{font-size:15px}.phone-top{height:16px;top:8px}.clock span{font-size:14px}}
+@media(max-height:550px) and (orientation:landscape){.chapter{top:1%;font-size:17px}.words{font-size:20px}.collage figcaption{font-size:16px}.scene-actions{bottom:18%}.phone-top{height:12px;top:6px}}
+@media(max-width:700px){.childhood-scene:not(.assembled) .collage{width:112%}.is-active .piece-left{transform:translate(-17%,5%) rotate(-7deg)}.is-active .piece-right{transform:translate(17%,-5%) rotate(7deg)}.assembly-hint{left:7%;width:86%;bottom:29%;font-size:15px}.scene-actions{gap:10px}.scene-actions #replay{font-size:12px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.collage-sticker{position:absolute;left:25%;top:-10%;padding:8px 16px;background:#29262b;color:#fff8eb;letter-spacing:4px;font:15px Georgia,serif;transform:rotate(-5deg);opacity:0}.collage-doodles{position:absolute;inset:-8% -8% auto;width:116%;height:116%;pointer-events:none;opacity:0}.collage-scribble{position:absolute;right:0;bottom:-16%;font:24px/1.5 BirthdayMali,cursive;color:#8064a3;transform:rotate(-8deg);opacity:0}.assembled .collage-sticker{opacity:1;transition:opacity .45s .1s}.assembled .collage-doodles{opacity:1;transition:opacity .6s .4s}.assembled .collage-scribble{opacity:1;transition:opacity .6s .7s}.assembled .collage figcaption{bottom:-4%;background:transparent;border:0;font-size:17px;letter-spacing:1px;left:4%;right:auto;text-align:left}.collage figcaption .bi-th{font-size:11px!important}.lockscreen .collage{width:94%;bottom:25%;transform:translateX(-50%) rotate(-3deg)}.lockscreen .collage figcaption{opacity:1;font-size:13px}.lockscreen .collage-sticker{font-size:10px;padding:5px 10px}.lockscreen .collage-scribble{font-size:17px;bottom:-25%}.phone-shortcuts{position:absolute;left:10%;right:10%;bottom:6%;display:flex;justify-content:space-between;opacity:0;pointer-events:none}.phone-shortcuts span{width:36px;height:36px;display:grid;place-items:center;border-radius:50%;background:#272b2b59;backdrop-filter:blur(6px)}.phone-shortcuts svg{width:19px;height:19px;fill:none;stroke:#fff;stroke-width:1.5}.lockscreen .phone-shortcuts{opacity:1;transition:opacity .6s .4s}
+@media(max-width:700px){.assembled:not(.lockscreen) .collage{width:125%;bottom:22%}.collage-sticker{font-size:12px}.collage-scribble{font-size:19px}.assembled .collage figcaption{font-size:14px}}
+.assembled .collage figcaption{bottom:-19%;left:3%;max-width:51%;color:#79658e}.lockscreen .collage figcaption{bottom:-22%;font-size:12px;color:#fff7e9}.lockscreen .collage-scribble{color:#fff7e9}
+.lockscreen .collage{width:84%;bottom:24%}.lockscreen .collage-sticker{top:-6%}.lockscreen .clock{top:8%}.lockscreen .clock strong{font-size:clamp(48px,7vh,64px)}
+
+.standalone-wish{position:absolute;bottom:15px;right:6%;color:#756957;text-decoration:none;border-bottom:1px solid #a38e6c6b;padding:8px;font-size:16px}.in-journey .standalone-wish{display:none!important}
+</style><style>@media (hover:hover) and (pointer:fine){
+ html,body{cursor:url('asset-cursors-arrow.png') 3 2,auto}
+ button,button *,a,a *,[role="button"],[role="button"] *{cursor:url('asset-cursors-hand.png') 12 3,pointer!important}
+ button:disabled,button:disabled *{cursor:default!important}
+ .scratch-window,.scratch-window *{cursor:crosshair!important}
+ input[type="text"],textarea,[contenteditable="true"]{cursor:text!important}
+ .dragging,.dragging *{cursor:grabbing!important}
+}
+</style><style>/* Self-hosted OFL fonts. Licenses: asset-fonts-lxgwwenkaitc-license.txt, asset-fonts-mali-license.txt */
+@font-face{font-family:BirthdayWenKai;src:url('asset-fonts-wenkai-site.ttf?v=mobile-map-repair') format('truetype');font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:BirthdayMali;src:url('asset-fonts-mali-regular.ttf') format('truetype');font-style:normal;font-weight:400;font-display:swap}
+:root{--font-zh:BirthdayWenKai,'PingFang SC','Microsoft YaHei',sans-serif;--font-th:BirthdayMali,'Thonburi','Noto Sans Thai',sans-serif}
+body,button,a,input,legend{font-family:var(--font-zh)!important;font-weight:400}.bi{line-height:1.55;white-space:normal}.bi-zh{display:block!important;font-family:var(--font-zh)!important;font-size:inherit!important;font-weight:400!important;line-height:1.5!important;letter-spacing:.04em!important;color:inherit!important;padding:0!important;margin:0!important;transform:none!important;max-width:none!important;text-shadow:none!important}.bi-th{display:block!important;font-family:var(--font-th)!important;font-size:max(12px,.68em)!important;font-weight:400!important;line-height:1.55!important;letter-spacing:0!important;color:inherit!important;padding:0!important;margin:5px 0 0!important;transform:none!important;max-width:none!important;text-shadow:none!important;white-space:normal!important;word-break:normal;overflow-wrap:anywhere;opacity:.82}.bi-inline{display:inline-block;vertical-align:middle}.bi-inline .bi-th{font-size:max(11px,.68em)!important}button .bi-th,a .bi-th{font-size:max(11px,.7em)!important;margin-top:3px!important}.bi-zh .bi-th,.bi-th .bi-th{display:none!important}
+svg text{font-family:var(--font-zh)!important}.svg-th{font-family:var(--font-th)!important;font-size:9px;letter-spacing:0;stroke-width:1px}.place-label .place-en{transform:translateY(10px)}.paper-heading>p{max-width:370px}.paper-heading .bi-th{font-size:12px!important;letter-spacing:0!important}.map-controls{gap:20px}.map-controls button{white-space:normal;min-width:110px}.map-credit .bi-th{font-size:9px!important}.boarding-kicker .bi-th,.boarding-note .bi-th{font-size:9px!important;margin-top:1px!important;line-height:1.3!important}.boarding-cities .bi-th{font-size:11px!important}.boarding-cities{margin-top:1cqw}.boarding-note{bottom:-1cqw}.boarding-cities small{margin-top:.4cqw}.boarding-copy{top:24%}.boarding-main .bi-inline{display:inline-block}.heart-words>.bi{max-width:80%;text-align:center}.flight-actions{gap:18px;max-width:94%;white-space:normal}.flight-actions button{min-width:85px}.scratch-heading,.slot-heading{line-height:1.4}.scratch-stamp .bi-th{font-size:14px!important;line-height:1.2!important;margin-top:2px!important}.slot-win-stamp .bi-th{font-size:11px!important;margin:0!important;line-height:1.2!important}.scratch-hint .bi-th,.slot-status .bi-th{font-size:12px!important}.scratch-footer,.slot-footer{bottom:65px}.scratch-count{margin:8px 0}.scratch-keyboard-hint .bi-th{font-size:10px!important}.journey-nav{align-items:flex-end}.journey-nav button{max-width:46%;font-size:14px!important;padding:7px 10px!important}.journey-nav .bi-th{font-size:11px!important;line-height:1.3!important}.scene-actions{bottom:16%;gap:12px}.scene-actions button{font-size:16px}.scene-actions #replay{font-size:14px}.words .bi-th{font-size:16px!important;line-height:1.7!important}.chapter .bi-th{font-size:14px!important}.clock .bi-th{font-size:12px!important;margin-top:2px!important}.collage figcaption .bi-th{font-size:11px!important}.birthday-words{top:26%}.birthday-words h1{font-size:clamp(27px,2.7vw,38px)}.birthday-words .birthday-note{margin-top:18px}.birthday-words .bi-th{font-size:15px!important}.birthday-words>p{margin:16px 0}.accessory-caption .bi-th{font-size:13px!important}.accessory-note .bi-th{font-size:11px!important}.accessories legend .bi-th{font-size:12px!important}.film-scene .bi-th{max-width:100%}.controls .hint .bi-th{font-size:12px!important}.photo .bi-th{font-size:11px!important}.gift-layout{inset:7% 8% 17%}.greeting .ding{margin-bottom:10px}.greeting h1{font-size:29px}.greeting .invitation{margin:12px 0}.gift-scene .greeting .bi-th{font-size:15px!important}.gift-hint .bi-th{font-size:12px!important}.letter-pocket{margin-top:17px}.closing{bottom:10%}.closing .bi-th{font-size:13px!important}.read-link{font-size:15px}.close-letter .bi-th{font-size:12px!important}
+/* Cake typography: keep each translation inside its paper, with no faux bold or rotated text. */
+.note>span{display:block;position:relative;width:84%;max-width:84%;padding:0!important;transform:none!important;text-align:center;letter-spacing:0;text-shadow:none!important}.note>span .bi-zh{font-size:18px!important;line-height:1.35!important;letter-spacing:.02em!important}.note>span .bi-th{font-size:12px!important;line-height:1.45!important;margin-top:4px!important;opacity:.9}.note[data-note="4"]>span .bi-zh{font-size:18px!important}.note[data-note="4"]>span .bi-th{font-size:12px!important;white-space:nowrap!important}.note[data-note="4"]>span{white-space:normal}.tray-copy{top:0}.tray-copy p:first-child{font-size:18px}.tray-copy p:last-child{font-size:14px}.tray-copy .bi-th{font-size:12px!important}.wish-copy{top:29%;width:35%;right:5%}.wish-copy p{font-size:25px;line-height:1.5}.wish-copy .bi-th{font-size:16px!important}.wish-copy>span .bi-th{font-size:13px!important}.wish-scene h1{font-size:24px}.wish-scene h1 .bi-th{font-size:14px!important;max-width:370px}.wish-scene .actions{bottom:90px}.wish-scene .actions button{font-size:16px}.wish-scene .actions .bi-th{font-size:12px!important}.plate-caption .bi-th{font-size:11px!important}
+@media(max-width:700px){.bi-th{font-size:max(12px,.7em)!important}.birthday-words{top:59%;left:8%;right:8%;text-align:center}.birthday-words h1{font-size:25px;margin:10px 0}.birthday-words>p{font-size:18px;line-height:1.4;margin:12px 0}.birthday-words .birthday-note{font-size:16px;margin:12px 0}.birthday-words .bi-th{font-size:12px!important}.birthday-words .birthday-kicker{display:none}.birthday-collage{height:45vh!important;top:9%!important}.birthday-note .bi-zh{white-space:normal}.scene-actions{bottom:88px;gap:10px}.scene-actions button{font-size:14px}.scene-actions .bi-th{font-size:11px!important}.childhood-scene .words{top:70%;font-size:18px}.childhood-scene .words p{display:block;margin:0}.childhood-scene .words .bi-th{font-size:12px!important;line-height:1.4!important}.assembly-hint{bottom:34%;font-size:15px}.assembly-hint .bi-th{font-size:12px!important}.chapter{top:14px;font-size:19px}.chapter .bi-th{font-size:12px!important}.keepsake{top:42%;height:48vh}.childhood-scene .words .lockscreen-words{margin-top:7px!important}.camera .bi-th{font-size:12px!important}.accessory-caption{font-size:16px}.accessory-note{font-size:12px}.accessories{padding-bottom:15px}.clear-accessories .bi-th{font-size:11px!important}.paper-heading{left:12px;right:12px;top:18px;max-width:340px}.paper-heading>p{font-size:17px}.map-controls{bottom:65px;width:94%;justify-content:center;gap:16px}.map-controls button{font-size:14px!important;min-width:0;max-width:48%}.map-controls button .bi-th{font-size:11px!important}.map-credit{bottom:10px;max-width:45%;text-align:right}.bilingual #memory{width:94vw;height:min(720px,85dvh);overflow:auto}.bilingual #memory .paper-card{aspect-ratio:auto;height:100%;min-height:570px;background:#ece4d1;border-radius:3px}.bilingual #memory .card-texture{object-fit:fill}.memory-words{top:7%;left:10%;width:80%;text-align:center}.memory-words h1{font-size:28px;margin:8px 0}.memory-words h1 .bi-th{font-size:18px!important}.memory-words .subtitle{font-size:18px;margin:10px 0}.memory-words .small-copy{font-size:15px;margin:10px 0}.memory-words .bi-th{font-size:12px!important}.memory-words .eyebrow{font-size:9px}.bilingual #spread-photos{font-size:14px;padding:8px 16px}.bilingual .polaroid{width:37%;top:55%;left:20%}.bilingual .p2{left:40%;top:53%}.bilingual .p3{left:30%;top:56%}.bilingual .spread .p1{left:7%;top:15%;width:45%;transform:rotate(-6deg)}.bilingual .spread .p2{left:49%;top:32%;width:45%;transform:rotate(5deg)}.bilingual .spread .p3{left:8%;top:49%;width:45%;transform:rotate(-3deg)}.bilingual .photo-note{font-size:12px;bottom:3%;line-height:1.1}.bilingual .photo-note .bi-th{font-size:10px!important;line-height:1.2!important;margin-top:1px!important}.bilingual .empty{font-size:14px;letter-spacing:0}.bilingual .empty .bi-th{font-size:11px!important}.bilingual .photo-help{bottom:8%;left:5%;right:5%;text-align:center;font-size:13px}.bilingual .photo-help .bi-th{font-size:11px!important}.bilingual .card-caption{bottom:2%;left:7%;font-size:11px}.bilingual .card-caption .bi-th{font-size:10px!important}.bilingual #gather-photos{bottom:16%;right:5%;font-size:13px}.boarding-stage{width:96vw;top:43%}.boarding-kicker .bi-th{font-size:7px!important}.boarding-note .bi-th{font-size:7px!important}.boarding-cities{font-size:4.8cqw;gap:3cqw}.boarding-cities .bi-th{font-size:8px!important;line-height:1.2!important;margin:1px 0!important}.boarding-cities small{font-size:1.5cqw}#boarding-help{top:60%;padding:0 20px;font-size:15px}#boarding-help .bi-th{font-size:12px!important}.flight-actions{bottom:70px}.flight-actions .bi-th{font-size:11px!important}.heart-words .bi-th{font-size:16px!important}.scratch-heading,.slot-heading{font-size:22px!important}.scratch-heading .bi-th,.slot-heading .bi-th{font-size:14px!important}.scratch-hint .bi-th,.slot-message .bi-th{font-size:12px!important}.scratch-footer{bottom:80px}.slot-footer{bottom:65px}.gift-layout{inset:30px 7% 120px}.gift{width:min(45vw,21vh)}.greeting .ding{font-size:16px;margin-bottom:5px}.greeting h1{font-size:22px}.gift-scene .greeting .bi-th{font-size:13px!important;margin-top:3px!important}.greeting .invitation{font-size:16px;margin:9px 0}.gift-hint{margin-top:5px}.letter-column{padding-top:10px}.letter-pocket{margin-top:15px}.letter{min-height:140px;aspect-ratio:2.2}.closing{bottom:83px;font-size:16px}.closing .bi-th{font-size:12px!important}.read-link{font-size:14px}.standalone-return{bottom:14px;font-size:13px}.wish-scene header{left:6%;top:20px;right:6%}.wish-scene h1{font-size:19px;line-height:1.4;max-width:310px}.wish-scene h1 .bi-th{font-size:12px!important;line-height:1.45!important}.wish-scene .arena{top:165px;bottom:130px}.wish-scene .note>span .bi-zh{font-size:16px!important;line-height:1.3!important}.wish-scene .note>span .bi-th{font-size:11px!important;line-height:1.4!important;margin-top:3px!important}.wish-scene .note[data-note="4"]>span .bi-th{font-size:10.5px!important}.wish-scene .tray-copy{top:auto;bottom:-8px}.wish-scene .tray-copy p:first-child{font-size:13px;margin-bottom:4px}.wish-scene .tray-copy p:last-child{font-size:12px}.wish-scene .tray-copy .bi-th{font-size:11px!important;line-height:1.3!important;margin-top:2px!important}.wish-scene .actions{bottom:70px}.wish-scene .actions button{font-size:14px}.wish-copy{top:auto;left:6%;right:6%;bottom:165px;width:88%}.wish-copy p{font-size:21px;margin-bottom:10px}.wish-copy .bi-th{font-size:13px!important;line-height:1.5!important}.wish-copy>span{font-size:13px}.wish-copy>span .bi-th{font-size:11px!important}.wish-scene .plate-caption{display:none}}
+@media(max-height:700px) and (max-width:700px){.gift-layout{top:20px;bottom:130px}.gift{width:17vh}.greeting h1{font-size:20px}.greeting .ding{margin-bottom:2px}.greeting .invitation{margin:5px 0;font-size:14px}.gift-scene .greeting .bi-th{font-size:12px!important}.letter{min-height:108px;aspect-ratio:2.7}.letter-pocket{margin-top:12px}.read-link{font-size:12px;margin-top:4px;padding:4px}.gift-hint{font-size:12px}.wish-scene .arena{top:145px;bottom:120px}.wish-scene h1{font-size:17px}.wish-scene .eyebrow{display:none}.wish-copy{bottom:150px}.wish-copy p{font-size:18px}.wish-copy .bi-th{font-size:12px!important}.wish-copy>span{display:none}.birthday-words{top:54%}.birthday-words .birthday-note{margin-top:8px;font-size:14px}.birthday-words .bi-th{font-size:11px!important}}
+@media(max-width:700px){html.wish-page{overflow-y:auto!important;height:100%;overscroll-behavior-y:contain}html.wish-page body{height:auto;min-height:100%;overflow:visible}html.wish-page .wish-scene{height:max(100dvh,1040px);min-height:1040px}html.wish-page .wish-scene .arena{top:170px;bottom:180px}html.wish-page .wish-scene .actions{bottom:92px}html.wish-page .wish-copy{bottom:200px}html.wish-page .wish-scene .note>span .bi-th{font-size:12px!important}html.wish-page .wish-scene .note[data-note="4"]>span .bi-th{font-size:11px!important}.wish-scene.lit .arena,.wish-scene.finished .arena{bottom:330px!important}.wish-scene.lit,.wish-scene.finished{height:max(100dvh,1000px)!important;min-height:1000px!important}.wish-scene.lit .wish-copy,.wish-scene.finished .wish-copy{bottom:175px}.wish-scene.lit .night-shade{position:absolute}.wish-scene .tray-copy p:first-child{margin-bottom:8px}}
+
+.note .bi-zh,.note .bi-th{text-align:center!important}.wish-scene header{max-width:370px}.wish-scene .note span span{width:auto!important}.bi-zh{white-space:normal!important}
+
+.ticket .opening-thai{position:absolute;left:190px;top:610px;width:410px;text-align:center;font:24px/1.5 BirthdayMali,sans-serif;letter-spacing:0;color:#29251f;pointer-events:none;z-index:1}
+
+.note>span .bi-zh{font-size:17px!important;line-height:1.3!important}.note .bi-th{line-height:1.4!important}.note>span{width:90%;max-width:90%;align-self:center}.wish-scene .note .bi-zh,.wish-scene .note .bi-th{padding:0!important;margin-left:0!important;margin-right:0!important}.note[data-note="1"]>span,.note[data-note="3"]>span{transform:none!important}.note{transform-origin:50% 50%}
+body[data-scene="camera"] .accessories{top:49%}
+@media(max-width:700px) and (orientation:portrait){body[data-scene="camera"] .camera{top:21%}body[data-scene="camera"] .landed .eject{top:41.5%}body[data-scene="camera"] .accessories{top:auto;bottom:105px}.bilingual .polaroid{width:34%;top:58%}.bilingual .p2{top:57%}.bilingual .p3{top:59%}.boarding-kicker{position:absolute;top:-105px;left:0;width:86vw;font-size:17px}.boarding-kicker .bi-th{font-size:12px!important}.boarding-note{top:calc(100% + 35px);bottom:auto;left:0;width:86vw;font-size:15px}.boarding-note .bi-th{font-size:12px!important}.boarding-cities{margin-top:10px;font-size:18px;gap:16px}.boarding-cities .bi-th{font-size:11px!important;line-height:1.5!important}.boarding-cities small{font-size:8px}#boarding-help{top:70%;margin-top:0}.scratch-card{width:min(76vw,40vh);top:42%}.scratch-hint{bottom:140px}.scratch-footer{bottom:24px!important;display:flex;justify-content:center;gap:24px}.scratch-footer #next-slot{margin-left:0}.scratch-footer button{font-size:14px!important}.scratch-keyboard-hint{width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}.slot-message{bottom:170px}.slot-status{bottom:105px}.slot-footer{bottom:25px!important}.slot-footer button{font-size:14px!important}}
+
+body[data-scene="toast"] .greeting .bi-th{font-size:30px!important;line-height:1.5!important;margin-top:10px!important}body[data-scene="toast"] .caption{font-size:34px!important}body[data-scene="toast"] .caption .bi-th,body[data-scene="toast"] .hint .bi-th{font-size:27px!important;line-height:1.5!important}
+
+.wish-scene.started header{opacity:0;pointer-events:none}@media(min-width:701px){.wish-scene .arena{top:80px;bottom:90px}}.scratch-hint .scratch-count{font-size:12px!important}
+
+.wish-copy .bi-zh{opacity:1!important}.wish-copy .bi-zh br{display:initial!important}
+
+body[data-scene="camera"] .eject{pointer-events:none}body[data-scene="camera"] .landed .paper{pointer-events:auto}
+
+@media(max-width:700px) and (orientation:portrait){#boarding:not(.departing)::backdrop{background:#123241b8}.boarding-kicker,.boarding-note{color:#fff5dc}#boarding-help{color:#fff5dc}#boarding-help span{opacity:1}}
+
+/* Keep the full birthday caption and accessory instructions clear on desktop. */
+@media(min-width:701px){body[data-scene="camera"] .landed .eject{top:57%}body[data-scene="camera"] .accessories{top:61%}body[data-scene="camera"] .accessory-caption{font-size:18px;margin-bottom:8px}body[data-scene="camera"] .accessory-choice{width:70px;height:75px}body[data-scene="camera"] .accessory-note{margin:8px 0 0}body[data-scene="camera"] .clear-accessories{margin-top:0;min-height:40px}body[data-scene="camera"] .quiet{bottom:20px}}
+
+/* A smaller print leaves breathing room for the camera, caption and drag targets. */
+@media(max-width:700px) and (orientation:portrait){
+ body[data-scene="camera"]{--photo-width:min(44vw,24dvh)}
+ body[data-scene="camera"] .landed .eject{left:34%;top:41%}
+ body[data-scene="camera"] .accessory-choice{width:58px;height:66px}
+ body[data-scene="camera"] .accessory-options{gap:14px}
+ body[data-scene="camera"] .accessory-group{gap:7px}
+ body[data-scene="camera"] .accessory-caption{font-size:16px}
+}
+
+.note[data-note="4"]>span .bi-th{white-space:normal!important}.note[data-note="4"]>span .bi-zh{font-size:15px!important}.note[data-note="4"]>span .bi-th{font-size:11px!important}
+/* Place copy below the overlapping torn rim, inside each visible tier. */
+.wish-scene .note:not([data-note="4"])>span{transform:translateY(8px)!important}
+.wish-scene .note>span .bi-zh{font-size:16px!important;line-height:1.25!important}
+.wish-scene .note>span .bi-th{font-size:11px!important;line-height:1.35!important;margin-top:3px!important}
+.wish-scene .note[data-note="3"]>span .bi-zh{font-size:15px!important}
+
+.camera-composition{display:contents}
+/* Keep bilingual copy in document flow on phones, including short WeChat windows. */
+@media(max-width:700px) and (orientation:portrait){
+ html.camera-page{height:100%;overflow-y:auto!important;overscroll-behavior-y:contain}
+ html.camera-page body{height:auto;min-height:100%;overflow:visible}
+ body[data-scene="camera"] .stage{position:relative;inset:auto;height:auto;min-height:100dvh;display:flex;flex-direction:column;gap:16px;padding:24px 7% 110px}
+ body[data-scene="camera"] .words{position:relative;left:auto;right:auto;top:auto;font-size:22px;flex:none}
+ body[data-scene="camera"] .camera-composition{display:block;position:relative;flex:none;height:260px;margin:0 -5vw}
+ body[data-scene="camera"] .camera{top:0;right:1%;width:38vw;min-width:120px}
+ body[data-scene="camera"] .eject{left:52%;top:112px}
+ body[data-scene="camera"] .landed .eject{left:32%;top:143px}
+ body[data-scene="camera"] .accessories{position:relative;inset:auto;width:100%;margin:0;padding:0;flex:none}
+ body[data-scene="camera"] .accessory-caption{font-size:16px;margin:0 0 8px}
+ body[data-scene="camera"] .accessory-note{font-size:13px;line-height:1.65;margin:10px 0 6px}
+ body[data-scene="camera"] .clear-accessories{min-height:48px;margin:0 auto}
+ body[data-scene="camera"] .quiet{position:relative;inset:auto;font-size:13px;line-height:1.6;flex:none;margin:0}
+ body[data-scene="camera"] .accessory-options{gap:10px}
+ body[data-scene="camera"] .accessory-choice{width:clamp(48px,14.8vw,62px);height:66px}
+}
+
+/* Each mobile scratch section owns its space; never position copy over the card. */
+@media(max-width:700px) and (orientation:portrait){
+ #scratch[open]{display:flex;flex-direction:column;align-items:center;gap:20px;overflow-y:auto;overflow-x:hidden;padding:26px 22px max(28px,env(safe-area-inset-bottom));scroll-padding:20px;overscroll-behavior-y:contain}
+ #scratch .scratch-heading{position:relative;inset:auto;align-self:stretch;margin:0 38px 0 0;flex:none;font-size:22px!important}
+ #scratch .scratch-bunting{top:93px;right:20px;width:80px}
+ #scratch .scratch-layout{position:relative;inset:auto;width:100%;flex:none;padding:20px 0 12px;animation:none}
+ #scratch .scratch-card{position:relative;inset:auto;width:min(72vw,280px);margin:0 auto;transform:rotate(-2deg)}
+ #scratch .scratch-hint{position:relative;inset:auto;width:100%;max-width:none;flex:none;margin:0;text-align:center;transform:none;font-size:16px}
+ #scratch .scratch-hint .scratch-count{margin-top:10px}
+ #scratch .scratch-footer{position:relative;inset:auto!important;width:100%;min-height:54px;flex:none;display:flex;align-items:center;justify-content:center;gap:24px;margin:0;padding:0}
+ #scratch .scratch-footer button{min-height:48px;padding:8px 4px}
+ #scratch .scratch-footer #next-slot{margin-left:0}
+ #scratch .scratch-stamp{aspect-ratio:2.65}
+ #scratch .scratch-stamp strong{font-size:10cqw}
+ #scratch .scratch-stamp .bi-th{font-size:12px!important;line-height:1.3!important;margin-top:2px!important}
+ html.childhood-page{height:100%;overflow-y:auto!important;overscroll-behavior-y:contain}
+ html.childhood-page body{height:auto;min-height:100%;overflow:visible}
+ .childhood-scene{height:auto;min-height:100dvh;display:flex;flex-direction:column;align-items:center;gap:24px;padding:24px 7% 120px}
+ .childhood-scene .chapter{position:relative;inset:auto;align-self:stretch;margin:0;font-size:19px}
+ .childhood-scene .keepsake{position:relative;inset:auto;transform:none;flex:none;width:min(64vw,260px);height:auto;aspect-ratio:9/19.5;margin:20px 0 0}
+ .childhood-scene .words{position:relative;inset:auto;transform:none;width:100%;margin:12px 0 0;font-size:18px;text-align:center}
+ .childhood-scene .words p{margin:0!important}
+ .childhood-scene .words .lockscreen-words{display:none!important}
+ .childhood-scene.lockscreen .words .lockscreen-words{display:block!important;margin-top:14px!important}
+ .childhood-scene .assembly-hint{position:relative;inset:auto;width:100%;font-size:15px;margin:0;text-align:center}
+ .childhood-scene.assembled .assembly-hint{display:none}
+ .childhood-scene .scene-actions{position:relative;inset:auto;justify-content:center;flex:none;width:100%;margin:0;gap:16px}
+ .childhood-scene .scene-actions button{min-height:48px}
+ .childhood-scene .standalone-wish{position:relative;inset:auto;align-self:flex-end;margin:0}
+ .childhood-scene:not(.lockscreen) .keepsake{height:330px;aspect-ratio:auto}
+ .childhood-scene:not(.lockscreen) .collage{bottom:20%}
+ .childhood-scene.lockscreen .collage{bottom:24%;width:88%}
+ .childhood-scene.lockscreen .collage figcaption{top:100%;bottom:auto;padding:4px 0;margin:0;line-height:1.4}
+}
+
+/* Keep the slot artwork and bilingual copy in separate rows on phones. */
+.slot-art{display:contents}
+@media(max-width:700px) and (orientation:portrait){
+ #slot[open]{display:flex;flex-direction:column;gap:22px;align-items:stretch;overflow-y:auto;padding:26px 20px 32px;scroll-padding:20px;overscroll-behavior-y:contain}
+ #slot .slot-heading{position:relative;inset:auto;margin:0 38px 0 0;flex:none}
+ #slot .slot-art{display:block;position:relative;width:100%;height:calc(min(45vw,190px)*1798/953 + 30px);flex:none}
+ #slot .slot-machine{left:0;top:20px;width:min(45vw,190px);transform:none}
+ #slot .slot-rewards{left:57%;right:0;top:80px;bottom:12px;height:auto;gap:16px}
+ #slot .slot-win-stamp{top:-65px;right:25%;width:52px;height:52px}
+ #slot .slot-message,#slot .slot-status{position:relative;inset:auto;width:100%;margin:0;text-align:center;flex:none}
+ #slot .slot-message{font-size:17px}
+ #slot .slot-status{font-size:13px}
+ #slot .slot-footer{position:relative;inset:auto!important;width:100%;padding:0;min-height:54px;gap:18px;flex:none}
+ #slot .slot-footer button{min-height:48px;max-width:66%}
+ /* The folded photos no longer cover the open button; unfolded photos own grid cells. */
+ .bilingual #memory{height:auto;max-height:90dvh;overflow-y:auto;overflow-x:hidden;width:94vw;scroll-padding:20px}
+ .bilingual #memory .paper-card{display:flex;flex-direction:column;height:auto;min-height:0;padding:38px 18px 24px;gap:18px}
+ .bilingual #memory .memory-words{position:relative;inset:auto;width:100%;order:1;text-align:center}
+ .bilingual #memory .photos{position:relative;inset:auto;width:100%;height:235px;order:2;flex:none;margin:4px 0 0}
+ .bilingual #memory .polaroid{width:48%;left:13%;top:12%;}
+ .bilingual #memory .p2{left:42%;top:8%}
+ .bilingual #memory .p3{left:27%;top:3%}
+ .bilingual #memory .photo-help{position:relative;inset:auto;margin:0;width:100%;text-align:center;order:3}
+ .bilingual #memory .card-caption{position:relative;inset:auto;order:5;margin:0;text-align:center}
+ .bilingual #memory #gather-photos{position:relative;inset:auto;order:4;align-self:center;min-height:48px;margin:0}
+ .bilingual #memory .spread .memory-words{display:none}
+ .bilingual #memory .spread .photos{height:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 22px;padding:18px 4px 8px}
+ .bilingual #memory .spread .polaroid{position:relative;inset:auto!important;width:100%;}
+ .bilingual #memory .spread .p1{transform:rotate(-4deg)}
+ .bilingual #memory .spread .p2{transform:rotate(4deg)}
+ .bilingual #memory .spread .p3{grid-column:1 / -1;justify-self:center;width:48%;transform:rotate(-3deg)}
+ .bilingual #memory .photo-note{bottom:3%;font-size:12px;letter-spacing:0}
+ .bilingual #memory .photo-note .bi-th{font-size:10px!important}
+}
+
+/* Incoming lock-screen message: reserve a row above the shortcut buttons. */
+.phone-notification{position:absolute;left:5%;right:5%;bottom:15%;z-index:4;display:flex;align-items:flex-start;gap:8px;padding:10px;border:1px solid #ffffff70;border-radius:15px;background:#f6f5efdc;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 3px 12px #292b2924;color:#454c44;animation:notification-arrives .65s cubic-bezier(.2,.75,.25,1) both}
+.phone-notification[hidden]{display:none!important}
+.notification-icon{width:25px;height:25px;flex:none;display:grid;place-items:center;border-radius:7px;background:#78a788;margin-top:1px}
+.notification-icon svg{width:19px;height:19px;fill:#fff}
+.notification-copy{min-width:0;flex:1;font-size:12px;line-height:1.4}
+.notification-copy strong{font:600 12px/1.3 system-ui,sans-serif}
+.notification-copy p{margin:3px 0 0;font-size:12px;letter-spacing:0}
+.notification-copy .bi-th{font-size:10px!important;line-height:1.3!important;margin-top:3px!important}
+.childhood-scene.lockscreen .collage{bottom:38%;width:78%}
+.childhood-scene.lockscreen .collage-sticker{top:-7%}
+@keyframes notification-arrives{from{opacity:0;transform:translateY(22px) scale(.96)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.phone-notification{animation:none}}
+</style><script>(() => {
+ const attempts=new WeakMap(),failed=new Set();let notice;
+ function refresh(){
+  if(!notice&&failed.size){
+   notice=document.createElement('button');notice.type='button';
+   notice.innerHTML='图片未加载，点击重试<br><span lang="th">โหลดรูปไม่สำเร็จ แตะเพื่อลองอีกครั้ง</span>';
+   notice.style.cssText='position:fixed;z-index:10000;left:50%;bottom:74px;transform:translateX(-50%);width:max-content;max-width:90vw;padding:10px 16px;border:1px dashed #a38e6c;border-radius:10px;background:#fff8ed;color:#695446;font:14px system-ui;box-shadow:0 3px 15px #46341f22';
+   notice.addEventListener('click',()=>{for(const img of [...failed]){failed.delete(img);const state=attempts.get(img);if(state){state.count=0;retry(img,state);}}refresh();});
+   document.body.append(notice);
+  }
+  if(notice)notice.hidden=!failed.size;
+ }
+ function retry(img,state){
+  const expected=img.getAttribute('src');state.count++;
+  setTimeout(()=>{
+   if(!img.isConnected||img.getAttribute('src')!==expected)return;
+   const url=new URL(state.original,document.baseURI);url.searchParams.set('asset_retry',state.count+'-'+Date.now());
+   state.current=url.href;img.src=state.current;
+  },state.count===1?650:1600);
+ }
+ document.addEventListener('error',event=>{
+  const img=event.target;if(img.tagName!=='IMG')return;
+  const src=img.getAttribute('src');if(!src||/^(data|blob):/.test(src))return;
+  const url=new URL(src,document.baseURI);if(url.origin!==new URL(document.baseURI).origin)return;
+  let state=attempts.get(img);
+  if(!state||state.current!==url.href){state={original:src,current:url.href,count:0};attempts.set(img,state);}
+  if(state.count<2)retry(img,state);else{failed.add(img);refresh();}
+ },true);
+ document.addEventListener('load',event=>{if(failed.delete(event.target))refresh();},true);
+})();
+</script></head><body>
 <main class="childhood-scene" id="scene" aria-label="童年合影与手机锁屏">
  <p class="chapter">想提前认识小时候的你。</p>
  <svg class="bunting" viewBox="0 0 240 55" aria-hidden="true"><path d="M0 3Q120 40 240 3" fill="none" stroke="#a99a82"/><path d="M15 7L35 12L22 32Z" fill="#af7064"/><path d="M57 17L77 21L65 42Z" fill="#c5ae70"/><path d="M101 24L121 25L110 48Z" fill="#8fa493"/><path d="M145 23L165 20L160 44Z" fill="#c7a2a0"/><path d="M190 14L210 10L205 34Z" fill="#d2bc86"/></svg>
@@ -16,6 +228,10 @@
     <svg class="collage-doodles" viewBox="0 0 500 440" aria-hidden="true"><g fill="none" stroke="#8064a3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M24 87Q6 65 19 59Q29 55 33 67Q40 49 50 56Q65 68 24 87M440 46L448 26L451 47L471 51L451 57L447 77L442 58L424 53Z M21 260q-18 16 0 27q18 11 1 24M462 289q24 -10 18 -26q-4 -17 -21 -8q-13 9 3 18 M102 381Q247 410 390 376 M79 378l-14 -7m19 1l-3 -16M408 376l14 -10m-18 4l3 -19"/><path d="M354 62Q396 79 415 115m-17 -10l17 10l-2 -20"/></g></svg>
     <span class="collage-scribble" aria-hidden="true">you &amp; me ♡</span>
    </figure>
+   <div class="phone-notification" id="phone-notification" role="status" hidden>
+    <span class="notification-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v12H10l-5 3v-3H4Z"/></svg></span>
+    <div class="notification-copy"><strong>my baby ♡</strong><p>生日快乐，我的宝贝。</p></div>
+   </div>
    <div class="phone-shortcuts" aria-hidden="true"><span><svg viewBox="0 0 24 24"><path d="M8 3h8v5l-2 4v8h-4v-8L8 8Zm0 5h8M10 15h4"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M3 7h5l2-3h4l2 3h5v13H3Z"/><circle cx="12" cy="13" r="4"/></svg></span></div>
    <div class="phone-top" aria-hidden="true"></div><div class="phone-bottom" aria-hidden="true"></div>
   </div>
@@ -25,4 +241,142 @@
  <div class="scene-actions"><button id="back" hidden>← 回看合影</button><button id="replay" hidden>重新拼一次</button><button id="next">拼在一起 →</button></div>
  <a id="standalone-wish" class="standalone-wish" href="wish-preview.html" hidden>拼祝福蛋糕 →</a>
  <p id="status" class="sr-only" role="status">把任意一半照片拖近另一半，松手就会拼好，也可以点击照片拼合。</p>
-</main><script src="childhood-preview.js?v=0ebb5534bc02"></script><script src="journey-bridge.js?v=0ebb5534bc02"></script><script src="bilingual-copy.js?v=0ebb5534bc02"></script><script src="bilingual.js?v=0ebb5534bc02"></script></body></html>
+</main><script>(() => {
+ const scene=document.getElementById('scene'),collage=document.querySelector('.collage'),next=document.getElementById('next'),back=document.getElementById('back'),replay=document.getElementById('replay'),status=document.getElementById('status'),standaloneWish=document.getElementById('standalone-wish'),notification=document.getElementById('phone-notification');
+ const pieces=[...document.querySelectorAll('.photo-piece')],reduced=matchMedia('(prefers-reduced-motion: reduce)');
+ let joined=new Set(),drag=null,finishing=false,timer,noticeTimer,active=false;
+ function clearNotification(){clearTimeout(noticeTimer);notification.hidden=true;scene.classList.remove('notification-arrived');}
+ function showNotification(){clearNotification();noticeTimer=setTimeout(()=>{if(!scene.classList.contains('lockscreen'))return;notification.hidden=false;scene.classList.add('notification-arrived');},reduced.matches?0:1100);}
+ function activate(){if(active)return;active=true;requestAnimationFrame(()=>requestAnimationFrame(()=>scene.classList.add('is-active')));}
+ function assemble(){
+  if(joined.size!==2||finishing)return;finishing=true;next.disabled=true;
+  timer=setTimeout(()=>{
+   scene.classList.add('assembled');next.disabled=false;next.textContent='放进锁屏 →';replay.hidden=false;
+   pieces.forEach(p=>p.disabled=true);status.textContent='两半照片拼好了，小时候的我们在一起了。';
+  },reduced.matches?0:650);
+ }
+ function snap(piece){if(joined.has(piece))return;joined.add(piece);piece.classList.add('snapped');piece.style.transform='';status.textContent=joined.size===1?'这一半拼好了，再把另一半拖过来。':'合影正在拼好。';assemble();}
+ function reset(){
+  clearNotification();standaloneWish.hidden=true;clearTimeout(timer);if(drag){const d=drag;drag=null;if(d.piece.hasPointerCapture(d.id))d.piece.releasePointerCapture(d.id);}joined.clear();finishing=false;scene.classList.remove('assembled','lockscreen');next.hidden=false;next.disabled=false;next.textContent='拼在一起 →';back.hidden=true;replay.hidden=true;
+  pieces.forEach(p=>{p.disabled=false;p.classList.remove('snapped','dragging');p.style.transform='';});status.textContent='把任意一半照片拖近另一半，松手就会拼好。';
+ }
+ pieces.forEach(piece=>{
+  let suppress=false;
+  piece.addEventListener('pointerdown',e=>{
+   if(e.button!==0||drag||joined.has(piece)||finishing)return;suppress=false;
+   const sign=piece.dataset.piece==='left'?-1:1,m=new DOMMatrixReadOnly(getComputedStyle(piece).transform);
+   drag={piece,id:e.pointerId,x:e.clientX,y:e.clientY,baseX:m.e,baseY:m.f,sign,moved:false,dx:0,dy:0};piece.setPointerCapture(e.pointerId);
+  });
+  function move(e){
+   if(!drag||drag.piece!==piece||drag.id!==e.pointerId)return;
+   const dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(!drag.moved&&Math.hypot(dx,dy)<5)return;
+   drag.moved=true;e.preventDefault();piece.classList.add('dragging');
+   const a=3*Math.PI/180;drag.dx=dx*Math.cos(a)-dy*Math.sin(a);drag.dy=dx*Math.sin(a)+dy*Math.cos(a);
+   const x=drag.baseX+drag.dx,y=drag.baseY+drag.dy,turn=drag.sign*7*Math.min(1,Math.abs(x)/(collage.offsetWidth*.2));piece.style.transform=`translate(${x}px,${y}px) rotate(${turn}deg)`;
+  }
+  piece.addEventListener('pointermove',move);
+  function end(e,cancel=false){
+   if(!drag||drag.piece!==piece||drag.id!==e.pointerId)return;
+   // Pointerup can contain a newer position than the last pointermove.
+   if(!cancel)move(e);
+   const d=drag;drag=null;suppress=d.moved;piece.classList.remove('dragging');
+   if(piece.hasPointerCapture(e.pointerId))piece.releasePointerCapture(e.pointerId);
+   if(cancel||!d.moved)return;
+   const x=d.baseX+d.dx,y=d.baseY+d.dy,other=pieces.find(p=>p!==piece);
+   const target=new DOMMatrixReadOnly(getComputedStyle(other).transform);
+   // Match the other half wherever it is, not just an invisible central target.
+   if(Math.abs(x-target.e)<collage.offsetWidth*.18&&Math.abs(y-target.f)<collage.offsetHeight*.22){
+    pieces.forEach(snap);
+   }else if(Math.abs(x)<collage.offsetWidth*.15&&Math.abs(y)<collage.offsetHeight*.18){
+    snap(piece);
+   }else{
+    status.textContent='再靠近另一半一点，松手就会拼好。';
+   }
+  }
+  piece.addEventListener('pointerup',e=>end(e));piece.addEventListener('pointercancel',e=>end(e,true));piece.addEventListener('lostpointercapture',e=>end(e,true));
+  piece.addEventListener('click',e=>{if(suppress&&e.detail!==0){suppress=false;return;}snap(piece);});
+ });
+ next.addEventListener('click',()=>{
+  if(!scene.classList.contains('assembled')){pieces.forEach(snap);return;}
+  scene.classList.add('lockscreen');showNotification();standaloneWish.hidden=parent!==window;next.hidden=true;back.hidden=false;replay.hidden=true;status.textContent='同一张合影，放进了手机锁屏。';document.dispatchEvent(new Event('scene:complete'));
+ });
+ back.addEventListener('click',()=>{clearNotification();scene.classList.remove('lockscreen');standaloneWish.hidden=true;next.hidden=false;back.hidden=true;replay.hidden=false;status.textContent='童年合影';});replay.addEventListener('click',reset);
+ addEventListener('resize',()=>{if(drag){const p=drag.piece,id=drag.id;drag=null;p.classList.remove('dragging');p.style.transform='';if(p.hasPointerCapture(id))p.releasePointerCapture(id);}});
+ addEventListener('message',e=>{if(e.source===parent&&e.origin===location.origin&&e.data?.type==='journey:activate')activate();});
+ if(parent===window)activate();
+})();
+</script><script>(() => {
+ if(parent===window)return;
+ document.documentElement.classList.add('in-journey');
+ const trustedOrigin=location.protocol==='about:'?parent.location.origin:location.origin;
+ const send=(type,extra={})=>parent.postMessage({channel:'birthday-journey',type,...extra},trustedOrigin);
+ const modal=()=>send('modal',{open:Boolean(document.querySelector('dialog[open]'))});
+ document.addEventListener('scene:complete',()=>send('complete'));
+ document.addEventListener('scene:next',()=>{modal();send('next');});
+ new MutationObserver(modal).observe(document.body,{subtree:true,attributes:true,attributeFilter:['open']});
+ addEventListener('message',event=>{
+  if(event.origin!==trustedOrigin||event.source!==parent||event.data?.type!=='journey:activate')return;
+  modal();
+  const root=document.querySelector('dialog[open]')||document.body;
+  root.tabIndex=-1;root.focus({preventScroll:true});
+ });
+ modal();
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>send('loaded'),{once:true});else send('loaded');
+})();
+</script><script>window.BIRTHDAY_THAI={"26 岁，生日快乐。":"สุขสันต์วันเกิดอายุ 26 ปีนะ","今天的主角，是你呀。":"วันนี้เธอคือคนสำคัญที่สุด","把这一岁的第一份快乐，送给最可爱的你。":"ขอมอบความสุขแรกของปีนี้ ให้เธอคนที่น่ารักที่สุด","留下这一刻 →":"เก็บช่วงเวลานี้ไว้ →","今天的你是寿星。":"วันนี้เธอคือเจ้าของวันเกิด","点一下，留下这一刻。":"แตะเพื่อเก็บช่วงเวลานี้ไว้","放入一张照片":"เพิ่มรูปภาพ","给 piu 留一张生日照片。":"เก็บรูปวันเกิดไว้ให้ piu","把喜欢的小配饰，拖到照片上。":"ลากเครื่องประดับที่ชอบไปวางบนรูป","选一顶帽子":"เลือกหมวก","选一副墨镜":"เลือกแว่นกันแดด","戴上后还能拖动位置 · 点选也可以试戴":"ลากปรับตำแหน่งได้ หรือแตะเพื่อลองใส่","取下全部配饰":"ถอดเครื่องประดับทั้งหมด","照片正在出来……":"กำลังพิมพ์รูป…","照片出来了，点一下看看。":"รูปออกมาแล้ว แตะดูได้เลย","轻轻点一下相纸。":"แตะที่รูปเบา ๆ","这一格，留给你。":"ช่องนี้เก็บไว้ให้เธอ","把帽子和墨镜，拖到照片上。":"ลากหมวกและแว่นไปวางบนรูป","拖动配饰，还能调整戴上的位置。":"ลากเครื่องประดับเพื่อปรับตำแหน่งได้","请选择图片文件。":"กรุณาเลือกไฟล์รูปภาพ","生日快乐，piu。":"สุขสันต์วันเกิดนะ piu","点击照片可更换 · 点击小配饰可试戴":"แตะรูปเพื่อเปลี่ยน แตะเครื่องประดับเพื่อลองใส่","图片未能读取，请换一张。":"เปิดรูปนี้ไม่ได้ ลองเลือกรูปอื่นนะ","拖住照片上的配饰，可以调整位置。":"ลากเครื่องประดับบนรูปเพื่อปรับตำแหน่ง","位置调整好了，还可以继续拖动。":"ปรับตำแหน่งแล้ว ยังลากปรับได้อีก","配饰取下了，再选一件吧。":"ถอดแล้ว ลองเลือกชิ้นใหม่ได้เลย","想提前认识小时候的你。":"อยากได้รู้จักเธอตั้งแต่ยังเด็ก","12月20日":"20 ธันวาคม","小时候的我们":"เราในวัยเด็ก","要是小时候，就认识你就好了。":"ถ้าได้รู้จักเธอตั้งแต่เด็กก็คงดี","把这一刻，放进每一天。":"เก็บช่วงเวลานี้ไว้ในทุก ๆ วัน","把两半照片，轻轻拖到一起。":"ลากรูปทั้งสองส่วนมารวมกันเบา ๆ","← 回看合影":"← กลับไปดูรูปคู่","重新拼一次":"ต่อรูปอีกครั้ง","拼在一起 →":"ต่อรูปเข้าด้วยกัน →","放进锁屏 →":"ใส่ในหน้าจอล็อก →","把任意一半照片拖近另一半，松手就会拼好，也可以点击照片拼合。":"ลากรูปส่วนใดก็ได้เข้าใกล้อีกส่วนแล้วปล่อย หรือแตะเพื่อต่อรูป","两半照片拼好了，小时候的我们在一起了。":"ต่อรูปเสร็จแล้ว เราในวัยเด็กได้อยู่ด้วยกัน","这一半拼好了，再把另一半拖过来。":"ส่วนนี้ต่อแล้ว ลากอีกส่วนมาด้วยนะ","合影正在拼好。":"กำลังต่อรูปคู่","把任意一半照片拖近另一半，松手就会拼好。":"ลากรูปส่วนหนึ่งเข้าใกล้อีกส่วนแล้วปล่อยเพื่อต่อรูป","再靠近另一半一点，松手就会拼好。":"ขยับเข้าใกล้อีกส่วนอีกนิด แล้วปล่อย","同一张合影，放进了手机锁屏。":"รูปคู่ใบเดิมอยู่บนหน้าจอล็อกแล้ว","童年合影":"รูปคู่ในวัยเด็ก","这一卷，是我们的日常。":"ฟิล์มม้วนนี้ คือวันธรรมดาของเรา","留给我们的三个瞬间。":"เก็บไว้ให้สามช่วงเวลาของเรา","捏住黑色片头，向右轻轻拉。":"จับปลายฟิล์มสีดำแล้วค่อย ๆ ดึงไปทางขวา","向右拉出回忆":"ดึงไปทางขวาเพื่อดูความทรงจำ","胶片素材未能加载，请刷新重试。":"โหลดฟิล์มไม่สำเร็จ กรุณารีเฟรชแล้วลองใหม่","继续向右拉出 · 向左收回 · 点空白格放入照片":"ดึงขวาเพื่อดู ดึงซ้ายเพื่อเก็บ แตะช่องว่างเพื่อเพิ่มรูป","点一下，关灯":"แตะเพื่อปิดไฟ","干杯！":"ชนแก้ว!","愿这一岁，多一点开心。":"ขอให้ปีนี้มีความสุขมากขึ้นอีกนิด","生日快乐，piu。点击右边的杯子可以再碰一次。":"สุขสันต์วันเกิดนะ piu แตะแก้วด้านขวาเพื่อชนแก้วอีกครั้ง","灯光暗下，准备碰杯。":"ไฟหรี่ลงแล้ว เตรียมชนแก้วกัน","武汉 · 出发":"อู่ฮั่น · ออกเดินทาง","曼谷 · 见到你":"กรุงเทพฯ · ได้เจอเธอ","这一站，去曼谷见你。":"จุดหมายนี้ ไปหาเธอที่กรุงเทพฯ","看看两座城":"ดูทั้งสองเมือง","看回地图":"กลับไปดูแผนที่","收好这次见面":"เก็บความทรงจำที่ได้เจอกัน","Natural Earth · 地理底图":"Natural Earth · แผนที่ภูมิศาสตร์","把这次见面放在这里":"เก็บวันที่ได้เจอกันไว้ตรงนี้","留住这一个瞬间":"เก็บช่วงเวลานี้ไว้","还有我们的照片":"และรูปของเราด้วย","01 · 去见你":"01 · ไปหาเธอ","02 · 在曼谷":"02 · ที่กรุงเทพฯ","03 · 和你":"03 · กับเธอ","曼谷":"กรุงเทพฯ","武汉":"อู่ฮั่น","这一次，我飞过来见你。":"ครั้งนี้ ฉันบินมาหาเธอ","地图上的这一站，是和你见面的回忆。":"จุดนี้บนแผนที่ คือความทรงจำที่ได้เจอเธอ","翻开这次见面":"เปิดดูวันที่ได้เจอกัน","收好照片 ↙":"เก็บรูปไว้ ↙","点击相纸，放入我们的照片。":"แตะกรอบรูปเพื่อเพิ่มรูปของเรา","武汉 → 曼谷 · 去见你":"อู่ฮั่น → กรุงเทพฯ · ไปหาเธอ","这一次，飞过来见你。":"ครั้งนี้ บินมาหาเธอ","把见面的回忆，好好收藏。":"เก็บความทรงจำที่ได้เจอกันไว้อย่างดี","向右下轻轻撕开飞机票根":"ค่อย ๆ ฉีกหางตั๋วลงไปทางขวา","也可以点击":"แตะได้เช่นกัน","下一站":"จุดหมายต่อไป","我们的以后":"อนาคตของเรา","暂停飞行":"พักการบิน","继续飞行":"บินต่อ","再飞一次 ↗":"บินอีกครั้ง ↗","刮开一点好运 →":"ขูดรับโชคดี →","地图未能加载，请刷新重试。":"โหลดแผนที่ไม่สำเร็จ กรุณารีเฟรชแล้วลองใหม่","这张图片未能读取，请换一张。":"เปิดรูปนี้ไม่ได้ ลองเลือกรูปอื่นนะ","把这张票根，留作纪念。":"เก็บหางตั๋วนี้ไว้เป็นที่ระลึก","红色航迹变成了爱心。下一站，我们的以后。":"เส้นทางสีแดงกลายเป็นหัวใจ จุดหมายต่อไปคืออนาคตของเรา","小飞机起飞，红色航迹正在画出爱心。":"เครื่องบินออกเดินทางแล้ว กำลังวาดหัวใจด้วยเส้นทางสีแดง","把好运刮出来。":"ขูดเปิดโชคดีออกมา","全部中奖！":"ได้รางวัลทุกช่อง!","轻轻刮开，看看里面。":"ค่อย ๆ ขูดดูข้างใน","再刮一次 ↻":"ขูดอีกครั้ง ↻","再试试手气 →":"ลองเสี่ยงโชคอีกครั้ง →","也可以按 Enter 或空格揭开当前一栏。":"กด Enter หรือ Space เพื่อเปิดช่องนี้ได้เช่นกัน","这一份好运，都是你的。":"โชคดีทั้งหมดนี้เป็นของเธอ","三栏已全部刮开，全部中奖！":"ขูดครบสามช่องแล้ว ได้รางวัลทุกช่อง!","再试试手气。":"ลองเสี่ยงโชคอีกครั้ง","中奖":"ได้รางวัล","拉一下，看看今天的好运。":"ลองดึงดู วันนี้จะมีโชคดีอะไรนะ","向下拉动红色手柄，也可以点击。":"ดึงคันโยกสีแดงลง หรือแตะก็ได้","再拉一次 ↻":"ดึงอีกครั้ง ↻","爱心正在转动……":"หัวใจกำลังหมุน…","让好运慢慢停下来。":"ให้โชคดีค่อย ๆ หยุดลง","三个爱心！小奖券正在出来。":"หัวใจสามดวง! คูปองกำลังออกมา","三张小幸运，收好。":"เก็บโชคดีทั้งสามใบไว้นะ","三张奖券已全部收好。":"เก็บคูปองทั้งสามใบแล้ว","← 返回":"← ย้อนกลับ","继续 →":"ต่อไป →","回到开场 ↻":"กลับไปเริ่มต้น ↻","去曼谷见你 →":"ไปหาเธอที่กรุงเทพฯ →","正在打开生日礼物。":"กำลังเปิดของขวัญวันเกิด","请启用 JavaScript，打开这份生日礼物。":"กรุณาเปิด JavaScript เพื่อเปิดของขวัญวันเกิดนี้","拆开礼物":"แกะของขวัญ","26 岁生日快乐":"สุขสันต์วันเกิดอายุ 26 ปี","留住这一刻":"เก็บช่วงเวลานี้ไว้","生日快乐":"สุขสันต์วันเกิด","我们的胶卷":"ฟิล์มของเรา","去曼谷见你":"ไปหาเธอที่กรุงเทพฯ","把祝福拼成蛋糕":"ต่อคำอวยพรเป็นเค้ก","最后的小纸条":"กระดาษโน้ตใบสุดท้าย","把想对你说的话，叠成一个生日蛋糕。":"นำคำที่อยากบอกเธอ มาเรียงเป็นเค้กวันเกิด","一层一层，都是给你的。":"ทุกชั้น ล้วนมอบให้เธอ","26岁的你，要平安，也要快乐。":"วัย 26 ของเธอ ขอให้ปลอดภัยและมีความสุข","愿你被爱包围，也永远自由地做自己。":"ขอให้มีความรักล้อมรอบ และเป็นตัวเองได้อย่างอิสระ","想做的事，都慢慢实现。":"ขอให้สิ่งที่ฝัน ค่อย ๆ เป็นจริง","以后的生日，也想陪你过。":"วันเกิดปีต่อ ๆ ไป ก็อยากอยู่ข้างเธอ","生日快乐 ♡":"สุขสันต์วันเกิด ♡","第一片 · 给26岁的你":"ชิ้นแรก · แด่เธอในวัย 26","第二片 · 被爱，也自由":"ชิ้นที่สอง · ความรักและอิสระ","第三片 · 小小的愿望":"ชิ้นที่สาม · ความฝันเล็ก ๆ","第四片 · 以后的每一年":"ชิ้นที่สี่ · ทุกปีต่อจากนี้","最后一片 · 生日快乐":"ชิ้นสุดท้าย · สุขสันต์วันเกิด","把纸条拖到左边的虚线处":"ลากกระดาษไปที่เส้นประด้านซ้าย","也可以轻点纸条":"แตะที่กระดาษได้เช่นกัน","把纸条向上拖到虚线处，也可以轻点纸条":"ลากกระดาษขึ้นไปที่เส้นประ หรือแตะก็ได้","闭上眼睛，许一个只属于你的愿望。":"หลับตา แล้วขอพรที่เป็นของเธอคนเดียว","不用告诉我，愿它悄悄实现。":"ไม่ต้องบอกฉัน ขอให้พรนั้นเป็นจริงอย่างเงียบ ๆ","帮我贴上这一片 ↗":"ช่วยติดชิ้นนี้ให้หน่อย ↗","点亮蜡烛 ✧":"จุดเทียน ✧","许好了，吹灭蜡烛":"ขอพรแล้ว เป่าเทียนได้เลย","再许一次愿 ↻":"ขอพรอีกครั้ง ↻","把第一片祝福纸条拖到虚线处，也可以点击拼上。":"ลากคำอวยพรชิ้นแรกไปที่เส้นประ หรือแตะเพื่อติด","五层祝福拼成了生日蛋糕，点亮蜡烛吧。":"คำอวยพรห้าชั้นกลายเป็นเค้กแล้ว จุดเทียนกันเถอะ","蜡烛点亮了。许好愿后，点击吹灭蜡烛。":"จุดเทียนแล้ว ขอพรเสร็จแล้วแตะเพื่อเป่าเทียน","愿你的愿望，都在路上。":"ขอให้ทุกความปรารถนา กำลังเดินทางมาหาเธอ","26岁，生日快乐，我的宝贝。":"สุขสันต์วันเกิดอายุ 26 ปีนะ ที่รัก","蜡烛吹灭了。愿你的愿望都在路上。":"เป่าเทียนแล้ว ขอให้ทุกความปรารถนากำลังมาหาเธอ","纸条停在这里了，再拖近虚线一点就会贴好。":"กระดาษอยู่ตรงนี้แล้ว ลากเข้าใกล้เส้นประอีกนิดนะ","轻轻点一下 ♡":"แตะเบา ๆ ♡","叮咚——":"ติ๊งต่อง—","还有一份惊喜，留给你。":"ยังมีเซอร์ไพรส์อีกอย่าง ให้เธอ","我们慢慢看。":"ค่อย ๆ ดูไปด้วยกันนะ","看看小纸条 ↗":"ดูกระดาษโน้ต ↗","生日快乐，我的宝贝。":"สุขสันต์วันเกิดนะ ที่รัก","从头再看一次 ↻":"ดูอีกครั้งตั้งแต่ต้น ↻","轻点礼盒，找出一张小纸条。":"แตะกล่องของขวัญ เพื่อหากระดาษโน้ต","收好小纸条 ↙":"เก็บกระดาษโน้ต ↙","找到一张小纸条，点击可以放大。":"เจอกระดาษโน้ตแล้ว แตะเพื่อขยาย","小纸条已放大。":"ขยายกระดาษโน้ตแล้ว","小纸条收好了。生日快乐，我的宝贝。":"เก็บกระดาษโน้ตแล้ว สุขสันต์วันเกิดนะ ที่รัก","轻点礼盒，找出小纸条":"แตะกล่องของขวัญเพื่อหากระดาษโน้ต","放大小纸条":"ขยายกระดาษโน้ต","小纸条":"กระดาษโน้ต","点亮生日蜡烛":"จุดเทียนวันเกิด","许好愿后吹灭蜡烛":"เป่าเทียนหลังขอพร","按下相机，打印一张相纸":"กดกล้องเพื่อพิมพ์รูป","点击相纸显影":"แตะรูปเพื่อให้ภาพปรากฏ","更换拍立得照片":"เปลี่ยนรูปโพลารอยด์","试戴蓝白生日帽":"ลองหมวกวันเกิดสีน้ำเงินขาว","试戴绿色生日帽":"ลองหมวกวันเกิดสีเขียว","试戴黑色墨镜":"ลองแว่นกันแดดสีดำ","选择生日配饰":"เลือกเครื่องประดับวันเกิด","把左半照片拖近另一半，也可点击拼合":"ลากรูปส่วนซ้ายเข้าใกล้อีกส่วน หรือแตะเพื่อต่อ","把右半照片拖近另一半，也可点击拼合":"ลากรูปส่วนขวาเข้าใกล้อีกส่วน หรือแตะเพื่อต่อ","向右拉出胶片，向左收回；也可以使用左右方向键":"ดึงฟิล์มไปขวา ดึงซ้ายเพื่อเก็บ หรือใช้ปุ่มลูกศร","向左收回一格":"เก็บฟิล์มกลับหนึ่งช่อง","向右拉出一格":"ดึงฟิล์มออกหนึ่งช่อง","胶片拉出进度":"ความคืบหน้าในการดึงฟิล์ม","打开曼谷见面的回忆":"เปิดความทรงจำที่ได้เจอกันในกรุงเทพฯ","重看登机牌撕开动画":"ดูการฉีกหางตั๋วอีกครั้ง","关闭回忆卡片":"ปิดการ์ดความทรงจำ","回到地图":"กลับไปที่แผนที่","撕下右侧飞机票根":"ฉีกหางตั๋วด้านขวา","回到上一页":"กลับไปหน้าก่อน","拉下红色手柄，让爱心转起来":"ดึงคันโยกสีแดงให้หัวใจหมุน","点击生日蛋糕，关灯碰杯":"แตะเค้กวันเกิดเพื่อปิดไฟและชนแก้ว","再碰一次杯":"ชนแก้วอีกครั้ง","撕开生日礼物":"ฉีกเปิดของขวัญวันเกิด","正在翻开下一页……":"กำลังเปิดหน้าถัดไป…","加载有点慢，请再试一次。":"โหลดช้าสักหน่อย ลองอีกครั้งนะ","重新加载":"โหลดอีกครั้ง","试戴紫色墨镜":"ลองแว่นกันแดดสีม่วง","紫色墨镜":"แว่นกันแดดสีม่วง","把火柴拖到烛芯，也可以点击点亮":"ลากไม้ขีดไปที่ไส้เทียน หรือแตะเพื่อจุดไฟ","把火柴拖到烛芯，点亮愿望。":"ลากไม้ขีดไปที่ไส้เทียน แล้วจุดประกายคำอธิษฐาน","收好奖券，继续 →":"เก็บคูปองแล้วไปต่อ →","拼祝福蛋糕 →":"ต่อเค้กคำอวยพร →","看看小时候的我们 →":"ไปดูเราในวัยเด็ก →"};
+</script><script>(() => {
+ const cn=/[\u3400-\u9fff]/,normalize=s=>s.replace(/\s+/g,'').trim();
+ const copy=new Map(Object.entries(window.BIRTHDAY_THAI||{}).map(([k,v])=>[normalize(k),v]));
+ function translation(text){
+  const key=normalize(text);if(copy.has(key))return copy.get(key);
+  let m;
+  if((m=key.match(/^第([123])格·放入照片$/)))return `ช่องที่ ${m[1]} · เพิ่มรูป`;
+  if((m=key.match(/^已放入([123])张照片·点击可更换$/)))return `เพิ่มรูปแล้ว ${m[1]} รูป · แตะเพื่อเปลี่ยน`;
+  if((m=key.match(/^已经放入([123])张见面照片·点击相纸可更换$/)))return `เพิ่มรูปที่ได้เจอกันแล้ว ${m[1]} รูป · แตะเพื่อเปลี่ยน`;
+  if((m=key.match(/^已刮开([0-3])\/3栏$/)))return `ขูดแล้ว ${m[1]} / 3 ช่อง`;
+  if((m=key.match(/^([123])个爱心停好了。$/)))return `หัวใจหยุดแล้ว ${m[1]} ดวง`;
+  if((m=key.match(/^已贴好([1-4])片，继续拼下一片。$/)))return `ติดแล้ว ${m[1]} ชิ้น ต่อชิ้นถัดไปได้เลย`;
+  if((m=key.match(/^刮开第([123])栏$/)))return `ขูดช่องที่ ${m[1]}`;
+  if((m=key.match(/^第([123])栏已刮开$/)))return `ขูดช่องที่ ${m[1]} แล้ว`;
+  if((m=key.match(/^为第([123])格选择照片$/)))return `เลือกรูปสำหรับช่องที่ ${m[1]}`;
+  if((m=key.match(/^为曼谷回忆选择第([123])张照片$/)))return `เลือกรูปความทรงจำกรุงเทพฯ ใบที่ ${m[1]}`;
+  if((m=key.match(/^拼上第[一二三四五]层[紫红黄绿粉]色祝福纸条$/)))return 'ต่อกระดาษคำอวยพรชั้นนี้';
+  return null;
+ }
+ const ignored='script,style,noscript,textarea,option,title,svg,.bi-zh,.bi-th,[data-no-translate]';
+ function spans(text,thai){const zh=document.createElement('span'),th=document.createElement('span');zh.className='bi-zh';zh.lang='zh-CN';zh.textContent=text;th.className='bi-th';th.lang='th';th.textContent=thai;return [zh,th];}
+ function translateElement(el){
+  for(const attr of ['aria-label','title']){const value=el.getAttribute(attr);if(value&&!/[\u0e00-\u0e7f]/.test(value)){const thai=translation(value);if(thai)el.setAttribute(attr,value+' · '+thai);}}
+  if(el.closest(ignored))return;
+  // Only group text and line breaks: keep controls, images and event handlers intact.
+  if(el.childNodes.length&&[...el.childNodes].every(n=>n.nodeType===3||n.nodeName==='BR')){
+   const text=el.textContent,thai=cn.test(text)&&translation(text);
+   if(thai){const pair=spans(text,thai);pair[0].replaceChildren(...el.childNodes);el.classList.add('bi');el.replaceChildren(...pair);return;}
+  }
+  for(const node of [...el.childNodes]){
+   if(node.nodeType!==3||!cn.test(node.textContent))continue;
+   const thai=translation(node.textContent);if(!thai)continue;
+   const pair=document.createElement('span');pair.className='bi bi-inline';pair.append(...spans(node.textContent,thai));node.replaceWith(pair);
+  }
+ }
+ function scan(root){
+  if(!root)return;
+  if(root.nodeType===3){root=root.parentElement;}
+  if(!root||root.nodeType!==1||root.closest(ignored))return;
+  // Work from leaves upward so unrelated text never becomes one translation.
+  [...root.querySelectorAll('*')].reverse().forEach(translateElement);translateElement(root);
+ }
+ scan(document.body);
+ const observer=new MutationObserver(records=>{
+  const roots=new Set();for(const r of records){if(r.type==='attributes')roots.add(r.target);else if(r.type==='characterData')roots.add(r.target.parentElement);else {roots.add(r.target);}}
+  observer.disconnect();for(const root of roots)scan(root);observe();
+ });
+ function observe(){if(!document.body)return;observer.observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['aria-label','title']});}observe();
+ // SVG labels need SVG text rather than HTML spans, and their own clear second line.
+ for(const el of document.querySelectorAll('svg text')){
+  const thai=translation(el.textContent);if(!thai)continue;
+  const line=document.createElementNS('http://www.w3.org/2000/svg','tspan');line.setAttribute('x',el.getAttribute('x')||'0');line.setAttribute('dy','13');line.setAttribute('class','svg-th');line.setAttribute('lang','th');line.textContent=thai;el.append(line);
+ }
+ document.documentElement.classList.add('bilingual');
+})();
+</script></body></html>

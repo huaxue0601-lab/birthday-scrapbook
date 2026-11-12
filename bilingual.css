@@ -137,3 +137,17 @@ body[data-scene="camera"] .eject{pointer-events:none}body[data-scene="camera"] .
  .bilingual #memory .photo-note{bottom:3%;font-size:12px;letter-spacing:0}
  .bilingual #memory .photo-note .bi-th{font-size:10px!important}
 }
+
+/* Incoming lock-screen message: reserve a row above the shortcut buttons. */
+.phone-notification{position:absolute;left:5%;right:5%;bottom:15%;z-index:4;display:flex;align-items:flex-start;gap:8px;padding:10px;border:1px solid #ffffff70;border-radius:15px;background:#f6f5efdc;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 3px 12px #292b2924;color:#454c44;animation:notification-arrives .65s cubic-bezier(.2,.75,.25,1) both}
+.phone-notification[hidden]{display:none!important}
+.notification-icon{width:25px;height:25px;flex:none;display:grid;place-items:center;border-radius:7px;background:#78a788;margin-top:1px}
+.notification-icon svg{width:19px;height:19px;fill:#fff}
+.notification-copy{min-width:0;flex:1;font-size:12px;line-height:1.4}
+.notification-copy strong{font:600 12px/1.3 system-ui,sans-serif}
+.notification-copy p{margin:3px 0 0;font-size:12px;letter-spacing:0}
+.notification-copy .bi-th{font-size:10px!important;line-height:1.3!important;margin-top:3px!important}
+.childhood-scene.lockscreen .collage{bottom:38%;width:78%}
+.childhood-scene.lockscreen .collage-sticker{top:-7%}
+@keyframes notification-arrives{from{opacity:0;transform:translateY(22px) scale(.96)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.phone-notification{animation:none}}

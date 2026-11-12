@@ -17,7 +17,8 @@
   const frame=document.createElement('iframe');frame.className='journey-frame';frame.title=scenes[index].title;frame.hidden=true;frame.inert=true;
   const item={frame,ready:scenes[index].file==='film-preview.html',modal:false,advanced:false};
   item.resourcesLoaded=new Promise(resolve=>frame.addEventListener('load',()=>{item.resolveLoaded();resolve();},{once:true}));
-  item.loaded=new Promise(resolve=>{item.resolveLoaded=resolve;});records.set(index,item);frame.src=scenes[index].file+'?v=0ebb5534bc02';host.append(frame);return item;
+  item.loaded=new Promise(resolve=>{item.resolveLoaded=resolve;});records.set(index,item);const embedded=index===0?document.getElementById('opening-document')?.textContent:null;
+  if(embedded){try{frame.srcdoc=JSON.parse(embedded);}catch{frame.src=scenes[index].file+'?v=3a721f493c1c';}}else frame.src=scenes[index].file+'?v=3a721f493c1c';host.append(frame);return item;
  }
  function navigationState(){
   const item=records.get(current);if(!item)return;
