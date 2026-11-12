@@ -6,7 +6,8 @@
   {file:'toast-preview.html',title:'生日快乐'},
   {file:'film-preview.html',title:'我们的胶卷'},
   {file:'map-preview.html',title:'去曼谷见你'},
-  {file:'childhood-preview.html',title:'小时候的我们'}
+  {file:'childhood-preview.html',title:'小时候的我们'},
+  {file:'wish-preview.html',title:'把祝福拼成蛋糕'}
  ];
  const host=document.getElementById('journey'),previous=document.getElementById('journey-previous'),next=document.getElementById('journey-next'),status=document.getElementById('journey-status');
  const records=new Map();let current=-1,navigation=0,departing=false,person=null;
@@ -14,7 +15,7 @@
   if(records.has(index))return records.get(index);
   const frame=document.createElement('iframe');frame.className='journey-frame';frame.title=scenes[index].title;frame.hidden=true;frame.inert=true;
   const item={frame,ready:scenes[index].file==='film-preview.html',modal:false,advanced:false};
-  item.loaded=new Promise(resolve=>frame.addEventListener('load',resolve,{once:true}));records.set(index,item);frame.src=scenes[index].file+'?v=f463e920eebc';host.append(frame);return item;
+  item.loaded=new Promise(resolve=>frame.addEventListener('load',resolve,{once:true}));records.set(index,item);frame.src=scenes[index].file+'?v=d6f1cca3fe7b';host.append(frame);return item;
  }
  function navigationState(){
   const item=records.get(current);if(!item)return;
