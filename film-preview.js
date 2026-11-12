@@ -79,7 +79,9 @@
   }else if(!cancelled&&gesture.moved&&(e.timeStamp||0)-gesture.lastTime<80&&Math.abs(gesture.velocity)>.18)glide(extension+gesture.velocity*130,Math.min(480,220+Math.abs(gesture.velocity)*80));
   if(suppressClick){status.textContent='继续向右拉出 · 向左收回 · 点空白格放入照片';clickReset=setTimeout(()=>suppressClick=false,400);}
  }
- gestureArea.addEventListener('pointerup',e=>end(e));gestureArea.addEventListener('pointercancel',e=>end(e,true));gestureArea.addEventListener('lostpointercapture',e=>end(e,true));
+ gestureArea.addEventListener('pointerup',e=>end(e));gestureArea.addEventListener('pointercancel',e=>end(e,true));// Touch implicitly captures the inner photo/track before we capture the assembly.
+ // Its bubbling loss event is a transfer, not cancellation of our new capture.
+ gestureArea.addEventListener('lostpointercapture',e=>{if(e.target===gestureArea)end(e,true);});
  gestureArea.addEventListener('dragstart',e=>e.preventDefault());
  previous.addEventListener('click',()=>step(-1));next.addEventListener('click',()=>step(1));
  viewport.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();step(e.key==='ArrowRight'?1:-1);}});

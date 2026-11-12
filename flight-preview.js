@@ -3,7 +3,7 @@
   route=document.getElementById('flight-route'),heart=document.getElementById('heart-outline'),
   wash=document.getElementById('heart-wash'),heartGroup=document.getElementById('flight-heart'),
   plane=document.getElementById('flight-plane'),pause=document.getElementById('pause-flight'),
-  replay=document.getElementById('replay-flight'),next=document.getElementById('next-scratch'),dock=document.getElementById('replay-boarding');
+  replay=document.getElementById('replay-flight'),next=document.getElementById('next-scratch'),dock=document.getElementById('replay-boarding'),mapNext=document.getElementById('map-next-scratch');
  const reduce=matchMedia('(prefers-reduced-motion: reduce)');
  const timing={takeoff:2300,trace:2300,expand:1250};
  let raf=0,last=null,elapsed=0,paused=false,finished=false,length=0,heartLength=0,layout;
@@ -47,29 +47,29 @@
   if(grow>.4){dialog.classList.add('heart-arrived');document.body.classList.add('flight-heart-ready');}
   if(grow===1&&!finished){
    const wasPause=document.activeElement===pause;
-   finished=true;pause.hidden=true;replay.hidden=false;next.hidden=false;
+   finished=true;pause.hidden=true;replay.hidden=false;next.hidden=false;next.textContent='刮开一点好运 →';
    document.getElementById('flight-status').textContent='红色航迹变成了爱心。下一站，我们的以后。';
    // Do not move keyboard focus if the user is already operating the close button.
-   if(wasPause)replay.focus({preventScroll:true});
+   if(wasPause)next.focus({preventScroll:true});
   }
  }
  function tick(now){
   if(!dialog.open||paused||finished)return;
-  if(last!==null)elapsed+=Math.min(64,now-last);
+  if(last!==null)elapsed+=Math.max(0,now-last);
   last=now;paint();if(!finished)raf=requestAnimationFrame(tick);
  }
  function restart(){
   cancelAnimationFrame(raf);elapsed=0;last=null;paused=false;finished=false;
   dialog.classList.remove('heart-arrived');document.body.classList.remove('flight-heart-ready');
-  pause.hidden=false;pause.textContent='暂停飞行';pause.setAttribute('aria-pressed','false');replay.hidden=true;next.hidden=true;
+  pause.hidden=false;pause.textContent='暂停飞行';pause.setAttribute('aria-pressed','false');replay.hidden=true;next.hidden=false;next.textContent='跳过飞行，继续 →';
   document.getElementById('flight-status').textContent='小飞机起飞，红色航迹正在画出爱心。';
   measure();
-  if(reduce.matches){elapsed=timing.takeoff+timing.trace+timing.expand;paint();replay.focus({preventScroll:true});}
+  if(reduce.matches){elapsed=timing.takeoff+timing.trace+timing.expand;paint();next.focus({preventScroll:true});}
   else{pause.focus({preventScroll:true});raf=requestAnimationFrame(tick);}
  }
  function open(){
   if(dialog.open)return;
-  document.body.classList.add('flight-active');dialog.showModal();restart();
+  mapNext.hidden=false;document.body.classList.add('flight-active');dialog.showModal();restart();
  }
  function close(){
   cancelAnimationFrame(raf);dialog.close();document.body.classList.remove('flight-active','flight-heart-ready');
@@ -79,7 +79,8 @@
  document.getElementById('close-flight').addEventListener('click',close);
  dialog.addEventListener('cancel',e=>{e.preventDefault();close()});
  replay.addEventListener('click',restart);
- next.addEventListener('click',()=>{close();document.dispatchEvent(new Event('scratch:open'))});
+ function continueToScratch(){if(dialog.open)close();document.dispatchEvent(new Event('scratch:open'));}
+ next.addEventListener('click',continueToScratch);mapNext.addEventListener('click',continueToScratch);
  pause.addEventListener('click',()=>{
   paused=!paused;pause.textContent=paused?'继续飞行':'暂停飞行';pause.setAttribute('aria-pressed',String(paused));
   cancelAnimationFrame(raf);last=null;if(!paused)raf=requestAnimationFrame(tick);
