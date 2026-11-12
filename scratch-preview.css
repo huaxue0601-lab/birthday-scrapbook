@@ -8,11 +8,13 @@ body[data-scratch-standalone]{margin:0;background:#e9e2d3}
 .scratch-bunting{position:absolute;right:45px;top:22px;width:150px;opacity:.65;pointer-events:none}
 .scratch-close{position:absolute;right:18px;top:15px;z-index:4;border:0;background:none;padding:8px;font-size:28px!important;color:#766c60!important}
 .scratch-layout{position:absolute;inset:0;animation:scratch-arrive .65s cubic-bezier(.2,.7,.2,1) both;pointer-events:none}
-.scratch-card{position:absolute;left:50%;top:49%;width:min(420px,54vh,52vw);aspect-ratio:1089/1705;transform:translate(-50%,-50%);filter:drop-shadow(3px 6px 5px #594a3829);container-type:inline-size;pointer-events:auto}
+.scratch-card{position:absolute;left:50%;top:49%;width:min(420px,54vh,52vw);aspect-ratio:1089/1705;transform:translate(-50%,-50%) rotate(-2deg);filter:drop-shadow(3px 6px 5px #594a3829);container-type:inline-size;pointer-events:auto}
+.scratch-card:before{content:'';position:absolute;inset:.5%;background:#b84465;border:3px solid #32272a;z-index:-1}
 .scratch-paper{display:block;width:100%;height:100%;user-select:none;pointer-events:none}
 .scratch-title{position:absolute;left:4.8%;right:4.8%;top:10.3%;margin:0;text-align:center;color:#fff0d7;font-family:'Helvetica Neue',Arial,sans-serif;font-size:19cqw;font-weight:300;line-height:1;letter-spacing:-.065em;text-shadow:0 .3px .3px #853e3a30;pointer-events:none}
 .scratch-title span{display:block;white-space:nowrap}
 .scratch-title{transform:none}
+.scratch-rule{position:absolute;left:7%;right:7%;top:37%;height:1px;background:#f3b0ba45;box-shadow:0 4px #f3b0ba20;pointer-events:none}
 .scratch-window{position:absolute;padding:0;border:0;background:none;touch-action:none;user-select:none;-webkit-user-select:none;overflow:hidden;cursor:crosshair!important}
 .scratch-window:focus-visible{outline-offset:2px!important}
 .scratch-window canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:1;transition:opacity .38s ease}

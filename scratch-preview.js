@@ -10,8 +10,9 @@
   <svg class="scratch-bunting" viewBox="0 0 240 55" aria-hidden="true"><path d="M0 3Q120 40 240 3" fill="none" stroke="#9b8c73"/><path d="M15 7L35 12L22 32Z" fill="#af7064"/><path d="M57 17L77 21L65 42Z" fill="#c5ae70"/><path d="M101 24L121 25L110 48Z" fill="#8fa493"/><path d="M145 23L165 20L160 44Z" fill="#c7a2a0"/><path d="M190 14L210 10L205 34Z" fill="#d2bc86"/></svg>
   <button class="scratch-close" aria-label="回到地图">×</button>
   <div class="scratch-layout"><div class="scratch-card">
-   <img class="scratch-paper" src="asset-scratch-card-card-blank-title.png" alt="" draggable="false">
+   <img class="scratch-paper" src="asset-scratch-card-card-web.png" alt="" draggable="false" width="1089" height="1705">
    <h1 class="scratch-title"><span>intangible</span><span>lottery ticket!</span></h1>
+   <span class="scratch-rule" aria-hidden="true"></span>
    ${windows.map((g,i)=>`<button class="scratch-window" data-index="${i}" aria-label="刮开第${i+1}栏" aria-describedby="scratch-key-help" style="left:${g.x/1089*100}%;top:${g.y/1705*100}%;width:${g.width/1089*100}%;height:${g.height/1705*100}%"><span class="scratch-prize" aria-hidden="true"></span><canvas width="${g.width}" height="${g.height}" aria-hidden="true"></canvas></button>`).join('')}
    <div class="scratch-stamp" aria-hidden="true"><strong>全部中奖！</strong></div>
   </div></div>
@@ -60,8 +61,12 @@
   for(let y=4;y<canvas.height;y+=8)for(let x=4;x<canvas.width;x+=8){total++;if(pixels[(y*canvas.width+x)*4+3]<64)erased++;}
   return erased/total;
  }
- function point(slot,event){const r=slot.button.getBoundingClientRect();return {x:(event.clientX-r.left)/r.width*slot.canvas.width,y:(event.clientY-r.top)/r.height*slot.canvas.height};}
+ function point(slot,event){
+  const r=card.getBoundingClientRect(),m=new DOMMatrixReadOnly(getComputedStyle(card).transform);
+  return BirthdayScratchGeometry.point(event.clientX,event.clientY,r,{width:card.offsetWidth,height:card.offsetHeight},[m.a,m.b,m.c,m.d],{left:slot.button.offsetLeft,top:slot.button.offsetTop,width:slot.button.offsetWidth,height:slot.button.offsetHeight},slot.canvas);
+ }
  function erase(slot,p){
+  if(!p)return;
   const {ctx,canvas}=slot;ctx.globalCompositeOperation='destination-out';ctx.strokeStyle='#000';ctx.fillStyle='#000';ctx.lineWidth=canvas.width*.33;ctx.lineCap='round';ctx.lineJoin='round';
   ctx.beginPath();const prev=slot.previous||p;ctx.moveTo(prev.x,prev.y);ctx.lineTo(p.x,p.y);ctx.stroke();
   ctx.beginPath();ctx.arc(p.x,p.y,ctx.lineWidth/2,0,Math.PI*2);ctx.fill();slot.previous=p;

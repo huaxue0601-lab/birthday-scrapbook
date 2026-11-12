@@ -1,5 +1,5 @@
 .birthday-person{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:7;transform-origin:50% 55%}
-.birthday-person .person-head{position:absolute;left:9.53%;top:10.02%;width:73.01%;height:81.97%;object-fit:contain}
+.birthday-person .person-head{position:absolute;left:9.53%;top:10.02%;width:73.01%;height:81.97%;object-fit:contain;z-index:1;filter:drop-shadow(2px 0 #fff9e9) drop-shadow(-2px 0 #fff9e9) drop-shadow(0 2px #fff9e9) drop-shadow(0 -2px #fff9e9)}
 .birthday-person .person-photo{position:absolute;left:6.023%;top:7.856%;width:87.747%;height:72.161%;object-fit:cover;border:6px solid #f5eddd}
 .birthday-person .person-hat{position:absolute;width:30.9%;transform:rotate(18deg);z-index:2}
 .birthday-person .person-glasses{position:absolute;width:43.5%;z-index:3}
@@ -10,6 +10,8 @@ body:has(.person-exit) .accessories{opacity:0;pointer-events:none;transition:opa
 @keyframes head-lifts{from{transform:none}to{transform:translate(16%,-25%) rotate(10deg)}}
 body[data-scene="toast"] .birthday-person{left:430px;top:60px;width:250px;height:304px;z-index:1;animation:head-arrives .7s ease both}
 body[data-scene="toast"] .birthday-person[hidden]{display:none}
+body[data-scene="toast"] .birthday-person:before{content:'';position:absolute;left:48%;top:77%;width:5px;height:42%;border-radius:2px;background:linear-gradient(90deg,#ab8552,#ead0a1 45%,#bf9864);box-shadow:1px 0 1px #69503630;transform:rotate(-2deg);transform-origin:50% 0;z-index:0}
+body[data-scene="toast"] .cake{z-index:2}
 @keyframes head-arrives{from{opacity:0;transform:translate(-30px,30px) rotate(-8deg)}to{opacity:1;transform:translate(0,0) rotate(5deg)}}
 @media(max-width:700px) and (orientation:portrait){body[data-scene="toast"] .birthday-person{left:250px;top:155px;width:260px;height:316px}body[data-scene="toast"] .hint{left:80px;top:60px;font-size:35px}}
 @media(prefers-reduced-motion:reduce){.birthday-person{animation:none!important;transition:none!important}}

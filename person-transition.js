@@ -9,6 +9,10 @@
   }
   return group;
  }
+ if(!camera&&parent===window){
+  person=makePerson({hat:{src:'asset-green-party-hat-hat-transparent.png',left:'48.7%',top:'-10.4%'},glasses:{src:'asset-pixel-sunglasses-sunglasses-transparent.png',left:'27.8%',top:'43.6%'}});
+  document.querySelector('.stage').append(person);
+ }
  addEventListener('message',async event=>{
   if(event.source!==parent||event.origin!==location.origin)return;
   if(camera&&event.data?.type==='journey:depart'){
