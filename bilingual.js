@@ -34,6 +34,7 @@
   }
  }
  function scan(root){
+  if(!root)return;
   if(root.nodeType===3){root=root.parentElement;}
   if(!root||root.nodeType!==1||root.closest(ignored))return;
   // Work from leaves upward so unrelated text never becomes one translation.
@@ -44,7 +45,7 @@
   const roots=new Set();for(const r of records){if(r.type==='attributes')roots.add(r.target);else if(r.type==='characterData')roots.add(r.target.parentElement);else {roots.add(r.target);}}
   observer.disconnect();for(const root of roots)scan(root);observe();
  });
- function observe(){observer.observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['aria-label','title']});}observe();
+ function observe(){if(!document.body)return;observer.observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['aria-label','title']});}observe();
  // SVG labels need SVG text rather than HTML spans, and their own clear second line.
  for(const el of document.querySelectorAll('svg text')){
   const thai=translation(el.textContent);if(!thai)continue;

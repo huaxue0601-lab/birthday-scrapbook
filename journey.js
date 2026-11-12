@@ -16,7 +16,7 @@
   if(records.has(index))return records.get(index);
   const frame=document.createElement('iframe');frame.className='journey-frame';frame.title=scenes[index].title;frame.hidden=true;frame.inert=true;
   const item={frame,ready:scenes[index].file==='film-preview.html',modal:false,advanced:false};
-  item.loaded=new Promise(resolve=>{item.resolveLoaded=resolve;frame.addEventListener('load',resolve,{once:true});});records.set(index,item);frame.src=scenes[index].file+'?v=9f512c50ce32';host.append(frame);return item;
+  item.loaded=new Promise(resolve=>{item.resolveLoaded=resolve;frame.addEventListener('load',resolve,{once:true});});records.set(index,item);frame.src=scenes[index].file+'?v=144bf91aab5b';host.append(frame);return item;
  }
  function navigationState(){
   const item=records.get(current);if(!item)return;
