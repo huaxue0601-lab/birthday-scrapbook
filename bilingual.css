@@ -47,3 +47,23 @@ body[data-scene="camera"] .eject{pointer-events:none}body[data-scene="camera"] .
 .wish-scene .note>span .bi-zh{font-size:16px!important;line-height:1.25!important}
 .wish-scene .note>span .bi-th{font-size:11px!important;line-height:1.35!important;margin-top:3px!important}
 .wish-scene .note[data-note="3"]>span .bi-zh{font-size:15px!important}
+
+.camera-composition{display:contents}
+/* Keep bilingual copy in document flow on phones, including short WeChat windows. */
+@media(max-width:700px) and (orientation:portrait){
+ html.camera-page{height:100%;overflow-y:auto!important;overscroll-behavior-y:contain}
+ html.camera-page body{height:auto;min-height:100%;overflow:visible}
+ body[data-scene="camera"] .stage{position:relative;inset:auto;height:auto;min-height:100dvh;display:flex;flex-direction:column;gap:16px;padding:24px 7% 110px}
+ body[data-scene="camera"] .words{position:relative;left:auto;right:auto;top:auto;font-size:22px;flex:none}
+ body[data-scene="camera"] .camera-composition{display:block;position:relative;flex:none;height:260px;margin:0 -5vw}
+ body[data-scene="camera"] .camera{top:0;right:1%;width:38vw;min-width:120px}
+ body[data-scene="camera"] .eject{left:52%;top:112px}
+ body[data-scene="camera"] .landed .eject{left:32%;top:143px}
+ body[data-scene="camera"] .accessories{position:relative;inset:auto;width:100%;margin:0;padding:0;flex:none}
+ body[data-scene="camera"] .accessory-caption{font-size:16px;margin:0 0 8px}
+ body[data-scene="camera"] .accessory-note{font-size:13px;line-height:1.65;margin:10px 0 6px}
+ body[data-scene="camera"] .clear-accessories{min-height:48px;margin:0 auto}
+ body[data-scene="camera"] .quiet{position:relative;inset:auto;font-size:13px;line-height:1.6;flex:none;margin:0}
+ body[data-scene="camera"] .accessory-options{gap:10px}
+ body[data-scene="camera"] .accessory-choice{width:clamp(48px,14.8vw,62px);height:66px}
+}
