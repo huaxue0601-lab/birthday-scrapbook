@@ -5,8 +5,8 @@
   {file:'camera-preview.html',title:'留住这一刻'},
   {file:'toast-preview.html',title:'生日快乐'},
   {file:'film-preview.html',title:'我们的胶卷'},
-  {file:'map-preview.html',title:'去曼谷见你'},
-  {file:'childhood-preview.html',title:'小时候的我们'},
+  {file:'map-preview.html',title:'去曼谷见你',nextLabel:'看看小时候的我们 →'},
+  {file:'childhood-preview.html',title:'小时候的我们',nextLabel:'拼祝福蛋糕 →'},
   {file:'wish-preview.html',title:'把祝福拼成蛋糕'},
   {file:'gift-preview.html',title:'最后的小纸条'}
  ];
@@ -16,12 +16,12 @@
   if(records.has(index))return records.get(index);
   const frame=document.createElement('iframe');frame.className='journey-frame';frame.title=scenes[index].title;frame.hidden=true;frame.inert=true;
   const item={frame,ready:scenes[index].file==='film-preview.html',modal:false,advanced:false};
-  item.loaded=new Promise(resolve=>{item.resolveLoaded=resolve;frame.addEventListener('load',resolve,{once:true});});records.set(index,item);frame.src=scenes[index].file+'?v=144bf91aab5b';host.append(frame);return item;
+  item.loaded=new Promise(resolve=>{item.resolveLoaded=resolve;frame.addEventListener('load',resolve,{once:true});});records.set(index,item);frame.src=scenes[index].file+'?v=2e4194ed4775';host.append(frame);return item;
  }
  function navigationState(){
   const item=records.get(current);if(!item)return;
   previous.hidden=current<=0||item.modal;next.hidden=!item.ready||current===0||item.modal;
-  next.textContent=current===scenes.length-1?'回到开场 ↻':scenes[current].file==='film-preview.html'?'去曼谷见你 →':'继续 →';document.body.classList.toggle('toast-scene',scenes[current].file==='toast-preview.html');
+  next.textContent=current===scenes.length-1?'回到开场 ↻':scenes[current].file==='film-preview.html'?'去曼谷见你 →':scenes[current].nextLabel||'继续 →';document.body.classList.toggle('toast-scene',scenes[current].file==='toast-preview.html');
  }
  async function show(index){
   if(index<0||index>=scenes.length)return;
@@ -43,6 +43,7 @@
   const entry=[...records].find(([,item])=>item.frame.contentWindow===event.source);if(!entry)return;
   const [index,item]=entry;
   if(event.data.type==='loaded'){item.resolveLoaded();return;}
+  if(event.data.type==='next'){if(index===current&&item.ready&&!item.modal&&pendingIndex===null)show(current+1);return;}
   if(event.data.type==='complete'){
    item.ready=true;
    if(index===0&&current===0&&!item.advanced){item.advanced=true;show(1);return;}

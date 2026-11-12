@@ -13,9 +13,9 @@
  <div class="slot-panel-copy" aria-hidden="true">TAKE THE RISK<br>OR LOSE<br>THE CHANCE</div>
  <button class="slot-lever" aria-label="拉下红色手柄，让爱心转起来" aria-describedby="slot-status"><img src="asset-slot-machine-lever.png" alt="" draggable="false"></button><span class="slot-mouth"></span></div>
  <div class="slot-rewards">${prizes.map((_,i)=>`<figure class="slot-ticket" aria-label="第${i+1}张奖券" aria-hidden="true"><img src="asset-reward-tickets-ticket-0${i+1}.png" alt=""><span class="slot-ticket-copy"></span></figure>`).join('')}<div class="slot-win-stamp" aria-hidden="true">中奖</div></div>
- <p class="slot-message">拉一下，看看今天的好运。</p><p class="slot-status" id="slot-status" role="status">向下拉动红色手柄，也可以点击。</p><div class="slot-footer"><button id="reset-slot" hidden>再拉一次 ↻</button></div>`;
+ <p class="slot-message">拉一下，看看今天的好运。</p><p class="slot-status" id="slot-status" role="status">向下拉动红色手柄，也可以点击。</p><div class="slot-footer"><button id="reset-slot" hidden>再拉一次 ↻</button><button id="continue-slot" hidden>收好奖券，继续 →</button></div>`;
  document.body.append(dialog);
- const machine=dialog.querySelector('.slot-machine'),lever=dialog.querySelector('.slot-lever'),tracks=[...dialog.querySelectorAll('.slot-reel-track')],tickets=[...dialog.querySelectorAll('.slot-ticket')],resetButton=dialog.querySelector('#reset-slot'),message=dialog.querySelector('.slot-message'),status=dialog.querySelector('#slot-status');
+ const machine=dialog.querySelector('.slot-machine'),lever=dialog.querySelector('.slot-lever'),tracks=[...dialog.querySelectorAll('.slot-reel-track')],tickets=[...dialog.querySelectorAll('.slot-ticket')],resetButton=dialog.querySelector('#reset-slot'),continueButton=dialog.querySelector('#continue-slot'),message=dialog.querySelector('.slot-message'),status=dialog.querySelector('#slot-status');
  tickets.forEach((t,i)=>t.querySelector('.slot-ticket-copy').textContent=prizes[i]);
  let state='ready',generation=0,drag=null,angle=0,returnFocus=null;const animations=new Set();
  function release(){const id=drag?.id;drag=null;if(id!==undefined&&lever.hasPointerCapture(id))lever.releasePointerCapture(id);}
@@ -28,7 +28,7 @@
   finally{animations.delete(a);a.cancel();}
  }
  function reset(){
-  cancel();state='ready';angle=0;dialog.classList.remove('won');lever.disabled=false;lever.style.transform='rotate(0deg)';resetButton.hidden=true;
+  cancel();state='ready';angle=0;dialog.classList.remove('won');lever.disabled=false;lever.style.transform='rotate(0deg)';resetButton.hidden=true;continueButton.hidden=true;
   tracks.forEach(t=>t.style.transform='translateY(0%)');tickets.forEach(t=>{t.classList.remove('is-issued');t.style.opacity='0';t.style.transform='';t.setAttribute('aria-hidden','true')});
   message.textContent='拉一下，看看今天的好运。';status.textContent='向下拉动红色手柄，也可以点击。';
  }
@@ -53,7 +53,7 @@
     await motion(ticket,[{transform:`translate(${dx}px,${dy}px) scale(.18) rotate(-12deg)`,opacity:0},{opacity:1,offset:.2},{transform:`translate(0,0) scale(1) rotate(${[-4,2,-2][i]}deg)`,opacity:1}],680);
    }
    if(token!==generation)return;
-   state='won';dialog.classList.add('won');resetButton.hidden=false;message.textContent='三张小幸运，收好。';status.textContent='三张奖券已全部收好。';resetButton.focus({preventScroll:true});
+   state='won';dialog.classList.add('won');resetButton.hidden=false;continueButton.hidden=false;message.textContent='三张小幸运，收好。';status.textContent='三张奖券已全部收好。';continueButton.focus({preventScroll:true});
    document.dispatchEvent(new Event('scene:complete'));
   }catch{if(token===generation)reset();}
  }
@@ -63,7 +63,13 @@
  lever.addEventListener('pointercancel',()=>{if(drag)springBack()});lever.addEventListener('lostpointercapture',()=>{if(drag)springBack()});
  lever.addEventListener('click',()=>{if(state==='ready')spin()});
  resetButton.addEventListener('click',()=>{reset();lever.focus({preventScroll:true})});
- function open(){if(dialog.open)return;returnFocus=document.activeElement;dialog.showModal();(state==='won'?resetButton:lever).focus({preventScroll:true})}
+ continueButton.addEventListener('click',()=>{
+  if(state!=='won'||!dialog.open)return;
+  cancel();dialog.close();
+  if(parent===window){location.href='childhood-preview.html';return;}
+  document.dispatchEvent(new Event('scene:next'));
+ });
+ function open(){if(dialog.open)return;returnFocus=document.activeElement;dialog.showModal();(state==='won'?continueButton:lever).focus({preventScroll:true})}
  function close(){if(state!=='won')reset();else cancel();dialog.close();if(standalone){location.href='scratch-preview.html';return;}document.dispatchEvent(new Event('scratch:open'));}
  dialog.querySelector('.slot-close').addEventListener('click',close);dialog.addEventListener('cancel',e=>{e.preventDefault();close()});
  document.addEventListener('slot:open',open);

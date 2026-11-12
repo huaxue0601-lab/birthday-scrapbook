@@ -17,3 +17,5 @@
 @media(max-width:700px){.assembled:not(.lockscreen) .collage{width:125%;bottom:22%}.collage-sticker{font-size:12px}.collage-scribble{font-size:19px}.assembled .collage figcaption{font-size:14px}}
 .assembled .collage figcaption{bottom:-19%;left:3%;max-width:51%;color:#79658e}.lockscreen .collage figcaption{bottom:-22%;font-size:12px;color:#fff7e9}.lockscreen .collage-scribble{color:#fff7e9}
 .lockscreen .collage{width:84%;bottom:24%}.lockscreen .collage-sticker{top:-6%}.lockscreen .clock{top:8%}.lockscreen .clock strong{font-size:clamp(48px,7vh,64px)}
+
+.standalone-wish{position:absolute;bottom:15px;right:6%;color:#756957;text-decoration:none;border-bottom:1px solid #a38e6c6b;padding:8px;font-size:16px}.in-journey .standalone-wish{display:none!important}
