@@ -1,5 +1,5 @@
 /* Self-hosted OFL fonts. Licenses: asset-fonts-lxgwwenkaitc-license.txt, asset-fonts-mali-license.txt */
-@font-face{font-family:BirthdayWenKai;src:url('asset-fonts-wenkai-site.ttf') format('truetype');font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:BirthdayWenKai;src:url('asset-fonts-wenkai-site.ttf?v=birthday-star') format('truetype');font-style:normal;font-weight:400;font-display:swap}
 @font-face{font-family:BirthdayMali;src:url('asset-fonts-mali-regular.ttf') format('truetype');font-style:normal;font-weight:400;font-display:swap}
 :root{--font-zh:BirthdayWenKai,'PingFang SC','Microsoft YaHei',sans-serif;--font-th:BirthdayMali,'Thonburi','Noto Sans Thai',sans-serif}
 body,button,a,input,legend{font-family:var(--font-zh)!important;font-weight:400}.bi{line-height:1.55;white-space:normal}.bi-zh{display:block!important;font-family:var(--font-zh)!important;font-size:inherit!important;font-weight:400!important;line-height:1.5!important;letter-spacing:.04em!important;color:inherit!important;padding:0!important;margin:0!important;transform:none!important;max-width:none!important;text-shadow:none!important}.bi-th{display:block!important;font-family:var(--font-th)!important;font-size:max(12px,.68em)!important;font-weight:400!important;line-height:1.55!important;letter-spacing:0!important;color:inherit!important;padding:0!important;margin:5px 0 0!important;transform:none!important;max-width:none!important;text-shadow:none!important;white-space:normal!important;word-break:normal;overflow-wrap:anywhere;opacity:.82}.bi-inline{display:inline-block;vertical-align:middle}.bi-inline .bi-th{font-size:max(11px,.68em)!important}button .bi-th,a .bi-th{font-size:max(11px,.7em)!important;margin-top:3px!important}.bi-zh .bi-th,.bi-th .bi-th{display:none!important}
@@ -27,3 +27,6 @@ body[data-scene="toast"] .greeting .bi-th{font-size:30px!important;line-height:1
 body[data-scene="camera"] .eject{pointer-events:none}body[data-scene="camera"] .landed .paper{pointer-events:auto}
 
 @media(max-width:700px) and (orientation:portrait){#boarding:not(.departing)::backdrop{background:#123241b8}.boarding-kicker,.boarding-note{color:#fff5dc}#boarding-help{color:#fff5dc}#boarding-help span{opacity:1}}
+
+/* Keep the full birthday caption and accessory instructions clear on desktop. */
+@media(min-width:701px){body[data-scene="camera"] .landed .eject{top:57%}body[data-scene="camera"] .accessories{top:61%}body[data-scene="camera"] .accessory-caption{font-size:18px;margin-bottom:8px}body[data-scene="camera"] .accessory-choice{width:70px;height:75px}body[data-scene="camera"] .accessory-note{margin:8px 0 0}body[data-scene="camera"] .clear-accessories{margin-top:0;min-height:40px}body[data-scene="camera"] .quiet{bottom:20px}}
