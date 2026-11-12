@@ -11,14 +11,15 @@ function updateMap(){
  }
  world.setAttribute('transform',transform);focusButton.setAttribute('aria-pressed',String(zoomed));focusButton.textContent=zoomed?'看回地图':'看看两座城';
 }
-fetch('asset-travel-map-geometry.json').then(r=>{if(!r.ok)throw Error();return r.json()}).then(g=>{
- geometry=g;const [b,w]=g.cities;
- document.getElementById('bangkok').setAttribute('transform',`translate(${b.x} ${b.y})`);
- document.getElementById('departure').setAttribute('transform',`translate(${w.x} ${w.y})`);
- for(const id of ['route','route-shadow'])document.getElementById(id).setAttribute('d',g.routePath);
- updateMap();
-}).catch(()=>{document.getElementById('map-status').textContent='地图未能加载，请刷新重试。'});
+// Ship the tiny route alongside the interaction so one failed request cannot hide both cities.
+geometry={"projection":"Miller cylindrical; latitude extent -60 to 83","width":1600,"height":900,"cities":[{"id":"bangkok","name":"曼谷","english":"BANGKOK","lon":100.5018,"lat":13.7563,"x":1246.6746666666668,"y":486.750299354086},{"id":"wuhan","name":"武汉","english":"WUHAN","lon":114.3055,"lat":30.5928,"x":1308.0244444444445,"y":404.7491104491686}],"distanceKm":2346,"routePath":"M1308.02,404.75L1305.97,407.16L1303.94,409.58L1301.93,411.99L1299.93,414.41L1297.95,416.82L1295.99,419.24L1294.05,421.66L1292.13,424.07L1290.22,426.49L1288.33,428.91L1286.45,431.32L1284.59,433.74L1282.74,436.16L1280.91,438.57L1279.09,440.99L1277.28,443.40L1275.49,445.82L1273.71,448.23L1271.94,450.64L1270.19,453.06L1268.44,455.47L1266.71,457.88L1264.99,460.29L1263.28,462.70L1261.58,465.11L1259.89,467.52L1258.20,469.92L1256.53,472.33L1254.87,474.73L1253.21,477.14L1251.57,479.54L1249.93,481.95L1248.30,484.35L1246.67,486.75"};
+{const [b,w]=geometry.cities;
+document.getElementById('bangkok').setAttribute('transform',`translate(${b.x} ${b.y})`);
+document.getElementById('departure').setAttribute('transform',`translate(${w.x} ${w.y})`);
+for(const id of ['route','route-shadow'])document.getElementById(id).setAttribute('d',geometry.routePath);
+updateMap();}
 addEventListener('resize',updateMap);
+addEventListener('message',event=>{if(event.source===parent&&event.origin===location.origin&&event.data?.type==='journey:activate')requestAnimationFrame(updateMap);});
 focusButton.addEventListener('click',()=>{zoomed=!zoomed;updateMap()});
 function openMemory(){returnFocus=document.activeElement;memory.showModal();document.getElementById('close-memory').focus({preventScroll:true})}
 document.getElementById('bangkok').addEventListener('click',openMemory);

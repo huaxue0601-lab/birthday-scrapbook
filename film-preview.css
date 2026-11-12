@@ -28,3 +28,8 @@ h1{position:absolute;left:6%;top:7%;font-size:clamp(25px,2.5vw,36px);font-weight
  .controls{left:18px;right:18px;bottom:105px;gap:8px}.hint{font-size:16px;margin:0 5px}
 }
 @media(max-height:550px){.caption{top:auto;bottom:125px;font-size:15px}.film-assembly{top:26%}.status{left:28%;bottom:110px;font-size:14px}.controls{bottom:55px;left:27%}h1{top:5%;font-size:24px}}
+
+/* Reserve separate rows for bilingual headings, the film, and drag instructions. */
+@media(min-width:701px) and (min-height:551px){h1{top:5%}.caption{top:19%;font-size:18px}.film-assembly{top:36%}.status{bottom:130px;font-size:15px;left:6%}.controls{bottom:64px}}
+.film-caption-viewport{position:absolute;left:calc(var(--cartridge-width)*.88);right:0;top:calc(var(--film-height)*1.34);height:52px;overflow:hidden;pointer-events:none}.film-caption-track{position:relative;width:var(--film-width);height:100%;transform:translateX(calc(0px - var(--film-width)))}.film-caption{position:absolute;margin:0;text-align:center;color:#8a7760;font-size:12px;line-height:1.4}.film-caption:after{content:'';display:block;width:70%;height:12px;border-bottom:1px solid #a8997c50;margin:0 auto}
+@media(max-width:700px){.film-caption-viewport{height:40px}.film-caption{font-size:11px}.status{bottom:185px}}

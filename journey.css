@@ -5,3 +5,5 @@
 @keyframes journey-enter{from{opacity:0}to{opacity:1}}
 @media(max-width:700px){.journey-nav{padding:0 13px}.journey-nav button{font-size:12px;padding:8px 9px}}
 @media(prefers-reduced-motion:reduce){.journey-frame{animation:none}}
+
+.journey-loading{position:fixed;inset:0;z-index:9;display:grid;place-content:center;justify-items:center;background:#eee8dcf5;text-align:center;padding:30px;color:#756957}.journey-loading[hidden]{display:none}.journey-loading p{font-size:19px}.journey-loading button{font:inherit;min-height:44px;padding:8px 20px;color:inherit;border:1px dashed #a38e6c;background:#f8f1e5}.journey-loading button[hidden]{display:none}

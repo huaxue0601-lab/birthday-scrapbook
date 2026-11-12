@@ -1,10 +1,12 @@
 (() => {
- const viewport=document.getElementById('viewport'),track=document.getElementById('track'),input=document.getElementById('file'),status=document.getElementById('status'),previous=document.getElementById('previous'),next=document.getElementById('next'),progress=document.getElementById('progress');
+ const viewport=document.getElementById('viewport'),track=document.getElementById('track'),input=document.getElementById('file'),status=document.getElementById('status'),previous=document.getElementById('previous'),next=document.getElementById('next'),progress=document.getElementById('progress'),captions=document.getElementById('caption-track');
  let extension=0,width=1,start=null,suppressClick=false,active=null,complete=false;
  const photoURLs=new Map(),photoButtons=[];
  function render(value){
   extension=Math.max(0,Math.min(width,value));
+  if(width-extension<.5)extension=width;else if(extension<.5)extension=0;
   track.style.transform=`translateX(${extension-width}px)`;
+  captions.style.transform=track.style.transform;
   progress.style.width=`${extension/width*100}%`;
   progress.parentElement.setAttribute('aria-valuenow',String(Math.round(extension/width*100)));
   previous.disabled=extension<=0;next.disabled=extension>=width;
@@ -15,7 +17,7 @@
  function fit(){
   if(innerWidth<=0||innerHeight<=0)return;
   const fraction=extension/width;
-  const height=innerWidth<=700?Math.min(136,innerWidth*.34,innerHeight*.27):Math.min(230,innerHeight*.31,innerWidth*.9/5.02);
+  const height=innerWidth<=700?Math.min(136,innerWidth*.34,innerHeight*.27):Math.min(205,innerHeight*.26,innerWidth*.9/5.02);
   width=height*3421/955;
   document.documentElement.style.setProperty('--film-height',height+'px');
   document.documentElement.style.setProperty('--film-width',width+'px');
@@ -31,6 +33,7 @@
    b.innerHTML=`<span>第 ${3-i} 格 · 放入照片</span>`;
    b.addEventListener('click',e=>{if(suppressClick){e.preventDefault();return;}active=b;input.value='';input.click();});
    track.prepend(b);photoButtons.push(b);
+   const caption=document.createElement('p');caption.className='film-caption';caption.dataset.slot=3-i;caption.style.left=b.style.left;caption.style.width=b.style.width;caption.textContent=String(3-i).padStart(2,'0');captions.append(caption);
   });render(extension);
  }).catch(()=>{status.textContent='胶片素材未能加载，请刷新重试。';});
  viewport.addEventListener('pointerdown',e=>{

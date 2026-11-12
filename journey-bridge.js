@@ -12,4 +12,5 @@
   root.tabIndex=-1;root.focus({preventScroll:true});
  });
  modal();
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>send('loaded'),{once:true});else send('loaded');
 })();
