@@ -37,27 +37,27 @@ button{font:inherit;color:inherit;-webkit-tap-highlight-color:transparent}
 @keyframes shutter{0%,100%{transform:rotate(0)}50%{transform:rotate(-.7deg)}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;transition-delay:0s!important}}
 </style>
-<link rel="stylesheet" href="cursors.css?v=14e84ed99e96"><link rel="stylesheet" href="responsive.css?v=14e84ed99e96"><link rel="stylesheet" href="person-transition.css?v=14e84ed99e96"><link rel="stylesheet" href="bilingual.css?v=14e84ed99e96"></head>
+<link rel="stylesheet" href="cursors.css?v=4fa7fc139e77"><link rel="stylesheet" href="responsive.css?v=4fa7fc139e77"><link rel="stylesheet" href="person-transition.css?v=4fa7fc139e77"><link rel="stylesheet" href="bilingual.css?v=4fa7fc139e77"></head>
 <body data-scene="camera">
 <main class="stage has-photo" id="scene" aria-label="拍立得生日互动小样">
   <div class="words"><p>今天的你是寿星。</p><p class="hint" id="hint">点一下，留下这一刻。</p></div>
   <div class="camera-composition">
-  <button class="camera" id="camera" aria-label="按下相机，打印一张相纸"><img src="asset-instant-camera-camera-compact-transparent.png" alt="双手握着复古拍立得相机"></button>
+  <button class="camera" id="camera" aria-label="按下相机，打印一张相纸"><img src="asset-instant-camera-camera-compact-transparent.webp" alt="双手握着复古拍立得相机"></button>
   <div class="eject"><button class="paper" id="paper" disabled aria-label="点击相纸显影">
     <span class="photo"><img class="portrait" id="portrait" src="asset-childhood-photo-portrait.jpg" alt="piu 小时候的照片"><span class="choose">放入一张照片</span><span class="emulsion"></span></span>
-    <img class="frame" src="asset-polaroid-frame-frame-transparent.png" alt="奶白色拍立得相纸框">
-    <img class="hat" id="worn-hat" src="asset-green-party-hat-hat-transparent.png" alt="绿色生日帽" draggable="false">
-    <img class="glasses" id="worn-glasses" src="asset-pixel-sunglasses-sunglasses-transparent.png" alt="黑色像素墨镜" draggable="false">
+    <img class="frame" src="asset-polaroid-frame-frame-transparent.webp" alt="奶白色拍立得相纸框">
+    <img class="hat" id="worn-hat" src="asset-green-party-hat-hat-transparent.webp" alt="绿色生日帽" draggable="false">
+    <img class="glasses" id="worn-glasses" src="asset-pixel-sunglasses-sunglasses-transparent.webp" alt="黑色像素墨镜" draggable="false">
   </button></div>
   </div>
 <aside class="accessories" id="accessories" aria-label="选择生日配饰" hidden>
  <p class="accessory-caption">把喜欢的小配饰，拖到照片上。</p>
  <div class="accessory-options">
   <fieldset class="accessory-group"><legend>选一顶帽子</legend>
-   <button class="accessory-choice" data-hat="blue" aria-label="试戴蓝白生日帽" aria-pressed="false"><img src="asset-party-hat-hat-small-tassel.png" alt=""></button>
-   <button class="accessory-choice" data-hat="green" aria-label="试戴绿色生日帽" aria-pressed="false"><img src="asset-green-party-hat-hat-transparent.png" alt=""></button>
+   <button class="accessory-choice" data-hat="blue" aria-label="试戴蓝白生日帽" aria-pressed="false"><img src="asset-party-hat-hat-small-tassel.webp" alt=""></button>
+   <button class="accessory-choice" data-hat="green" aria-label="试戴绿色生日帽" aria-pressed="false"><img src="asset-green-party-hat-hat-transparent.webp" alt=""></button>
   </fieldset>
-  <fieldset class="accessory-group"><legend>选一副墨镜</legend><button class="accessory-choice" id="choose-glasses" data-glasses="pixel" aria-label="试戴黑色墨镜" aria-pressed="false"><img src="asset-pixel-sunglasses-sunglasses-transparent.png" alt=""></button><button class="accessory-choice" data-glasses="lilac" aria-label="试戴紫色墨镜" aria-pressed="false"><img src="asset-pixel-sunglasses-lilac-glasses.svg" alt=""></button></fieldset>
+  <fieldset class="accessory-group"><legend>选一副墨镜</legend><button class="accessory-choice" id="choose-glasses" data-glasses="pixel" aria-label="试戴黑色墨镜" aria-pressed="false"><img src="asset-pixel-sunglasses-sunglasses-transparent.webp" alt=""></button><button class="accessory-choice" data-glasses="lilac" aria-label="试戴紫色墨镜" aria-pressed="false"><img src="asset-pixel-sunglasses-lilac-glasses.svg" alt=""></button></fieldset>
  </div>
  <p class="accessory-note">戴上后还能拖动位置 · 点选也可以试戴</p><button class="clear-accessories" id="clear-accessories">取下全部配饰</button>
 </aside>
@@ -88,4 +88,4 @@ input.addEventListener('change',()=>{
  portrait.onerror=()=>{URL.revokeObjectURL(next);status.textContent='图片未能读取，请换一张。'};portrait.src=next;
 });
 </script>
-<script src="camera-accessories.js?v=14e84ed99e96"></script><script src="person-transition.js?v=14e84ed99e96"></script><script src="journey-bridge.js?v=14e84ed99e96"></script><script src="bilingual-copy.js?v=14e84ed99e96"></script><script src="bilingual.js?v=14e84ed99e96"></script></body></html>
+<script src="camera-accessories.js?v=4fa7fc139e77"></script><script src="person-transition.js?v=4fa7fc139e77"></script><script src="journey-bridge.js?v=4fa7fc139e77"></script><script src="bilingual-copy.js?v=4fa7fc139e77"></script><script src="bilingual.js?v=4fa7fc139e77"></script></body></html>

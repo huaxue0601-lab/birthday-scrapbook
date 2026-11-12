@@ -16,7 +16,8 @@
   if(records.has(index))return records.get(index);
   const frame=document.createElement('iframe');frame.className='journey-frame';frame.title=scenes[index].title;frame.hidden=true;frame.inert=true;
   const item={frame,ready:scenes[index].file==='film-preview.html',modal:false,advanced:false};
-  item.loaded=new Promise(resolve=>{item.resolveLoaded=resolve;frame.addEventListener('load',resolve,{once:true});});records.set(index,item);frame.src=scenes[index].file+'?v=14e84ed99e96';host.append(frame);return item;
+  item.resourcesLoaded=new Promise(resolve=>frame.addEventListener('load',()=>{item.resolveLoaded();resolve();},{once:true}));
+  item.loaded=new Promise(resolve=>{item.resolveLoaded=resolve;});records.set(index,item);frame.src=scenes[index].file+'?v=4fa7fc139e77';host.append(frame);return item;
  }
  function navigationState(){
   const item=records.get(current);if(!item)return;
@@ -36,7 +37,12 @@
   current=index;previous.disabled=next.disabled=false;navigationState();status.textContent=scenes[index].title;
   if(scenes[index].file==='toast-preview.html'&&person)item.frame.contentWindow.postMessage({type:'journey:person',person},location.origin);
   item.frame.contentWindow.postMessage({type:'journey:activate'},location.origin);
-  if(index+1<scenes.length)record(index+1);
+  // Let visible artwork finish before a hidden page competes for bandwidth.
+  // Data-saving and slow connections only load the page the visitor requests.
+  const connection=typeof navigator==='undefined'?null:navigator.connection;
+  if(index+1<scenes.length&&!connection?.saveData&&!/^(slow-)?2g$/.test(connection?.effectiveType||'')){
+   item.resourcesLoaded.then(()=>setTimeout(()=>{if(token===navigation&&current===index)record(index+1);},500));
+  }
  }
  addEventListener('message',event=>{
   if(event.origin!==location.origin||!event.data||event.data.channel!=='birthday-journey')return;

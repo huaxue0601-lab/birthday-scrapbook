@@ -1,8 +1,8 @@
 (() => {
  const scene=document.getElementById('scene'),paper=document.getElementById('paper'),status=document.getElementById('status');
  const hat=document.getElementById('worn-hat'),glasses=document.getElementById('worn-glasses'),buttons=[...document.querySelectorAll('[data-hat]')],glassesButtons=[...document.querySelectorAll('[data-glasses]')];
- const hats={blue:'asset-party-hat-hat-small-tassel.png',green:'asset-green-party-hat-hat-transparent.png'};
- const lenses={pixel:'asset-pixel-sunglasses-sunglasses-transparent.png',lilac:'asset-pixel-sunglasses-lilac-glasses.svg'};
+ const hats={blue:'asset-party-hat-hat-small-tassel.webp',green:'asset-green-party-hat-hat-transparent.webp'};
+ const lenses={pixel:'asset-pixel-sunglasses-sunglasses-transparent.webp',lilac:'asset-pixel-sunglasses-lilac-glasses.svg'};
  let selectedHat='',selectedGlasses='',drag=null,suppressClick=null;
  const defaults={hat:{x:48.7,y:-10.4},glasses:{x:27.8,y:43.6}},positions=structuredClone(defaults);
  function render(){

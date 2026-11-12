@@ -3,14 +3,14 @@
  let leaving=false,person;
  function makePerson(data){
   const group=document.createElement('div');group.className='birthday-person';
-  const head=new Image();head.src=data.customPhoto||'asset-childhood-photo-camera-head.png';head.className=data.customPhoto?'person-photo':'person-head';head.alt='piu 的生日照片';group.append(head);
+  const head=new Image();head.src=data.customPhoto||'asset-childhood-photo-camera-head.webp';head.className=data.customPhoto?'person-photo':'person-head';head.alt='piu 的生日照片';group.append(head);
   for(const kind of ['hat','glasses']){
    const item=data[kind];if(!item)continue;const img=new Image();img.src=item.src;img.alt='';img.className='person-'+kind;img.style.left=item.left;img.style.top=item.top;group.append(img);
   }
   return group;
  }
  if(!camera&&parent===window){
-  person=makePerson({hat:{src:'asset-green-party-hat-hat-transparent.png',left:'48.7%',top:'-10.4%'},glasses:{src:'asset-pixel-sunglasses-sunglasses-transparent.png',left:'27.8%',top:'43.6%'}});
+  person=makePerson({hat:{src:'asset-green-party-hat-hat-transparent.webp',left:'48.7%',top:'-10.4%'},glasses:{src:'asset-pixel-sunglasses-sunglasses-transparent.webp',left:'27.8%',top:'43.6%'}});
   document.querySelector('.stage').append(person);
  }
  addEventListener('message',async event=>{
