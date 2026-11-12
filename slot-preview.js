@@ -5,7 +5,7 @@
  const standalone=document.body.hasAttribute('data-slot-standalone'),reduce=matchMedia('(prefers-reduced-motion: reduce)');
  const dialog=document.createElement('dialog');dialog.id='slot';dialog.setAttribute('aria-label','复古爱心老虎机');
  dialog.innerHTML=`<p class="slot-heading">再试试手气。</p><button class="slot-close" aria-label="回到上一页">×</button>
- <div class="slot-machine">
+ <div class="slot-art"><div class="slot-machine">
  <img class="slot-body" src="asset-slot-machine-machine-demo-body.webp" alt="粉红色复古 JACKPOT 机器" draggable="false">
  <svg class="slot-crown" viewBox="0 0 100 65" aria-hidden="true"><path d="M14 49L7 15L32 33L49 7L67 33L93 15L86 49Z" fill="#c5a55b" stroke="#aa8845" stroke-width="2"/><path d="M18 56H82" stroke="#b69b5c" stroke-width="5"/><circle cx="49" cy="8" r="4" fill="#ddc886"/></svg>
  <svg class="slot-arch" viewBox="0 0 600 350" aria-hidden="true"><g fill="none" stroke="#e7c9a4" stroke-width="3"><path d="M33 270Q75 270 70 230Q42 210 43 241Q85 262 126 280M567 270Q525 270 530 230Q558 210 557 241Q515 262 474 280M125 290Q300 326 475 290"/><path d="M96 210l8-20 8 20 22 3-17 14 4 21-17-11-18 11 4-21-17-14ZM488 210l8-20 8 20 22 3-17 14 4 21-17-11-18 11 4-21-17-14Z"/></g><text x="300" y="235" text-anchor="middle" font-family="Georgia,serif" font-size="172" letter-spacing="-6" fill="#bb6351" stroke="#e3ad73" stroke-width="2">777</text></svg>
@@ -13,7 +13,7 @@
  <div class="slot-panel-copy" aria-hidden="true">TAKE THE RISK<br>OR LOSE<br>THE CHANCE</div>
  <button class="slot-lever" aria-label="拉下红色手柄，让爱心转起来" aria-describedby="slot-status"><img src="asset-slot-machine-lever.webp" alt="" draggable="false"></button><span class="slot-mouth"></span></div>
  <div class="slot-rewards">${prizes.map((_,i)=>`<figure class="slot-ticket" aria-label="第${i+1}张奖券" aria-hidden="true"><img src="asset-reward-tickets-ticket-0${i+1}.webp" alt=""><span class="slot-ticket-copy"></span></figure>`).join('')}<div class="slot-win-stamp" aria-hidden="true">中奖</div></div>
- <p class="slot-message">拉一下，看看今天的好运。</p><p class="slot-status" id="slot-status" role="status">向下拉动红色手柄，也可以点击。</p><div class="slot-footer"><button id="reset-slot" hidden>再拉一次 ↻</button><button id="continue-slot" hidden>收好奖券，继续 →</button></div>`;
+ </div><p class="slot-message">拉一下，看看今天的好运。</p><p class="slot-status" id="slot-status" role="status">向下拉动红色手柄，也可以点击。</p><div class="slot-footer"><button id="reset-slot" hidden>再拉一次 ↻</button><button id="continue-slot" hidden>收好奖券，继续 →</button></div>`;
  document.body.append(dialog);
  const machine=dialog.querySelector('.slot-machine'),lever=dialog.querySelector('.slot-lever'),tracks=[...dialog.querySelectorAll('.slot-reel-track')],tickets=[...dialog.querySelectorAll('.slot-ticket')],resetButton=dialog.querySelector('#reset-slot'),continueButton=dialog.querySelector('#continue-slot'),message=dialog.querySelector('.slot-message'),status=dialog.querySelector('#slot-status');
  tickets.forEach((t,i)=>t.querySelector('.slot-ticket-copy').textContent=prizes[i]);
