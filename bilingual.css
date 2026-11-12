@@ -151,3 +151,76 @@ body[data-scene="camera"] .eject{pointer-events:none}body[data-scene="camera"] .
 .childhood-scene.lockscreen .collage-sticker{top:-7%}
 @keyframes notification-arrives{from{opacity:0;transform:translateY(22px) scale(.96)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){.phone-notification{animation:none}}
+
+/* Fit later chapters to the available phone screen, preserving readable controls. */
+@media(max-width:700px) and (orientation:portrait){
+ #scratch[open]{gap:10px;padding:18px 20px 20px;justify-content:center}
+ #scratch .scratch-heading{font-size:20px!important}
+ #scratch .scratch-layout{padding:8px 0}
+ #scratch .scratch-card{width:min(72vw,280px,calc((100dvh - 310px)*1089/1705))}
+ #scratch .scratch-hint{font-size:15px}
+ #scratch .scratch-hint p{margin:4px 0}
+ #scratch .scratch-hint .scratch-count{margin-top:6px}
+ #scratch .scratch-footer{min-height:48px}
+ #scratch .scratch-bunting{top:52px;width:65px}
+ #slot[open]{gap:12px;padding:18px 20px 22px;justify-content:center}
+ #slot .slot-heading{font-size:20px!important}
+ #slot .slot-art{height:min(42dvh,350px)}
+ #slot .slot-machine{top:14px;width:calc((min(42dvh,350px) - 20px)*953/1798)}
+ #slot .slot-rewards{top:48px;bottom:8px;left:57%;gap:12px}
+ #slot .slot-win-stamp{top:-46px;width:40px;height:40px}
+ #slot .slot-message{font-size:16px}
+ #slot .slot-status{font-size:12px}
+ #slot .slot-footer{min-height:48px}
+ html.childhood-page body{height:100%;min-height:0}
+ .childhood-scene{height:100dvh;min-height:0;gap:10px;padding:18px 6% 82px}
+ .childhood-scene .chapter{font-size:17px;line-height:1.4;flex:none}
+ .childhood-scene .keepsake{width:auto;height:min(56dvh,calc(100dvh - 265px));aspect-ratio:9/19.5;margin:0;flex:none}
+ .childhood-scene:not(.lockscreen) .keepsake{width:min(64vw,260px);height:auto;min-height:0;flex:1;aspect-ratio:auto}
+ .childhood-scene:not(.lockscreen) .collage{bottom:23%;width:110%}
+ .childhood-scene .words{font-size:16px;line-height:1.4;margin:0}
+ .childhood-scene.lockscreen .words p:not(.lockscreen-words){display:none!important}
+ .childhood-scene.lockscreen .words .lockscreen-words{margin-top:0!important}
+ .childhood-scene .assembly-hint{font-size:14px}
+ .childhood-scene .scene-actions{margin-top:auto}
+ .childhood-scene .standalone-wish{position:absolute;right:5%;bottom:14px;font-size:13px}
+ .childhood-scene .phone-notification{padding:7px;gap:6px;border-radius:11px;bottom:13%}
+ .childhood-scene .notification-icon{width:20px;height:20px}
+ .childhood-scene .notification-copy strong,.childhood-scene .notification-copy p{font-size:10px}
+ .childhood-scene .notification-copy .bi-th{font-size:9px!important}
+ .childhood-scene .phone-shortcuts{bottom:5%}
+ .childhood-scene .phone-shortcuts span{width:26px;height:26px}
+ .childhood-scene .phone-shortcuts svg{width:15px;height:15px}
+ .childhood-scene .clock strong{font-size:clamp(35px,6dvh,50px)}
+ .childhood-scene .clock span{font-size:12px}
+ .childhood-scene .clock .bi-th{font-size:10px!important}
+ .childhood-scene .collage-scribble{font-size:14px}
+ .childhood-scene.lockscreen .collage figcaption{font-size:10px}
+ .childhood-scene.lockscreen .collage figcaption .bi-th{font-size:9px!important}
+ html.wish-page body{height:100%;min-height:0}
+ html.wish-page .wish-scene,html.wish-page .wish-scene.lit,html.wish-page .wish-scene.finished{height:100dvh!important;min-height:0!important}
+ html.wish-page .wish-scene .arena{top:30px;bottom:135px}
+ html.wish-page .wish-scene.started .arena{top:30px}
+ html.wish-page .wish-scene.ready .arena{top:35px;bottom:135px}
+ html.wish-page .wish-scene.lit .arena,html.wish-page .wish-scene.finished .arena{top:32px;bottom:250px!important}
+ html.wish-page .wish-scene .actions{bottom:76px}
+ html.wish-page .wish-scene .tray-copy{bottom:0}
+ html.wish-page .wish-scene .tray-copy p:first-child{margin:0 0 6px}
+ html.wish-page .wish-scene .tray-copy p:last-child{font-size:12px}
+ html.wish-page .wish-scene .wish-copy{bottom:155px}
+ html.wish-page .wish-copy p{font-size:19px;margin-bottom:6px}
+ html.wish-page .wish-copy .bi-th{font-size:12px!important}
+ html.wish-page .wish-copy>span{display:none}
+ html.wish-page .wish-scene .note.placed>span .bi-zh{font-size:clamp(10px,4.8cqw,16px)!important}
+ html.wish-page .wish-scene .note.placed>span .bi-th{font-size:clamp(8px,3.5cqw,11px)!important;line-height:1.2!important;margin-top:2px!important}
+ html.wish-page .wish-scene .note.placed>span{transform:none!important}
+ html.wish-page .wish-scene .note:not(.placed)>span .bi-zh{font-size:16px!important}
+ html.wish-page .wish-scene .note:not(.placed)>span .bi-th{font-size:11px!important}
+ html.wish-page .wish-scene .matchstick{bottom:48px}
+ html.wish-page .wish-scene .match-hint{bottom:0;margin:0}
+ .wish-scene .note{container-type:inline-size;transition:transform .65s cubic-bezier(.2,.75,.25,1),width .65s,height .65s,filter .3s,opacity .3s}
+ .wish-scene .note.dragging{transition:none}
+}
+.cake-doodles svg{display:block;width:20px;height:20px}
+
+@media(max-width:700px) and (orientation:portrait){.childhood-scene.lockscreen .collage-sticker{white-space:nowrap;font-size:8px;letter-spacing:2px;padding:5px 8px;left:18%}}

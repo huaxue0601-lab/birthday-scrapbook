@@ -51,8 +51,8 @@
   });render(extension);
  }).catch(()=>{status.textContent='胶片素材未能加载，请刷新重试。';});
  gestureArea.addEventListener('pointerdown',e=>{
-  if(e.button!==0||start)return;stopMotion();flush();clearTimeout(clickReset);suppressClick=false;
-  viewportWidth=viewport.clientWidth;start={gain:innerWidth<=700?Math.max(1,Math.min(2,width/(gestureArea.clientWidth*.9))):1,x:e.clientX,extension,id:e.pointerId,moved:false,lastX:e.clientX,lastTime:e.timeStamp||0,velocity:0};
+  if(e.button!==0||start)return;const destination=motionTarget;stopMotion();flush();clearTimeout(clickReset);suppressClick=false;
+  viewportWidth=viewport.clientWidth;start={anchor:destination??extension,gain:innerWidth<=700?Math.max(1.8,Math.min(3.2,width/(3*55))):1,x:e.clientX,extension,id:e.pointerId,moved:false,lastX:e.clientX,lastTime:e.timeStamp||0,velocity:0};
  });
  function move(e){
   if(!start||e.pointerId!==start.id)return;const delta=e.clientX-start.x;
@@ -72,9 +72,9 @@
    const delta=e.clientX-gesture.x,cell=width/3;
    // Even a short deliberate phone swipe brings out the next whole photo.
    // Do not depend on release speed or on reaching the edge of a narrow screen.
-   if(Math.abs(delta)>=18){
-    const target=delta>0?Math.max(Math.round(extension/cell),Math.floor(gesture.extension/cell+.01)+1):Math.min(Math.round(extension/cell),Math.ceil(gesture.extension/cell-.01)-1);
-    glide(target*cell,280);
+   if(Math.abs(delta)>=10){
+    const target=delta>0?Math.max(Math.round(extension/cell),Math.floor(Math.max(gesture.extension,gesture.anchor)/cell+.01)+1):Math.min(Math.round(extension/cell),Math.ceil(Math.min(gesture.extension,gesture.anchor)/cell-.01)-1);
+    glide(target*cell,200);
    }else glide(Math.round(extension/cell)*cell,200);
   }else if(!cancelled&&gesture.moved&&(e.timeStamp||0)-gesture.lastTime<80&&Math.abs(gesture.velocity)>.18)glide(extension+gesture.velocity*130,Math.min(480,220+Math.abs(gesture.velocity)*80));
   if(suppressClick){status.textContent='继续向右拉出 · 向左收回 · 点空白格放入照片';clickReset=setTimeout(()=>suppressClick=false,400);}

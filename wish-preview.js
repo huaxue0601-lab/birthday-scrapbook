@@ -8,8 +8,8 @@
  function pose(note,p){note.style.transform=`translate(${p.x}px,${p.y}px) rotate(${p.angle||0}deg)`;}
  function layout(){
   document.documentElement.classList.add('wish-page');const w=arena.clientWidth,h=arena.clientHeight;if(!w||!h)return;
-  const mobile=innerWidth<=700;const paperHeights=mobile?[.30,.34,.29,.30,.20]:[.31,.34,.30,.30,.20];document.getElementById('instruction').innerHTML=mobile?'把纸条向上拖到虚线处，也可以轻点纸条':'把纸条拖到左边的虚线处<br><span>也可以轻点纸条</span>';const b=Math.min(mobile?w*.86:w*.42,h*(mobile?.66:.65),mobile?350:420),cx=mobile?w*.5:w*.31;
-  let bottom=mobile?Math.min(h*.75,b*1.54+40):h*.98;
+  const mobile=innerWidth<=700;const paperHeights=mobile?[.30,.34,.29,.30,.20]:[.31,.34,.30,.30,.20];document.getElementById('instruction').innerHTML=mobile?'把纸条向上拖到虚线处，也可以轻点纸条':'把纸条拖到左边的虚线处<br><span>也可以轻点纸条</span>';const building=state==='building';const b=mobile?Math.min(w*.82,320,Math.max(100,(h-(building?240:state==='ready'?177:80))/1.221)):Math.min(w*.42,h*.65,420),cx=mobile?w*.5:w*.31;
+  let bottom=mobile?(building?h-225:state==='ready'?Math.min(h-105,b*1.221+85):h-10):h*.98;
   targets=[];
   for(let i=0;i<5;i++){
    const width=b*widths[i],height=b*paperHeights[i],p={x:cx-width/2,y:bottom-height,width,height,angle:turns[i]};
@@ -20,12 +20,12 @@
    bottom-=height*.83;
    if(i<count)pose(notes[i],p);
    else {notes[i].hidden=false;notes[i].disabled=i!==count;notes[i].classList.toggle('waiting',i!==count);notes[i].style.zIndex=i===count?10:6-i;
-    if(i>count)pose(notes[i],{x:mobile?(w-width)/2:w*.74-width/2,y:(mobile?h-170:Math.max(110,h*.48-height/2))+(i-count)*5,angle:i%2?7:-6});}
+    if(i>count)pose(notes[i],{x:mobile?(w-width)/2:w*.74-width/2,y:(mobile?h-110-height:Math.max(110,h*.48-height/2))+(i-count)*3,angle:i%2?7:-6});}
   }
   const top=targets[4];candle.style.left=cx+'px';candle.style.top=(top.y-(mobile?67:84))+'px';
   const cap=document.getElementById('plate-caption');cap.style.left=cx-b*.55+'px';cap.style.top=targets[0].y+targets[0].height+16+'px';cap.style.width=b*1.1+'px';
   const doodles=document.querySelector('.cake-doodles');Object.assign(doodles.style,{left:cx-b*.65+'px',top:Math.max(0,top.y-30)+'px',width:b*1.3+'px',height:b*.95+'px'});
-  if(count<5){const t=targets[count];pending={x:mobile?(w-t.width)/2:w*.74-t.width/2,y:mobile?h-155:Math.max(110,h*.48-t.height/2),angle:count%2?7:-6};if(!drag)pose(notes[count],free||pending);Object.assign(guide.style,{left:t.x+'px',top:t.y+'px',width:t.width+'px',height:t.height+'px',transform:`rotate(${t.angle}deg)`});}
+  if(count<5){const t=targets[count];const activeWidth=mobile?Math.min(w*.84,310):t.width,activeHeight=activeWidth*paperHeights[count]/widths[count];notes[count].style.width=activeWidth+'px';notes[count].style.height=activeHeight+'px';pending={x:mobile?(w-activeWidth)/2:w*.74-t.width/2,y:mobile?h-105-activeHeight:Math.max(110,h*.48-t.height/2),angle:count%2?7:-6};if(!drag)pose(notes[count],free||pending);Object.assign(guide.style,{left:t.x+'px',top:t.y+'px',width:t.width+'px',height:t.height+'px',transform:`rotate(${t.angle}deg)`});}
   const rect=arena.getBoundingClientRect();scene.style.setProperty('--spot-x',rect.left+cx+'px');scene.style.setProperty('--spot-y',rect.top+top.y+b*.26+'px');
  }
  function put(){
@@ -44,7 +44,7 @@
   if(!d.moved)return;
   if(!cancel&&near(d.current)){put();}else{free=d.current;pose(d.note,free);status.textContent='纸条停在这里了，再拖近虚线一点就会贴好。';}
  }
- function near(p){const t=targets[count];return Math.abs(p.x-t.x)<Math.max(35,t.width*.3)&&Math.abs(p.y-t.y)<Math.max(38,t.height*.65);}
+ function near(p){const t=targets[count],width=parseFloat(notes[count].style.width)||t.width,height=parseFloat(notes[count].style.height)||t.height;return Math.abs(p.x+width/2-t.x-t.width/2)<Math.max(35,t.width*.4)&&Math.abs(p.y+height/2-t.y-t.height/2)<Math.max(38,t.height*.75);}
  function move(e){if(!drag||drag.id!==e.pointerId)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(!drag.moved&&Math.hypot(dx,dy)<5)return;drag.moved=true;e.preventDefault();const t=targets[count];drag.current={x:Math.max(-t.width*.2,Math.min(arena.clientWidth-t.width*.8,drag.base.x+dx)),y:Math.max(-20,Math.min(arena.clientHeight-t.height*.6,drag.base.y+dy)),angle:near({x:drag.base.x+dx,y:drag.base.y+dy})?t.angle:drag.base.angle};drag.note.classList.add('dragging');pose(drag.note,drag.current);guide.classList.toggle('near',near(drag.current));}
  notes.forEach((note,i)=>{
   note.addEventListener('pointerdown',e=>{if(e.button!==0||drag||state!=='building'||i!==count)return;suppress=false;const m=new DOMMatrixReadOnly(getComputedStyle(note).transform);drag={note,id:e.pointerId,x:e.clientX,y:e.clientY,base:{x:m.e,y:m.f,angle:free?.angle||pending.angle},moved:false,current:null};note.setPointerCapture(e.pointerId);});
