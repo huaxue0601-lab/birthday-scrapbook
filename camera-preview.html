@@ -20,14 +20,16 @@ button{font:inherit;color:inherit;-webkit-tap-highlight-color:transparent}
 .landed .eject{overflow:visible;clip-path:none;transform:translate(-520px,-57px) rotate(-6deg);z-index:4}
 .frame{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;filter:drop-shadow(1px 3px 2px #574d3728);z-index:2}
 .photo{position:absolute;left:6.023%;top:7.856%;width:87.747%;height:72.161%;overflow:hidden;background:#ddd5c6}
-.portrait{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(.95);visibility:hidden}
-.has-photo .portrait{visibility:visible}.emulsion{position:absolute;inset:0;background:#403e37;z-index:1;transition:opacity 2.5s ease,filter 2.5s ease;pointer-events:none}
+.portrait{display:block;width:100%;height:100%;object-fit:cover;visibility:hidden}
+.printing.has-photo .portrait,.landed.has-photo .portrait{visibility:visible}.emulsion{position:absolute;inset:0;background:#403e37;z-index:1;transition:opacity 2.5s ease,filter 2.5s ease;pointer-events:none}
 .developed .emulsion{opacity:0;filter:sepia(.4)}
 .choose{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:13px 'Kaiti SC','STKaiti',serif;letter-spacing:1px;opacity:0;transition:opacity 1s 1.4s}
 .developed .choose{opacity:1}.has-photo .choose{display:none}
-.hat{position:absolute;width:64px;left:96px;top:-49px;transform:rotate(18deg) translateY(-18px);z-index:4;opacity:0;transition:opacity .5s,transform .65s}
-.glasses{position:absolute;width:87px;left:70px;top:83px;z-index:4;opacity:0;transform:translateY(-12px);transition:opacity .5s .3s,transform .6s .3s}
-.decorated .hat,.decorated .glasses{opacity:1;transform:rotate(0) translateY(0)}.decorated .hat{transform:rotate(18deg)}
+.hat{position:absolute;width:71px;left:112px;top:-29px;transform:rotate(18deg) translateY(-18px);z-index:4;opacity:0;transition:opacity .35s,transform .5s;pointer-events:none}
+.glasses{position:absolute;width:100px;left:64px;top:122px;z-index:4;opacity:0;transform:translateY(-12px);transition:opacity .35s,transform .5s;pointer-events:none}
+.wearing-hat .hat,.wearing-glasses .glasses{opacity:1;transform:rotate(0) translateY(0)}.wearing-hat .hat{transform:rotate(18deg)}
+.accessories{position:absolute;left:calc(50% + 185px);top:calc(50% + 35px);width:330px;color:#706451;font-family:'Kaiti SC','STKaiti',KaiTi,serif;animation:accessory-arrive .5s ease both}.accessories[hidden]{display:none}.accessory-caption{font-size:15px;letter-spacing:1px;margin:0 0 14px;transform:rotate(-2deg)}.accessory-options{display:flex;align-items:center;gap:20px}.accessory-group{border:0;padding:0;margin:0;display:flex;gap:9px;align-items:center}.accessory-group legend{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}.accessory-choice{position:relative;background:none;border:0;border-bottom:1px solid transparent;padding:6px;width:66px;height:79px;cursor:pointer;transition:transform .2s}.accessory-choice img{width:100%;height:100%;object-fit:contain;pointer-events:none;filter:drop-shadow(1px 2px 1px #574d3726)}.accessory-choice:hover{transform:translateY(-4px) rotate(-4deg)}.accessory-choice[aria-pressed=true]{border-bottom-color:#ac635b}.accessory-choice[aria-pressed=true]:after{content:'✓';position:absolute;right:0;bottom:-9px;font-size:15px;color:#a26158}.accessory-choice:focus-visible,.clear-accessories:focus-visible{outline:2px dashed #8a7562;outline-offset:5px}.clear-accessories{display:block;margin:18px 0 0;padding:4px 0;border:0;border-bottom:1px solid #b4a28b;background:none;font-size:12px;cursor:pointer}.accessory-note{font-size:11px;margin:13px 0 0;color:#988976;letter-spacing:1px}@keyframes accessory-arrive{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:700px){.accessories{left:50%;top:calc(50% + 110px);transform:translateX(-50%);width:270px;animation:none}.accessory-caption{font-size:14px}.accessory-options{gap:17px}.accessory-choice{width:64px;height:72px}}
 .quiet{position:absolute;left:110px;bottom:55px;margin:0;font:14px 'Kaiti SC','STKaiti',serif;letter-spacing:1px}
 .flash{position:absolute;inset:0;background:#fff;pointer-events:none;opacity:0;z-index:8}.printing .flash{animation:flash .3s ease-out}
 .hint{transition:opacity .4s}.printing .hint{opacity:0}.landed .hint{opacity:1}
@@ -35,23 +37,35 @@ button{font:inherit;color:inherit;-webkit-tap-highlight-color:transparent}
 @keyframes shutter{0%,100%{transform:rotate(0)}50%{transform:rotate(-.7deg)}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;transition-delay:0s!important}}
 </style>
-</head>
-<body>
-<main class="stage" id="scene" aria-label="拍立得生日互动小样">
+<link rel="stylesheet" href="cursors.css"><link rel="stylesheet" href="responsive.css"><link rel="stylesheet" href="person-transition.css"></head>
+<body data-scene="camera">
+<main class="stage has-photo" id="scene" aria-label="拍立得生日互动小样">
   <div class="words"><p>今天的你是，</p><p class="hint" id="hint">点一下，留下这一刻。</p></div>
   <button class="camera" id="camera" aria-label="按下相机，打印一张相纸"><img src="asset-instant-camera-camera-compact-transparent.png" alt="双手握着复古拍立得相机"></button>
   <div class="eject"><button class="paper" id="paper" disabled aria-label="点击相纸显影">
-    <span class="photo"><img class="portrait" id="portrait" alt="你选择的预览照片"><span class="choose">放入一张照片</span><span class="emulsion"></span></span>
+    <span class="photo"><img class="portrait" id="portrait" src="asset-childhood-photo-portrait.jpg" alt="piu 小时候的照片"><span class="choose">放入一张照片</span><span class="emulsion"></span></span>
     <img class="frame" src="asset-polaroid-frame-frame-transparent.png" alt="奶白色拍立得相纸框">
-    <img class="hat" src="asset-green-party-hat-hat-transparent.png" alt="绿色生日帽">
-    <img class="glasses" src="asset-pixel-sunglasses-sunglasses-transparent.png" alt="黑色像素墨镜">
+    <img class="hat" id="worn-hat" src="asset-green-party-hat-hat-transparent.png" alt="绿色生日帽" draggable="false">
+    <img class="glasses" id="worn-glasses" src="asset-pixel-sunglasses-sunglasses-transparent.png" alt="黑色像素墨镜" draggable="false">
   </button></div>
   <p class="quiet" id="status" aria-live="polite">给 piu 留一张生日照片。</p><div class="flash"></div>
 </main>
+<aside class="accessories" id="accessories" aria-label="选择生日配饰" hidden>
+ <p class="accessory-caption">把喜欢的小配饰，拖到照片上。</p>
+ <div class="accessory-options">
+  <fieldset class="accessory-group"><legend>选一顶帽子</legend>
+   <button class="accessory-choice" data-hat="blue" aria-label="试戴蓝白生日帽" aria-pressed="false"><img src="asset-party-hat-hat-small-tassel.png" alt=""></button>
+   <button class="accessory-choice" data-hat="green" aria-label="试戴绿色生日帽" aria-pressed="false"><img src="asset-green-party-hat-hat-transparent.png" alt=""></button>
+  </fieldset>
+  <fieldset class="accessory-group"><legend>选一副墨镜</legend><button class="accessory-choice" id="choose-glasses" aria-label="试戴黑色墨镜" aria-pressed="false"><img src="asset-pixel-sunglasses-sunglasses-transparent.png" alt=""></button></fieldset>
+ </div>
+ <p class="accessory-note">戴上后还能拖动位置 · 点选也可以试戴</p><button class="clear-accessories" id="clear-accessories">取下全部配饰</button>
+</aside>
 <input id="photo-file" type="file" accept="image/*" hidden>
 <script>
 const scene=document.getElementById('scene'),camera=document.getElementById('camera'),paper=document.getElementById('paper'),hint=document.getElementById('hint'),status=document.getElementById('status'),input=document.getElementById('photo-file'),portrait=document.getElementById('portrait');
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;let state='ready',photoURL;
+const accessories=document.getElementById('accessories');
 function fit(){document.documentElement.style.setProperty('--scale',Math.min(innerWidth/1600,innerHeight/900))}fit();addEventListener('resize',fit);
 camera.addEventListener('click',()=>{
  if(state!=='ready')return;state='printing';camera.disabled=true;scene.classList.add('printing');status.textContent='照片正在出来……';
@@ -61,15 +75,14 @@ camera.addEventListener('click',()=>{
 });
 paper.addEventListener('click',()=>{
  if(state==='printed'){state='developing';paper.disabled=true;scene.classList.add('developed');hint.textContent='这一格，留给你。';status.textContent='';
-  setTimeout(()=>{state='developed';paper.disabled=false;paper.setAttribute('aria-label','选择一张本地照片预览');status.textContent='照片待补 · 点击相纸可在本机预览';document.dispatchEvent(new Event('scene:complete'));},reduced?0:2600);
+  setTimeout(()=>{state='developed';paper.disabled=false;paper.setAttribute('aria-label','更换拍立得照片');hint.textContent='把帽子和墨镜，拖到照片上。';accessories.hidden=false;status.textContent='拖动配饰，还能调整戴上的位置。';document.dispatchEvent(new Event('scene:complete'));},reduced?0:2600);
  }else if(state==='developed'){input.click()}
 });
 input.addEventListener('change',()=>{
  const file=input.files[0];if(!file)return;if(!file.type.startsWith('image/')){status.textContent='请选择图片文件。';return}
  const next=URL.createObjectURL(file);
- portrait.onload=()=>{if(photoURL)URL.revokeObjectURL(photoURL);photoURL=next;scene.classList.add('has-photo');hint.textContent='生日快乐，piu。';status.textContent='点击照片可更换 · 按 D 试戴帽子和墨镜';};
+ portrait.onload=()=>{if(photoURL)URL.revokeObjectURL(photoURL);photoURL=next;scene.classList.add('has-photo');hint.textContent='生日快乐，piu。';status.textContent='点击照片可更换 · 点击小配饰可试戴';};
  portrait.onerror=()=>{URL.revokeObjectURL(next);status.textContent='图片未能读取，请换一张。'};portrait.src=next;
 });
-addEventListener('keydown',e=>{if(e.key.toLowerCase()==='d'&&scene.classList.contains('has-photo'))scene.classList.toggle('decorated')});
 </script>
-<script src="journey-bridge.js"></script></body></html>
+<script src="camera-accessories.js"></script><script src="person-transition.js"></script><script src="journey-bridge.js"></script></body></html>

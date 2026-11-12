@@ -1,0 +1,30 @@
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{background:#eee8dc url('asset-envelope-background-paper.jpg') center/cover;color:#494438;font-family:'Kaiti SC','STKaiti',KaiTi,serif}
+button{font:inherit;color:inherit}button:focus-visible,.viewport:focus-visible{outline:2px dashed #557b64;outline-offset:6px}
+.stage{position:absolute;inset:0}
+h1{position:absolute;left:6%;top:7%;font-size:clamp(25px,2.5vw,36px);font-weight:400;letter-spacing:3px;margin:0;transform:rotate(-1deg)}
+.caption{position:absolute;left:6%;top:17%;font-size:20px;line-height:1.7;letter-spacing:1px;margin:0}
+/* One shared height keeps the strip inside the cylinder's rims at every viewport size. */
+.film-assembly{--cartridge-width:calc(var(--film-height)*1.5*708/1252);position:absolute;left:5%;right:5%;top:34%;height:calc(var(--film-height)*1.5)}
+.cartridge{position:absolute;left:0;top:0;width:var(--cartridge-width);z-index:3;pointer-events:none;filter:drop-shadow(2px 4px 2px #51433226)}
+.viewport{position:absolute;left:calc(var(--cartridge-width)*.88);right:0;top:calc(var(--film-height)*.29);height:var(--film-height);overflow:hidden;touch-action:none;cursor:grab}
+.viewport.dragging{cursor:grabbing}
+.track{position:relative;width:var(--film-width);height:var(--film-height);will-change:transform;user-select:none;transform:translateX(calc(0px - var(--film-width)))}
+.frame{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
+.leader{position:absolute;left:calc(100% - 2px);top:0;width:var(--leader-width);height:100%;pointer-events:none}
+.leader img{display:block;width:100%;height:100%}
+.leader span{position:absolute;right:17%;top:24%;color:#eee7d7;font:clamp(24px,3vw,38px) Georgia,serif;letter-spacing:2px;transform:rotate(-4deg)}
+.photo{position:absolute;border:0;padding:0;background:#e7decc;overflow:hidden;cursor:inherit;display:grid;place-items:center;font-size:clamp(15px,1.5vw,22px);letter-spacing:1px;color:#89816f}
+.photo img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;pointer-events:none}.photo span{pointer-events:none}.photo.filled span{display:none}
+.status{position:absolute;left:28%;bottom:155px;right:6%;font-size:17px;line-height:1.6;color:#857a67;margin:0}
+.controls{position:absolute;left:6%;right:6%;bottom:85px;display:flex;gap:20px;align-items:center}
+.controls button{background:none;border:0;min-width:48px;min-height:48px;font-size:30px;cursor:pointer}.controls button:disabled{opacity:.25;cursor:default}
+.progress{height:2px;flex:1;background:#8a7c5930;position:relative}.progress i{display:block;height:2px;background:#7f8771;width:0}.hint{margin:0 8px;font-size:18px;white-space:nowrap}
+@media(max-width:700px){
+ h1{left:24px;right:20px;top:32px;font-size:25px;line-height:1.6}
+ .caption{left:24px;top:18%;font-size:19px}
+ .film-assembly{left:14px;right:14px;top:35%}
+ .status{left:24px;right:24px;bottom:172px;font-size:15px}
+ .controls{left:18px;right:18px;bottom:105px;gap:8px}.hint{font-size:16px;margin:0 5px}
+}
+@media(max-height:550px){.caption{top:auto;bottom:125px;font-size:15px}.film-assembly{top:26%}.status{left:28%;bottom:110px;font-size:14px}.controls{bottom:55px;left:27%}h1{top:5%;font-size:24px}}

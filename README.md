@@ -8,7 +8,7 @@ Static HTML/CSS/JavaScript. Entry: `index.html`.
 Run locally: `python3 -m http.server 8766 --bind 127.0.0.1`.
 GitHub Pages can publish directly from the root of the `main` branch.
 
-Personal photos and reward text are pending. Selected photos are previewed only
+Childhood portraits are included; travel photos and reward text are pending. Selected photos are previewed only
 in the current browser and are not uploaded or retained after refreshing.
 
 Map geography: Natural Earth public-domain data, https://www.naturalearthdata.com/.

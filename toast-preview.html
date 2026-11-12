@@ -28,8 +28,8 @@ button:focus-visible{outline:2px dashed #ac9780;outline-offset:10px}.cake:disabl
 .caption{position:absolute;left:110px;bottom:50px;margin:0;font:13px 'Kaiti SC','STKaiti',KaiTi,serif;letter-spacing:1px;background:#f5eddd90;padding:4px 8px;color:#5b4e40}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{transition-duration:.01ms!important;animation-duration:.01ms!important}}
-</style></head>
-<body>
+</style><link rel="stylesheet" href="cursors.css"><link rel="stylesheet" href="responsive.css"><link rel="stylesheet" href="person-transition.css"></head>
+<body data-scene="toast">
 <main aria-label="生日关灯碰杯互动小样">
  <div class="stage"><p class="hint">点一下，关灯</p><button class="cake" id="cake" aria-label="点击生日蛋糕，关灯碰杯"><img src="asset-letter-cake-cake-transparent.png" alt="写着彩色 HAPPY BIRTHDAY 字母的奶油蛋糕"></button></div>
  <div class="shade" aria-hidden="true"></div>
@@ -46,7 +46,7 @@ button:focus-visible{outline:2px dashed #ac9780;outline-offset:10px}.cake:disabl
 <script>
 const cake=document.getElementById('cake'),left=document.getElementById('left-cup'),right=document.getElementById('right-cup'),particles=document.getElementById('particles'),splashLayer=document.getElementById('splash'),status=document.getElementById('status');
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;let started=false,busy=false,repeat=0,cleanup;
-function fit(){document.documentElement.style.setProperty('--scale',Math.min(innerWidth/1600,innerHeight/900))}fit();addEventListener('resize',fit);
+function fit(){document.documentElement.style.setProperty('--scale',Math.min(innerWidth/(innerWidth<=700&&innerHeight>innerWidth?800:1600),innerHeight/(innerWidth<=700&&innerHeight>innerWidth?1100:900)))}fit();addEventListener('resize',fit);
 function splash(){
  splashLayer.replaceChildren();if(reduced)return;
  let seed=1220+repeat;const random=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296};
@@ -95,4 +95,4 @@ cake.addEventListener('click',()=>{
 });
 right.addEventListener('click',clink);
 </script>
-<script src="journey-bridge.js"></script></body></html>
+<script src="person-transition.js"></script><script src="journey-bridge.js"></script></body></html>
