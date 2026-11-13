@@ -18,7 +18,7 @@
   const item={frame,ready:scenes[index].file==='film-preview.html',modal:false,advanced:false};
   item.resourcesLoaded=new Promise(resolve=>frame.addEventListener('load',()=>{item.resolveLoaded();resolve();},{once:true}));
   item.loaded=new Promise(resolve=>{item.resolveLoaded=resolve;});records.set(index,item);const embedded=index===0?document.getElementById('opening-document')?.textContent:null;
-  if(embedded){try{frame.srcdoc=JSON.parse(embedded);}catch{frame.src=scenes[index].file+'?v=6e51837d9bd8';}}else frame.src=scenes[index].file+'?v=6e51837d9bd8';host.append(frame);return item;
+  if(embedded){try{frame.srcdoc=JSON.parse(embedded);}catch{frame.src=scenes[index].file+'?v=b525423b15c4';}}else frame.src=scenes[index].file+'?v=b525423b15c4';host.append(frame);return item;
  }
  function navigationState(){
   const item=records.get(current);if(!item)return;

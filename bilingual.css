@@ -281,3 +281,33 @@ body[data-scene="camera"] .eject{pointer-events:none}body[data-scene="camera"] .
  #scratch .scratch-prize .bi-zh{font-size:14px!important;letter-spacing:.08em!important}
  #scratch .scratch-prize{gap:5px}
 }
+
+/* Final gift: an official Ace Pro image on the existing paper keepsake. */
+.gift-scene .letter,.enlarged-paper{background-image:none}
+.gift-scene .letter{padding:22px 18px 16px;min-height:220px;aspect-ratio:1.55}
+.product-keepsake{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;width:100%;height:100%}
+.product-keepsake .gift-product{display:block;max-width:90%;width:auto;height:160px;object-fit:contain;filter:drop-shadow(2px 5px 4px #51423320)}
+.product-name{font:17px/1.3 Georgia,serif;letter-spacing:1px;color:#594b43;text-align:center}
+.enlarged-paper{padding:38px 24px 24px;min-height:0}
+.enlarged-paper .gift-product{width:min(100%,440px);height:min(48dvh,390px);max-width:100%}
+.enlarged-paper .product-name{font-size:22px}
+@media(max-width:700px){
+ .gift-scene.revealed .gift{width:min(28vw,15dvh)}
+ .gift-scene.revealed .greeting .ding,.gift-scene.revealed .greeting .invitation{display:none}
+ .gift-scene.revealed .letter-column{padding-top:10px}
+ .gift-scene.revealed .letter-pocket{margin-top:14px}
+ .gift-scene .letter{min-height:0;height:170px;aspect-ratio:auto;padding:20px 14px 14px}
+ .product-keepsake{gap:8px}
+ .product-keepsake .gift-product{height:112px;max-width:86%}
+ .product-name{font-size:16px}
+ .enlarged-paper .gift-product{height:min(43dvh,300px);width:100%;max-width:100%}
+ .enlarged-paper .product-name{font-size:20px}
+ .enlarged-paper{min-height:0;padding:30px 18px 22px}
+}
+@media(max-width:700px) and (max-height:600px){
+ .gift-scene.revealed .gift-layout{top:22px}
+ .gift-scene .letter{height:145px}
+ .gift-scene .letter .gift-product{height:90px}
+ .gift-scene.revealed .greeting h1{font-size:19px}
+ .gift-scene.revealed .greeting h1 .bi-th{font-size:12px!important}
+}
