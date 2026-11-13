@@ -49,7 +49,7 @@ h1{position:absolute;left:6%;top:7%;font-size:clamp(25px,2.5vw,36px);font-weight
 
 .film-assembly{touch-action:none;-webkit-user-select:none;user-select:none;cursor:grab}.film-assembly:active{cursor:grabbing}
 
-.photo.filled{background:#191b19}.photo.filled img{object-fit:contain}
+.photo.filled{background:#191b19}.photo.filled img{object-fit:cover}
 </style><style>/* Self-hosted OFL fonts. Licenses: asset-fonts-lxgwwenkaitc-license.txt, asset-fonts-mali-license.txt */
 @font-face{font-family:BirthdayWenKai;src:url('asset-fonts-wenkai-site.ttf?v=mobile-map-repair') format('truetype');font-style:normal;font-weight:400;font-display:swap}
 @font-face{font-family:BirthdayMali;src:url('asset-fonts-mali-regular.ttf') format('truetype');font-style:normal;font-weight:400;font-display:swap}
@@ -377,9 +377,9 @@ dialog.memory-viewer::backdrop{background:#29221ce0;backdrop-filter:blur(5px)}
  const viewport=document.getElementById('viewport'),gestureArea=document.getElementById('film-assembly'),track=document.getElementById('track'),input=document.getElementById('file'),status=document.getElementById('status'),previous=document.getElementById('previous'),next=document.getElementById('next'),progress=document.getElementById('progress'),captions=document.getElementById('caption-track');
  let extension=0,width=1,start=null,suppressClick=false,active=null,complete=false,paintFrame=0,pendingValue=null,viewportWidth=0,lastPercent=-1,clickReset=0,motionFrame=0,motionTarget=null;
  const memories=[
-  {src:'asset-personal-memories-film-01.webp',thumb:'asset-personal-memories-film-01-thumb.webp'},
-  {src:'asset-personal-memories-film-02.webp',thumb:'asset-personal-memories-film-02-thumb.webp'},
-  {src:'asset-personal-memories-film-03.webp',thumb:'asset-personal-memories-film-03-thumb.webp'}
+  {src:'asset-personal-memories-film-01.webp',thumb:'asset-personal-memories-film-01-crop.webp'},
+  {src:'asset-personal-memories-film-02.webp',thumb:'asset-personal-memories-film-02-crop.webp'},
+  {src:'asset-personal-memories-film-03.webp',thumb:'asset-personal-memories-film-03-crop.webp'}
  ];
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
  const photoURLs=new Map(),photoButtons=[];

@@ -2,9 +2,9 @@
  const viewport=document.getElementById('viewport'),gestureArea=document.getElementById('film-assembly'),track=document.getElementById('track'),input=document.getElementById('file'),status=document.getElementById('status'),previous=document.getElementById('previous'),next=document.getElementById('next'),progress=document.getElementById('progress'),captions=document.getElementById('caption-track');
  let extension=0,width=1,start=null,suppressClick=false,active=null,complete=false,paintFrame=0,pendingValue=null,viewportWidth=0,lastPercent=-1,clickReset=0,motionFrame=0,motionTarget=null;
  const memories=[
-  {src:'asset-personal-memories-film-01.webp',thumb:'asset-personal-memories-film-01-thumb.webp'},
-  {src:'asset-personal-memories-film-02.webp',thumb:'asset-personal-memories-film-02-thumb.webp'},
-  {src:'asset-personal-memories-film-03.webp',thumb:'asset-personal-memories-film-03-thumb.webp'}
+  {src:'asset-personal-memories-film-01.webp',thumb:'asset-personal-memories-film-01-crop.webp'},
+  {src:'asset-personal-memories-film-02.webp',thumb:'asset-personal-memories-film-02-crop.webp'},
+  {src:'asset-personal-memories-film-03.webp',thumb:'asset-personal-memories-film-03-crop.webp'}
  ];
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
  const photoURLs=new Map(),photoButtons=[];
