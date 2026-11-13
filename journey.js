@@ -18,7 +18,7 @@
   const item={frame,ready:scenes[index].file==='film-preview.html',modal:false,advanced:false};
   item.resourcesLoaded=new Promise(resolve=>frame.addEventListener('load',()=>{item.resolveLoaded();resolve();},{once:true}));
   item.loaded=new Promise(resolve=>{item.resolveLoaded=resolve;});records.set(index,item);const embedded=index===0?document.getElementById('opening-document')?.textContent:null;
-  if(embedded){try{frame.srcdoc=JSON.parse(embedded);}catch{frame.src=scenes[index].file+'?v=b525423b15c4';}}else frame.src=scenes[index].file+'?v=b525423b15c4';host.append(frame);return item;
+  if(embedded){try{frame.srcdoc=JSON.parse(embedded);}catch{frame.src=scenes[index].file+'?v=00c6dbda3d6b';}}else frame.src=scenes[index].file+'?v=00c6dbda3d6b';host.append(frame);return item;
  }
  function navigationState(){
   const item=records.get(current);if(!item)return;
@@ -39,9 +39,10 @@
   if(scenes[index].file==='toast-preview.html'&&person)item.frame.contentWindow.postMessage({type:'journey:person',person},location.origin);
   item.frame.contentWindow.postMessage({type:'journey:activate'},location.origin);
   // Let visible artwork finish before a hidden page competes for bandwidth.
-  // Data-saving and slow connections only load the page the visitor requests.
+  // Only a known fast connection opts into background scene downloads.
+  // WeChat/Safari often expose no connection estimate.
   const connection=typeof navigator==='undefined'?null:navigator.connection;
-  if(index+1<scenes.length&&!connection?.saveData&&!/^(slow-)?2g$/.test(connection?.effectiveType||'')){
+  if(index+1<scenes.length&&connection?.effectiveType==='4g'&&!connection.saveData){
    item.resourcesLoaded.then(()=>setTimeout(()=>{if(token===navigation&&current===index)record(index+1);},500));
   }
  }

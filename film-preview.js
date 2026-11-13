@@ -2,9 +2,9 @@
  const viewport=document.getElementById('viewport'),gestureArea=document.getElementById('film-assembly'),track=document.getElementById('track'),input=document.getElementById('file'),status=document.getElementById('status'),previous=document.getElementById('previous'),next=document.getElementById('next'),progress=document.getElementById('progress'),captions=document.getElementById('caption-track');
  let extension=0,width=1,start=null,suppressClick=false,active=null,complete=false,paintFrame=0,pendingValue=null,viewportWidth=0,lastPercent=-1,clickReset=0,motionFrame=0,motionTarget=null;
  const memories=[
-  {src:'asset-personal-memories-film-01.webp',thumb:'asset-personal-memories-film-01-crop.webp'},
-  {src:'asset-personal-memories-film-02.webp',thumb:'asset-personal-memories-film-02-crop.webp'},
-  {src:'asset-personal-memories-film-03.webp',thumb:'asset-personal-memories-film-03-crop.webp'}
+  {src:'asset-personal-memories-film-01.webp?v=6a937fd4d9',thumb:'asset-personal-memories-film-01-crop.webp?v=d6823632a0'},
+  {src:'asset-personal-memories-film-02.webp?v=7eb58df79f',thumb:'asset-personal-memories-film-02-crop.webp?v=9719d16109'},
+  {src:'asset-personal-memories-film-03.webp?v=c12b71cdfa',thumb:'asset-personal-memories-film-03-crop.webp?v=a5c6df3419'}
  ];
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
  const photoURLs=new Map(),photoButtons=[];
@@ -45,7 +45,31 @@
  }
  fit();addEventListener('resize',fit);
  addEventListener('message',event=>{if(event.source===parent&&event.origin===location.origin&&event.data?.type==='journey:activate')fit();});
- fetch('asset-film-strip-geometry.json').then(r=>{if(!r.ok)throw Error();return r.json()}).then(g=>{
+ Promise.resolve({
+  "width": 3421,
+  "height": 955,
+  "windows": [
+    {
+      "x": 75,
+      "y": 150,
+      "width": 1061,
+      "height": 657
+    },
+    {
+      "x": 1190,
+      "y": 152,
+      "width": 1071,
+      "height": 652
+    },
+    {
+      "x": 2311,
+      "y": 151,
+      "width": 1056,
+      "height": 654
+    }
+  ],
+  "sprocketHoles": 72
+}).then(g=>{
   g.windows.forEach((w,i)=>{
    const b=document.createElement('button');b.className='photo filled';b.dataset.slot=3-i;b.setAttribute('aria-label',`查看照片 ${3-i}`);
    b.style.cssText=`left:${(w.x-2)/g.width*100}%;top:${(w.y-2)/g.height*100}%;width:${(w.width+4)/g.width*100}%;height:${(w.height+4)/g.height*100}%`;

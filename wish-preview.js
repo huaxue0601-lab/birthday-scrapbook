@@ -62,7 +62,7 @@
  match.addEventListener('pointerup',e=>dropMatch(e));match.addEventListener('pointercancel',e=>dropMatch(e,true));match.addEventListener('lostpointercapture',e=>dropMatch(e,true));
  match.addEventListener('click',e=>{if(ignoreMatchClick&&e.detail!==0){ignoreMatchClick=false;return;}illuminate();});
  place.addEventListener('click',put);light.addEventListener('click',illuminate);blow.addEventListener('click',extinguish);candle.addEventListener('click',()=>state==='ready'?illuminate():extinguish());
- document.getElementById('birthday-card').addEventListener('click',()=>window.openMemoryPhoto('asset-personal-memories-birthday-card.webp','生日贺卡'));
+ document.getElementById('birthday-card').addEventListener('click',()=>window.openMemoryPhoto('asset-personal-memories-birthday-card.webp?v=a6651f3ade','生日贺卡'));
  replay.addEventListener('click',()=>{document.getElementById('birthday-card').hidden=true;state='ready';scene.classList.remove('finished');candle.disabled=false;replay.hidden=true;light.hidden=false;document.getElementById('wish-line').innerHTML='闭上眼睛，<br>许一个只属于你的愿望。';document.getElementById('wish-small').textContent='不用告诉我，愿它悄悄实现。';illuminate();});
  function activate(){active=true;layout();}
  addEventListener('resize',()=>{if(matchDrag){const id=matchDrag.id;matchDrag=null;ignoreMatchClick=true;if(match.hasPointerCapture(id))match.releasePointerCapture(id);resetMatch();}if(drag){const d=drag;drag=null;d.note.classList.remove('dragging');if(d.note.hasPointerCapture(d.id))d.note.releasePointerCapture(d.id);}free=null;if(active)layout();});

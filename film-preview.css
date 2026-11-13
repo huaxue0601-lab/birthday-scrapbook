@@ -1,5 +1,5 @@
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}
-body{background:#eee8dc url('asset-envelope-background-paper.jpg') center/cover;color:#494438;font-family:'Kaiti SC','STKaiti',KaiTi,serif}
+body{background:#eee8dc url('asset-envelope-background-paper.webp?v=50a275f07c') center/cover;color:#494438;font-family:'Kaiti SC','STKaiti',KaiTi,serif}
 button{font:inherit;color:inherit}button:focus-visible,.viewport:focus-visible{outline:2px dashed #557b64;outline-offset:6px}
 .stage{position:absolute;inset:0}
 h1{position:absolute;left:6%;top:7%;font-size:clamp(25px,2.5vw,36px);font-weight:400;letter-spacing:3px;margin:0;transform:rotate(-1deg)}

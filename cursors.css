@@ -1,6 +1,6 @@
 @media (hover:hover) and (pointer:fine){
- html,body{cursor:url('asset-cursors-arrow.png') 3 2,auto}
- button,button *,a,a *,[role="button"],[role="button"] *{cursor:url('asset-cursors-hand.png') 12 3,pointer!important}
+ html,body{cursor:url('asset-cursors-arrow.png?v=38ef40e0b0') 3 2,auto}
+ button,button *,a,a *,[role="button"],[role="button"] *{cursor:url('asset-cursors-hand.png?v=75afa676b8') 12 3,pointer!important}
  button:disabled,button:disabled *{cursor:default!important}
  .scratch-window,.scratch-window *{cursor:crosshair!important}
  input[type="text"],textarea,[contenteditable="true"]{cursor:text!important}

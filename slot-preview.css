@@ -1,5 +1,5 @@
 body[data-slot-standalone]{margin:0;background:#eee9df}
-#slot{position:fixed;inset:0;width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;border:0;overflow:hidden;box-sizing:border-box;isolation:isolate;background:#eee9df url('asset-envelope-background-paper.jpg') center/cover;color:#4b4038;font-family:'Kaiti SC','STKaiti',KaiTi,serif;animation:none}
+#slot{position:fixed;inset:0;width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;border:0;overflow:hidden;box-sizing:border-box;isolation:isolate;background:#eee9df url('asset-envelope-background-paper.webp?v=50a275f07c') center/cover;color:#4b4038;font-family:'Kaiti SC','STKaiti',KaiTi,serif;animation:none}
 #slot::backdrop{background:#eee9df;backdrop-filter:none}#slot:before{content:'';position:absolute;inset:0;background:#fffefa40;z-index:-1;pointer-events:none}
 #slot button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}#slot button:focus-visible{outline:2px dashed #a45b5d;outline-offset:6px}#slot button:disabled{cursor:default}
 .slot-heading{position:absolute;left:32px;top:26px;margin:0;font-size:17px;letter-spacing:2px;transform:rotate(-2deg)}
@@ -10,7 +10,7 @@ body[data-slot-standalone]{margin:0;background:#eee9df}
 .slot-arch{position:absolute;left:9%;top:3%;width:71%;height:18%;z-index:3;pointer-events:none;opacity:.78}
 .slot-panel-copy{position:absolute;left:16%;top:70.8%;width:57%;text-align:center;z-index:3;pointer-events:none;color:#823b3e;font:700 5.2cqw/1.24 Georgia,serif;letter-spacing:.035em;transform:rotate(-.7deg)}
 .slot-panel-copy:before,.slot-panel-copy:after{content:'❧';display:block;font-size:6cqw;line-height:1.1;color:#a45d61}
-.slot-reel{position:absolute;overflow:hidden;background:#f6eedc url('asset-slot-machine-reel-paper.png') center/100% 100%;z-index:1}
+.slot-reel{position:absolute;overflow:hidden;background:#f6eedc url('asset-slot-machine-reel-paper.png?v=1cc2d254f4') center/100% 100%;z-index:1}
 .slot-reel:after{content:'';position:absolute;inset:0;background:linear-gradient(#805b3e30,transparent 20%,transparent 80%,#805b3e25);pointer-events:none}
 .slot-reel-track{position:absolute;inset:0;display:flex;flex-direction:column;will-change:transform}
 .slot-symbol{height:33.333333%;flex:none;width:100%;display:grid;place-items:center}.slot-symbol img{width:77%;height:78%;object-fit:contain;pointer-events:none}

@@ -1,5 +1,5 @@
 body[data-scratch-standalone]{margin:0;background:#e9e2d3}
-#scratch{position:fixed;inset:0;width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;border:0;overflow:hidden;box-sizing:border-box;background:#eee9df url('asset-envelope-background-paper.jpg') center/cover;color:#37332f;font-family:'Kaiti SC','STKaiti',KaiTi,serif;animation:none;isolation:isolate}
+#scratch{position:fixed;inset:0;width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;border:0;overflow:hidden;box-sizing:border-box;background:#eee9df url('asset-envelope-background-paper.webp?v=50a275f07c') center/cover;color:#37332f;font-family:'Kaiti SC','STKaiti',KaiTi,serif;animation:none;isolation:isolate}
 #scratch::backdrop{background:#eee9df;backdrop-filter:none}
 #scratch:before{content:'';position:absolute;inset:0;background:#fffefa40;pointer-events:none;z-index:-1}
 #scratch button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
@@ -31,7 +31,7 @@ body[data-scratch-standalone]{margin:0;background:#e9e2d3}
 #scratch:has(.scratch-window:focus-visible) .scratch-keyboard-hint{opacity:1}
 .scratch-stamp{position:absolute;left:8%;top:55%;width:84%;aspect-ratio:3.15;display:grid;place-items:center;transform:rotate(-11deg);background:#272422;color:#fbf2de;clip-path:polygon(0 3%,8% 0,22% 2%,40% 0,58% 1%,81% 0,100% 2%,99% 36%,100% 64%,99% 99%,74% 98%,52% 100%,29% 98%,0 100%,1% 72%,0 40%);filter:drop-shadow(2px 3px 2px #57453842);opacity:0;pointer-events:none;visibility:hidden}
 .scratch-stamp:before{content:'';position:absolute;inset:7% 2.5%;border:1px solid #eee4d27a}
-.scratch-stamp:after{content:'';position:absolute;inset:0;opacity:.08;background-image:url('asset-travel-map-land-paper.jpg');background-size:190px;mix-blend-mode:screen;pointer-events:none}
+.scratch-stamp:after{content:'';position:absolute;inset:0;opacity:.08;background-image:url('asset-travel-map-land-paper.webp?v=7a8495abd0');background-size:190px;mix-blend-mode:screen;pointer-events:none}
 .scratch-stamp strong{font-family:'Kaiti SC','STKaiti',KaiTi,serif;font-size:11.2cqw;font-weight:900;letter-spacing:.04em;padding-left:.04em;white-space:nowrap}
 .scratch-card.is-complete .scratch-stamp{visibility:visible;opacity:1;animation:scratch-stamp .48s cubic-bezier(.2,.8,.2,1) both}
 @keyframes scratch-arrive{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
