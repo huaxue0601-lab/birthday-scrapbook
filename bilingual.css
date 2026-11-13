@@ -246,3 +246,38 @@ body[data-scene="camera"] .eject{pointer-events:none}body[data-scene="camera"] .
  .bilingual #memory .photo-note .bi-zh{font-size:10px!important;line-height:1.05!important;letter-spacing:0!important}
  .bilingual #memory .photo-note .bi-th{font-size:10px!important;line-height:1.05!important;margin-top:1px!important}
 }
+
+/* Reward names fit the paper, with Thai kept horizontal for readability. */
+.scratch-prize{writing-mode:horizontal-tb;flex-direction:column;padding:8% 4%;gap:8px;letter-spacing:0;text-align:center}
+.scratch-prize .bi-zh{writing-mode:vertical-rl;font-size:clamp(15px,6cqw,25px)!important;line-height:1.2!important;letter-spacing:.14em!important}
+.scratch-prize .bi-th{writing-mode:horizontal-tb;font-size:clamp(10px,3.5cqw,13px)!important;line-height:1.3!important;margin:0!important}
+.slot-ticket-copy{display:flex;flex-direction:column;justify-content:center;text-align:center;left:7%;right:28%;top:29%;bottom:12%;gap:3px;letter-spacing:0}
+.slot-ticket-copy .bi-zh{font-size:clamp(12px,1.2vw,17px)!important;line-height:1.15!important;letter-spacing:0!important}
+.slot-ticket-copy .bi-th{font-size:clamp(10px,.85vw,12px)!important;line-height:1.2!important;margin:0!important}
+.voucher-number{position:absolute;left:77%;right:5%;top:47%;font:10px/1.2 Georgia,serif;text-align:center;color:#80585b}
+@media(max-width:700px) and (orientation:portrait){
+ #slot .slot-rewards{left:43%;gap:12px;top:48px;bottom:0}
+ #slot .slot-machine{width:min(36vw,calc((min(42dvh,350px) - 20px)*953/1798))}
+ #slot .slot-ticket-copy .bi-zh{font-size:13px!important}
+ #slot .slot-ticket-copy .bi-th{font-size:10px!important}
+ #slot .slot-status .bi-th{font-size:11px!important}
+ #slot .slot-message .bi-th{font-size:12px!important}
+ .voucher-number{font-size:9px}
+ #scratch .scratch-count{font-size:12px}
+ #scratch .scratch-count .bi-th{font-size:11px!important}
+}
+/* Keep the completion stamp above the revealed rewards. */
+.scratch-card.is-complete .scratch-title{opacity:0;transition:opacity .3s}
+.scratch-card.is-complete .scratch-stamp{top:14%}
+@media(max-width:700px) and (orientation:portrait){
+ #slot .slot-rewards{top:32px;bottom:0;gap:10px}
+ #slot .slot-ticket{flex:1 1 0;min-height:0;height:0}
+ #slot .slot-ticket img{height:100%;width:100%}
+ #slot .slot-win-stamp{top:-35px}
+}
+@media(max-width:350px) and (orientation:portrait){
+ #slot .slot-ticket-copy .bi-zh{font-size:12px!important}
+ #slot .slot-ticket-copy .bi-th{font-size:9.5px!important;line-height:1.1!important}
+ #scratch .scratch-prize .bi-zh{font-size:14px!important;letter-spacing:.08em!important}
+ #scratch .scratch-prize{gap:5px}
+}

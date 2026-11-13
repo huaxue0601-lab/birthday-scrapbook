@@ -1,5 +1,9 @@
 (() => {
- const prizes=['','',''];
+ const prizes=['鲜花一束','口红一支','心选大餐一顿'];
+ const voucherIds=['birthday-26-flowers','birthday-26-lipstick','birthday-26-dinner'];
+ const storageKey='birthday-26-issued-vouchers';
+ let earned=[];try{const saved=JSON.parse(localStorage.getItem(storageKey)||'[]');if(Array.isArray(saved))earned=saved.filter(id=>voucherIds.includes(id));}catch{}
+ function rememberVouchers(){earned=[...new Set([...earned,...voucherIds])];try{localStorage.setItem(storageKey,JSON.stringify(earned));}catch{}}
  const windows=[{x:162,y:740,w:157,h:359},{x:346,y:740,w:162,h:359},{x:536,y:740,w:163,h:359}];
  const symbols=['gold','red','sage','blue','gold','sage','red','blue','gold','red','sage','blue','gold','sage','red','blue','gold','red','sage'];
  const standalone=document.body.hasAttribute('data-slot-standalone'),reduce=matchMedia('(prefers-reduced-motion: reduce)');
@@ -12,7 +16,7 @@
  ${windows.map((r,i)=>`<div class="slot-reel" style="left:${r.x/953*100}%;top:${r.y/1798*100}%;width:${r.w/953*100}%;height:${r.h/1798*100}%" aria-hidden="true"><div class="slot-reel-track">${symbols.map(color=>`<span class="slot-symbol"><img src="asset-slot-machine-heart-${color}.png" alt=""></span>`).join('')}</div></div>`).join('')}
  <div class="slot-panel-copy" aria-hidden="true">TAKE THE RISK<br>OR LOSE<br>THE CHANCE</div>
  <button class="slot-lever" aria-label="拉下红色手柄，让爱心转起来" aria-describedby="slot-status"><img src="asset-slot-machine-lever.webp" alt="" draggable="false"></button><span class="slot-mouth"></span></div>
- <div class="slot-rewards">${prizes.map((_,i)=>`<figure class="slot-ticket" aria-label="第${i+1}张奖券" aria-hidden="true"><img src="asset-reward-tickets-ticket-0${i+1}.webp" alt=""><span class="slot-ticket-copy"></span></figure>`).join('')}<div class="slot-win-stamp" aria-hidden="true">中奖</div></div>
+ <div class="slot-rewards">${prizes.map((_,i)=>`<figure class="slot-ticket" aria-label="第${i+1}张奖券" aria-hidden="true"><img src="asset-reward-tickets-ticket-0${i+1}.webp" alt=""><span class="slot-ticket-copy"></span><small class="voucher-number" data-no-translate>26-${String(i+1).padStart(2,'0')}</small></figure>`).join('')}<div class="slot-win-stamp" aria-hidden="true">中奖</div></div>
  </div><p class="slot-message">拉一下，看看今天的好运。</p><p class="slot-status" id="slot-status" role="status">向下拉动红色手柄，也可以点击。</p><div class="slot-footer"><button id="reset-slot" hidden>再拉一次 ↻</button><button id="continue-slot" hidden>收好奖券，继续 →</button></div>`;
  document.body.append(dialog);
  const machine=dialog.querySelector('.slot-machine'),lever=dialog.querySelector('.slot-lever'),tracks=[...dialog.querySelectorAll('.slot-reel-track')],tickets=[...dialog.querySelectorAll('.slot-ticket')],resetButton=dialog.querySelector('#reset-slot'),continueButton=dialog.querySelector('#continue-slot'),message=dialog.querySelector('.slot-message'),status=dialog.querySelector('#slot-status');
@@ -53,7 +57,7 @@
     await motion(ticket,[{transform:`translate(${dx}px,${dy}px) scale(.18) rotate(-12deg)`,opacity:0},{opacity:1,offset:.2},{transform:`translate(0,0) scale(1) rotate(${[-4,2,-2][i]}deg)`,opacity:1}],680);
    }
    if(token!==generation)return;
-   state='won';dialog.classList.add('won');resetButton.hidden=false;continueButton.hidden=false;message.textContent='三张小幸运，收好。';status.textContent='三张奖券已全部收好。';continueButton.focus({preventScroll:true});
+   rememberVouchers();state='won';dialog.classList.add('won');resetButton.hidden=false;continueButton.hidden=false;message.textContent='截图发给我，领取你的礼物。';status.textContent='每券限兑一次，重玩不叠加。';continueButton.focus({preventScroll:true});
    document.dispatchEvent(new Event('scene:complete'));
   }catch{if(token===generation)reset();}
  }

@@ -1,7 +1,6 @@
 (() => {
- // Hua will provide the three rewards later. Empty strings intentionally keep
- // the revealed paper blank; no invented rewards or relationship promises.
- const prizes=['','',''];
+ const prizes=['奶茶一杯','小蛋糕一份','夜宵一顿'];
+ const details=['口味你选，我来买单。','今天的甜，给你加一份。','想吃什么，发给我就好。'];
  const windows=[{x:77,y:720,width:285,height:875},{x:408,y:720,width:280,height:875},{x:733,y:720,width:279,height:875}];
  const standalone=document.body.hasAttribute('data-scratch-standalone');
  const dialog=document.createElement('dialog');dialog.id='scratch';dialog.setAttribute('aria-label','三栏刮刮乐');
@@ -11,7 +10,7 @@
   <button class="scratch-close" aria-label="回到地图">×</button>
   <div class="scratch-layout"><div class="scratch-card">
    <img class="scratch-paper" src="asset-scratch-card-card-web.webp" alt="" draggable="false" width="1089" height="1705">
-   <h1 class="scratch-title"><span>intangible</span><span>lottery ticket!</span></h1>
+   <h1 class="scratch-title"><span>birthday</span><span>lottery ticket!</span></h1>
    <span class="scratch-rule" aria-hidden="true"></span>
    ${windows.map((g,i)=>`<button class="scratch-window" data-index="${i}" aria-label="刮开第${i+1}栏" aria-describedby="scratch-key-help" style="left:${g.x/1089*100}%;top:${g.y/1705*100}%;width:${g.width/1089*100}%;height:${g.height/1705*100}%"><span class="scratch-prize" aria-hidden="true"></span><canvas width="${g.width}" height="${g.height}" aria-hidden="true"></canvas></button>`).join('')}
    <div class="scratch-stamp" aria-hidden="true"><strong>全部中奖！</strong></div>
@@ -48,11 +47,12 @@
  function complete(slot){
   if(slot.done)return;
   slot.done=true;stopPointer(slot);slot.button.classList.add('is-revealed');slot.button.setAttribute('aria-label',`第${slot.index+1}栏已刮开${prizes[slot.index]?'：'+prizes[slot.index]:''}`);
+  instruction.textContent=details[slot.index];
   const count=slots.filter(s=>s.done).length;status.textContent=`已刮开 ${count} / 3 栏`;
   if(count===3){
-   instruction.textContent='这一份好运，都是你的。';
+   instruction.textContent='截图发给我，领取你的礼物。';
    clearTimeout(stampTimer);stampTimer=setTimeout(()=>{
-    card.classList.add('is-complete');reset.hidden=false;nextSlot.hidden=false;status.textContent='三栏已全部刮开，全部中奖！';
+    card.classList.add('is-complete');reset.hidden=false;nextSlot.hidden=false;status.textContent='每券限兑一次，重玩不叠加。';
    },matchMedia('(prefers-reduced-motion: reduce)').matches?0:420);
   }
  }
