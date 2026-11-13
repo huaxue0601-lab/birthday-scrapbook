@@ -38,3 +38,5 @@ h1{position:absolute;left:6%;top:7%;font-size:clamp(25px,2.5vw,36px);font-weight
 .viewport{-webkit-user-select:none;user-select:none;overscroll-behavior-x:contain}.track,.film-caption-track{will-change:transform;backface-visibility:hidden}.progress{overflow:hidden}.progress i{width:100%;transform:scaleX(0);transform-origin:left center;will-change:transform}.track img{-webkit-user-drag:none}.photo{-webkit-user-select:none;user-select:none}.film-caption-track{pointer-events:none}
 
 .film-assembly{touch-action:none;-webkit-user-select:none;user-select:none;cursor:grab}.film-assembly:active{cursor:grabbing}
+
+.photo.filled{background:#191b19}.photo.filled img{object-fit:contain}

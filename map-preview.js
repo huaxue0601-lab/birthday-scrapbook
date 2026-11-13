@@ -30,7 +30,7 @@ memory.addEventListener('close',()=>returnFocus?.focus({preventScroll:true}));
 const spreadButton=document.getElementById('spread-photos'),gatherButton=document.getElementById('gather-photos'),words=document.querySelector('.memory-words');
 spreadButton.addEventListener('click',()=>{card.classList.add('spread');words.inert=true;gatherButton.hidden=false;document.querySelector('.p1').focus({preventScroll:true})});
 gatherButton.addEventListener('click',()=>{card.classList.remove('spread');words.inert=false;gatherButton.hidden=true;spreadButton.focus({preventScroll:true})});
-document.querySelectorAll('.polaroid').forEach(button=>button.addEventListener('click',()=>{photoTarget=button;fileInput.value='';fileInput.click()}));
+document.querySelectorAll('.polaroid').forEach(button=>button.addEventListener('click',()=>{window.openMemoryPhoto(button.dataset.photo,button.querySelector('.photo-note').textContent)}));
 fileInput.addEventListener('change',()=>{
  const file=fileInput.files[0],target=photoTarget;if(!file||!target)return;
  const url=URL.createObjectURL(file),image=new Image();image.alt='你选择的曼谷见面照片';image.className='user-photo';image.draggable=false;

@@ -233,3 +233,16 @@ body[data-scene="camera"] .eject{pointer-events:none}body[data-scene="camera"] .
 #flight #pause-flight,#flight #replay-flight{order:1;padding:5px 12px;background:#18303e80;border-radius:4px;opacity:1}
 #map-next-scratch{border:1px solid #eadac0!important;background:#f5ecdc!important;color:#665447!important;padding:10px 14px!important;border-radius:5px}
 #map-next-scratch[hidden]{display:none!important}
+
+@media(max-width:700px) and (orientation:portrait){
+ .bilingual #memory .paper-card{padding:38px 18px 18px;gap:10px}
+ .bilingual #memory .spread .photos{height:min(46dvh,360px);grid-template-rows:repeat(2,minmax(0,1fr));gap:16px 22px;padding:8px 4px}
+ .bilingual #memory .spread .polaroid{width:auto;height:100%;max-width:100%;justify-self:center}
+ .bilingual #memory .spread .p3{width:auto}
+ .bilingual #memory #close-memory{top:7px;right:10px;width:36px;height:30px}
+}
+@media(max-width:700px) and (orientation:portrait){
+ .bilingual #memory .photo-note{top:82%;bottom:auto;font-size:10px;line-height:1}
+ .bilingual #memory .photo-note .bi-zh{font-size:10px!important;line-height:1.05!important;letter-spacing:0!important}
+ .bilingual #memory .photo-note .bi-th{font-size:10px!important;line-height:1.05!important;margin-top:1px!important}
+}

@@ -9,3 +9,5 @@
 .note.waiting{pointer-events:none}.note.waiting>span{visibility:hidden}.matchstick{position:absolute;left:73%;top:53%;width:130px;height:55px;padding:0;border:0;background:none;touch-action:none;cursor:grab;z-index:20}.matchstick svg{display:block;width:100%;height:100%;pointer-events:none;filter:drop-shadow(1px 2px 1px #5c493522)}.match-flame{opacity:0}.matchstick.striking .match-flame{opacity:1}.matchstick.striking{cursor:grabbing}.match-hint{position:absolute;left:61%;top:65%;width:33%;text-align:center;font-size:15px;color:#796c56}.match-hint .bi-th{font-size:12px!important}
 @media(max-width:700px){.matchstick{left:67%;top:64%;width:105px;height:45px}.match-hint{left:8%;top:auto;bottom:15px;width:84%;font-size:14px}}
 @media(max-width:700px){.matchstick{top:auto;bottom:85px;left:calc(50% - 52px)}}
+
+.finished .actions{width:45%;right:3%;flex-wrap:wrap;gap:8px 20px}.finished #birthday-card{color:#8e4c4c;border-color:#a9727280}@media(max-width:700px){.finished .actions{width:92%;right:4%;gap:8px 16px}.finished .actions button{font-size:14px;letter-spacing:0}}

@@ -8,7 +8,7 @@ Static HTML/CSS/JavaScript. Entry: `index.html`.
 Run locally: `python3 -m http.server 8766 --bind 127.0.0.1`.
 GitHub Pages can publish directly from the root of the `main` branch.
 
-Childhood portraits are included; travel photos and reward text are pending. Selected photos are previewed only
-in the current browser and are not uploaded or retained after refreshing.
+Childhood portraits, three film memories, three Bangkok photographs and a birthday card are included.
+Photographs persist across reloads and open in a full-image viewer. Reward text and the final letter remain blank.
 
 Map geography: Natural Earth public-domain data, https://www.naturalearthdata.com/.
