@@ -12,13 +12,14 @@
  ];
  const host=document.getElementById('journey'),previous=document.getElementById('journey-previous'),next=document.getElementById('journey-next'),status=document.getElementById('journey-status'),loading=document.getElementById('journey-loading'),retry=document.getElementById('journey-retry'),loadingCopy=document.getElementById('journey-loading-copy');
  const records=new Map();let current=-1,navigation=0,departing=false,person=null,pendingIndex=null;
+ const startupRetry=document.getElementById('startup-retry');if(startupRetry)startupRetry.hidden=true;
  function record(index){
   if(records.has(index))return records.get(index);
   const frame=document.createElement('iframe');frame.className='journey-frame';frame.title=scenes[index].title;frame.hidden=true;frame.inert=true;
   const item={frame,ready:scenes[index].file==='film-preview.html',modal:false,advanced:false};
   item.resourcesLoaded=new Promise(resolve=>frame.addEventListener('load',()=>{item.resolveLoaded();resolve();},{once:true}));
   item.loaded=new Promise(resolve=>{item.resolveLoaded=resolve;});records.set(index,item);const embedded=index===0?document.getElementById('opening-document')?.textContent:null;
-  if(embedded){try{frame.srcdoc=JSON.parse(embedded);}catch{frame.src=scenes[index].file+'?v=00c6dbda3d6b';}}else frame.src=scenes[index].file+'?v=00c6dbda3d6b';host.append(frame);return item;
+  if(embedded){try{frame.srcdoc=JSON.parse(embedded);}catch{frame.src=scenes[index].file+'?v=e4c8058420d2';}}else frame.src=scenes[index].file+'?v=e4c8058420d2';host.append(frame);return item;
  }
  function navigationState(){
   const item=records.get(current);if(!item)return;
