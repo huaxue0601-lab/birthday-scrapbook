@@ -8,7 +8,7 @@
  function reveal(){
   if(!active)return;
   if(revealed){openLetter();return;}
-  revealed=true;gift.classList.add('wiggle');scene.classList.add('revealed');pocket.hidden=false;
+  revealed=true;globalThis.BirthdaySound?.play('gift');gift.classList.add('wiggle');scene.classList.add('revealed');pocket.hidden=false;
   gift.setAttribute('aria-label','放大礼物卡');status.textContent='找到一张礼物卡，点击可以放大。';letter.focus({preventScroll:true});
  }
  function openLetter(){if(!revealed||dialog.open)return;dialog.showModal();close.focus({preventScroll:true});status.textContent='礼物卡已放大。';}

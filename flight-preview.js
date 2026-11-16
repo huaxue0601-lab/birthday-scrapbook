@@ -59,7 +59,7 @@
   last=now;paint();if(!finished)raf=requestAnimationFrame(tick);
  }
  function restart(){
-  cancelAnimationFrame(raf);elapsed=0;last=null;paused=false;finished=false;
+  globalThis.BirthdaySound?.play('flight');cancelAnimationFrame(raf);elapsed=0;last=null;paused=false;finished=false;
   dialog.classList.remove('heart-arrived');document.body.classList.remove('flight-heart-ready');
   pause.hidden=false;pause.textContent='暂停飞行';pause.setAttribute('aria-pressed','false');replay.hidden=true;next.hidden=false;next.textContent='跳过飞行，继续 →';
   document.getElementById('flight-status').textContent='小飞机起飞，红色航迹正在画出爱心。';

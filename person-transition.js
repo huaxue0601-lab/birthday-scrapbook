@@ -70,7 +70,7 @@
    person.classList.remove('preparing');scene.classList.add('person-tracing');document.getElementById('paper').disabled=true;
    if(!reduced)await new Promise(resolve=>setTimeout(resolve,1100));
    if(token!==generation)return;
-   scene.classList.add('person-exit');
+   scene.classList.add('person-exit');globalThis.BirthdaySound?.play('paper');
    setTimeout(()=>{if(token===generation)parent.postMessage({channel:'birthday-journey',type:'departed',person:data},location.origin)},reduced?0:900);
   }else if(camera&&event.data?.type==='journey:activate'){
    generation++;leaving=false;person?.remove();document.getElementById('scene').classList.remove('person-exit','person-tracing');

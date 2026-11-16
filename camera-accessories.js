@@ -12,7 +12,7 @@
   for(const [kind,node] of [['hat',hat],['glasses',glasses]]){node.style.left=positions[kind].x+'%';node.style.top=positions[kind].y+'%';}
   buttons.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.hat===selectedHat)));glassesButtons.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.glasses===selectedGlasses)));
  }
- function select(kind,value){if(kind==='hat')selectedHat=selectedHat===value?'':value;else selectedGlasses=selectedGlasses===value?'':value;render();status.textContent='拖住照片上的配饰，可以调整位置。';}
+ function select(kind,value){globalThis.BirthdaySound?.play('stick');if(kind==='hat')selectedHat=selectedHat===value?'':value;else selectedGlasses=selectedGlasses===value?'':value;render();status.textContent='拖住照片上的配饰，可以调整位置。';}
  function localPoint(x,y){
   const r=paper.getBoundingClientRect(),angle=6*Math.PI/180,dx=x-r.left-r.width/2,dy=y-r.top-r.height/2;
   return {x:(dx*Math.cos(angle)-dy*Math.sin(angle)+paper.clientWidth/2),y:(dx*Math.sin(angle)+dy*Math.cos(angle)+paper.clientHeight/2)};
@@ -44,7 +44,7 @@
       if(kind==='hat'){selectedHat=value||selectedHat;hat.src=hats[selectedHat]}else selectedGlasses=value||selectedGlasses;
       const width=paper.clientWidth*(kind==='hat'?.309:.435),ratio=(active.ghost.naturalHeight||element.naturalHeight)/(active.ghost.naturalWidth||element.naturalWidth);
       positions[kind]={x:(point.x-width/2)/paper.clientWidth*100,y:(point.y-width*ratio/2)/paper.clientHeight*100};
-      render();status.textContent='位置调整好了，还可以继续拖动。';
+      globalThis.BirthdaySound?.play('stick');render();status.textContent='位置调整好了，还可以继续拖动。';
      }
     }
    }

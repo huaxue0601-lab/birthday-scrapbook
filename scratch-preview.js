@@ -46,13 +46,13 @@
  }
  function complete(slot){
   if(slot.done)return;
-  slot.done=true;stopPointer(slot);slot.button.classList.add('is-revealed');slot.button.setAttribute('aria-label',`第${slot.index+1}栏已刮开${prizes[slot.index]?'：'+prizes[slot.index]:''}`);
+  slot.done=true;globalThis.BirthdaySound?.play('stick');stopPointer(slot);slot.button.classList.add('is-revealed');slot.button.setAttribute('aria-label',`第${slot.index+1}栏已刮开${prizes[slot.index]?'：'+prizes[slot.index]:''}`);
   instruction.textContent=details[slot.index];
   const count=slots.filter(s=>s.done).length;status.textContent=`已刮开 ${count} / 3 栏`;
   if(count===3){
    instruction.textContent='截图发给我，领取你的礼物。';
    clearTimeout(stampTimer);stampTimer=setTimeout(()=>{
-    card.classList.add('is-complete');reset.hidden=false;nextSlot.hidden=false;status.textContent='每券限兑一次，重玩不叠加。';
+    card.classList.add('is-complete');globalThis.BirthdaySound?.play('win');reset.hidden=false;nextSlot.hidden=false;status.textContent='每券限兑一次，重玩不叠加。';
    },matchMedia('(prefers-reduced-motion: reduce)').matches?0:420);
   }
  }
@@ -66,7 +66,7 @@
   return BirthdayScratchGeometry.point(event.clientX,event.clientY,r,{width:card.offsetWidth,height:card.offsetHeight},[m.a,m.b,m.c,m.d],{left:slot.button.offsetLeft,top:slot.button.offsetTop,width:slot.button.offsetWidth,height:slot.button.offsetHeight},slot.canvas);
  }
  function erase(slot,p){
-  if(!p)return;slot.touched=true;
+  if(!p)return;globalThis.BirthdaySound?.play('scratch');slot.touched=true;
   const {ctx,canvas}=slot;ctx.globalCompositeOperation='destination-out';ctx.strokeStyle='#000';ctx.fillStyle='#000';ctx.lineWidth=canvas.width*.33;ctx.lineCap='round';ctx.lineJoin='round';
   ctx.beginPath();const prev=slot.previous||p;ctx.moveTo(prev.x,prev.y);ctx.lineTo(p.x,p.y);ctx.stroke();
   ctx.beginPath();ctx.arc(p.x,p.y,ctx.lineWidth/2,0,Math.PI*2);ctx.fill();slot.previous=p;

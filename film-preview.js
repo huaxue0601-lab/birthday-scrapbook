@@ -30,7 +30,7 @@
   function tick(now){began??=now;const t=Math.min(1,(now-began)/duration);render(from+(target-from)*(1-Math.pow(1-t,3)));if(t<1)motionFrame=requestAnimationFrame(tick);else{motionFrame=0;motionTarget=null;}}
   motionFrame=requestAnimationFrame(tick);
  }
- function step(direction){flush();glide((motionTarget??extension)+direction*width/3);}
+ function step(direction){globalThis.BirthdaySound?.play('film');flush();glide((motionTarget??extension)+direction*width/3);}
  function fit(){
   if(innerWidth<=0||innerHeight<=0)return;
   const height=innerWidth<=700?Math.min(136,innerWidth*.34,innerHeight*.27):Math.min(205,innerHeight*.26,innerWidth*.9/5.02),newWidth=height*3421/955;
@@ -89,6 +89,7 @@
   if(!start.moved&&Math.abs(delta)>3){start.moved=true;gestureArea.setPointerCapture(e.pointerId);viewport.classList.add('dragging');}
   if(start.moved){e.preventDefault();const now=e.timeStamp||0,dt=now-start.lastTime,dx=e.clientX-start.lastX;
    if(dt>0&&dx!==0){start.velocity=dt>100?0:start.velocity*.4+Math.max(-2.5,Math.min(2.5,dx/dt))*.6;start.lastX=e.clientX;start.lastTime=now;}
+   if(start.soundX===undefined||Math.abs(e.clientX-start.soundX)>5){globalThis.BirthdaySound?.play('film');start.soundX=e.clientX;}
    schedule(start.extension+delta*start.gain);
   }
  }

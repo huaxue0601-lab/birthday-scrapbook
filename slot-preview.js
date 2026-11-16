@@ -42,7 +42,7 @@
  }
  async function spin(){
   if(!['ready','pulling'].includes(state))return;
-  const token=generation;release();state='spinning';lever.disabled=true;status.textContent='爱心正在转动……';message.textContent='让好运慢慢停下来。';
+  const token=generation;release();state='spinning';globalThis.BirthdaySound?.play('slot');lever.disabled=true;status.textContent='爱心正在转动……';message.textContent='让好运慢慢停下来。';
   try{
    await motion(lever,[{transform:`rotate(${angle}deg)`},{transform:'rotate(38deg)'}],230);
    const leverReturn=motion(lever,[{transform:'rotate(38deg)'},{transform:'rotate(0deg)'}],480);
@@ -53,11 +53,11 @@
     if(token!==generation)return;
     const ticket=tickets[i],r=ticket.getBoundingClientRect(),mouth=dialog.querySelector('.slot-mouth').getBoundingClientRect();
     const dx=mouth.left+mouth.width/2-r.left-r.width/2,dy=mouth.top+mouth.height/2-r.top-r.height/2;
-    ticket.classList.add('is-issued');ticket.setAttribute('aria-hidden','false');
+    globalThis.BirthdaySound?.play('paper');ticket.classList.add('is-issued');ticket.setAttribute('aria-hidden','false');
     await motion(ticket,[{transform:`translate(${dx}px,${dy}px) scale(.18) rotate(-12deg)`,opacity:0},{opacity:1,offset:.2},{transform:`translate(0,0) scale(1) rotate(${[-4,2,-2][i]}deg)`,opacity:1}],680);
    }
    if(token!==generation)return;
-   rememberVouchers();state='won';dialog.classList.add('won');resetButton.hidden=false;continueButton.hidden=false;message.textContent='截图发给我，领取你的礼物。';status.textContent='每券限兑一次，重玩不叠加。';continueButton.focus({preventScroll:true});
+   rememberVouchers();globalThis.BirthdaySound?.play('win');state='won';dialog.classList.add('won');resetButton.hidden=false;continueButton.hidden=false;message.textContent='截图发给我，领取你的礼物。';status.textContent='每券限兑一次，重玩不叠加。';continueButton.focus({preventScroll:true});
    document.dispatchEvent(new Event('scene:complete'));
   }catch{if(token===generation)reset();}
  }

@@ -76,7 +76,7 @@ function finishDock(){
  document.dispatchEvent(new Event('boarding:complete'));
 }
 async function dockTicket(){
- boardingState='departing';stub.disabled=true;boarding.classList.add('departing');
+ boardingState='departing';globalThis.BirthdaySound?.play('tear');stub.disabled=true;boarding.classList.add('departing');
  if(reducedMotion.matches){finishDock();return;}
  const token=run,base=stage.getBoundingClientRect();
  const stubLeft=base.left+base.width*1563/2323,stubWidth=base.width*760/2323;

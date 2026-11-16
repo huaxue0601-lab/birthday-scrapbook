@@ -17,9 +17,13 @@
   if(records.has(index))return records.get(index);
   const frame=document.createElement('iframe');frame.className='journey-frame';frame.title=scenes[index].title;frame.hidden=true;frame.inert=true;
   const item={frame,ready:scenes[index].file==='film-preview.html',modal:false,advanced:false};
-  item.resourcesLoaded=new Promise(resolve=>frame.addEventListener('load',()=>{item.resolveLoaded();resolve();},{once:true}));
+  item.resourcesLoaded=new Promise(resolve=>frame.addEventListener('load',async()=>{
+   const art=frame.contentDocument?.querySelector('img[data-scene-critical]');
+   if(art?.decode)await art.decode().catch(()=>{});
+   item.resolveLoaded();resolve();
+  },{once:true}));
   item.loaded=new Promise(resolve=>{item.resolveLoaded=resolve;});records.set(index,item);const embedded=index===0?document.getElementById('opening-document')?.textContent:null;
-  if(embedded){try{frame.srcdoc=JSON.parse(embedded);}catch{frame.src=scenes[index].file+'?v=cb310c719a70';}}else frame.src=scenes[index].file+'?v=cb310c719a70';host.append(frame);return item;
+  if(embedded){try{frame.srcdoc=JSON.parse(embedded);}catch{frame.src=scenes[index].file+'?v=889a221c1b41';}}else frame.src=scenes[index].file+'?v=889a221c1b41';host.append(frame);return item;
  }
  function navigationState(){
   const item=records.get(current);if(!item)return;
@@ -34,7 +38,7 @@
   // DOM readiness is enough: hidden dialogs may still be downloading large artwork.
   const delayed=setTimeout(()=>{if(token!==navigation)return;loadingCopy.textContent='加载有点慢，请再试一次。';retry.hidden=false;previous.disabled=current<0;},12000);
   await item.loaded;clearTimeout(delayed);if(token!==navigation)return;
-  loading.hidden=true;pendingIndex=null;
+  globalThis.BirthdaySound?.stop();loading.hidden=true;pendingIndex=null;
   for(const [key,other] of records){other.frame.hidden=key!==index;other.frame.inert=key!==index;}
   current=index;previous.disabled=next.disabled=false;navigationState();status.textContent=scenes[index].title;
   if(scenes[index].file==='toast-preview.html'&&person)item.frame.contentWindow.postMessage({type:'journey:person',person},location.origin);
@@ -55,6 +59,11 @@
   if(event.data.type==='next'){if(index===current&&item.ready&&!item.modal&&pendingIndex===null)show(current+1);return;}
   if(event.data.type==='complete'){
    item.ready=true;
+   // A developed photo is an intentional milestone. Prepare its cake scene
+   // while accessories are chosen, after this page's own images finish.
+   if(index===current&&scenes[index].file==='camera-preview.html'){
+    item.resourcesLoaded.then(()=>{if(current===index)record(index+1);});
+   }
    if(index===0&&current===0&&!item.advanced){item.advanced=true;show(1);return;}
   }else if(event.data.type==='modal')item.modal=Boolean(event.data.open);
   else if(event.data.type==='departed'&&index===current&&departing){departing=false;person=event.data.person;show(current+1);return;}
@@ -66,6 +75,7 @@
   if(departing)return;
   if(scenes[current].file==='camera-preview.html'){
    departing=true;previous.disabled=next.disabled=true;
+   record(current+1); // Also overlap download with the two-second cutout exit.
    records.get(current).frame.contentWindow.postMessage({type:'journey:depart'},location.origin);return;
   }
   if(current===scenes.length-1){const opening=records.get(0);opening?.frame.remove();records.delete(0);show(0);}

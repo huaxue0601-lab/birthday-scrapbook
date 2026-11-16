@@ -3,7 +3,7 @@
  const pieces=[...document.querySelectorAll('.photo-piece')],reduced=matchMedia('(prefers-reduced-motion: reduce)');
  let joined=new Set(),drag=null,finishing=false,timer,noticeTimer,active=false;
  function clearNotification(){clearTimeout(noticeTimer);notification.hidden=true;scene.classList.remove('notification-arrived');}
- function showNotification(){clearNotification();noticeTimer=setTimeout(()=>{if(!scene.classList.contains('lockscreen'))return;notification.hidden=false;scene.classList.add('notification-arrived');},reduced.matches?0:1100);}
+ function showNotification(){clearNotification();noticeTimer=setTimeout(()=>{if(!scene.classList.contains('lockscreen'))return;notification.hidden=false;globalThis.BirthdaySound?.play('notify');scene.classList.add('notification-arrived');},reduced.matches?0:1100);}
  function activate(){if(active)return;active=true;requestAnimationFrame(()=>requestAnimationFrame(()=>scene.classList.add('is-active')));}
  function assemble(){
   if(joined.size!==2||finishing)return;finishing=true;next.disabled=true;
@@ -12,7 +12,7 @@
    pieces.forEach(p=>p.disabled=true);status.textContent='两半照片拼好了，小时候的我们在一起了。';
   },reduced.matches?0:650);
  }
- function snap(piece){if(joined.has(piece))return;joined.add(piece);piece.classList.add('snapped');piece.style.transform='';status.textContent=joined.size===1?'这一半拼好了，再把另一半拖过来。':'合影正在拼好。';assemble();}
+ function snap(piece){if(joined.has(piece))return;joined.add(piece);globalThis.BirthdaySound?.play('stick');piece.classList.add('snapped');piece.style.transform='';status.textContent=joined.size===1?'这一半拼好了，再把另一半拖过来。':'合影正在拼好。';assemble();}
  function reset(){
   clearNotification();standaloneWish.hidden=true;clearTimeout(timer);if(drag){const d=drag;drag=null;if(d.piece.hasPointerCapture(d.id))d.piece.releasePointerCapture(d.id);}joined.clear();finishing=false;scene.classList.remove('assembled','lockscreen');next.hidden=false;next.disabled=false;next.textContent='拼在一起 →';back.hidden=true;replay.hidden=true;
   pieces.forEach(p=>{p.disabled=false;p.classList.remove('snapped','dragging');p.style.transform='';});status.textContent='把任意一半照片拖近另一半，松手就会拼好。';

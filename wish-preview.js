@@ -30,13 +30,13 @@
  }
  function put(){
   if(state!=='building'||count>=5)return;
-  scene.classList.add('started');const note=notes[count];note.classList.remove('dragging');note.classList.add('placed');note.disabled=true;pose(note,targets[count]);count++;free=null;guide.classList.remove('near');
+  globalThis.BirthdaySound?.play('stick');scene.classList.add('started');const note=notes[count];note.classList.remove('dragging');note.classList.add('placed');note.disabled=true;pose(note,targets[count]);count++;free=null;guide.classList.remove('near');
   if(count===5){match.hidden=false;matchHint.hidden=false;state='ready';scene.classList.add('ready');candle.hidden=false;light.hidden=false;place.hidden=true;guide.hidden=true;status.textContent='五层祝福拼成了生日蛋糕，点亮蜡烛吧。';}
   else {notes[count].hidden=false;document.getElementById('step').textContent=steps[count];status.textContent=`已贴好${count}片，继续拼下一片。`;}
   layout();
  }
- function illuminate(){if(state!=='ready')return;state='lit';match.hidden=true;matchHint.hidden=true;scene.classList.add('lit');light.hidden=true;blow.hidden=false;candle.setAttribute('aria-label','许好愿后吹灭蜡烛');document.getElementById('plate-caption').hidden=true;status.textContent='蜡烛点亮了。许好愿后，点击吹灭蜡烛。';layout();}
- function extinguish(){if(state!=='lit')return;state='finished';scene.classList.remove('lit');scene.classList.add('finished');blow.hidden=true;replay.hidden=false;document.getElementById('birthday-card').hidden=false;candle.disabled=true;document.getElementById('wish-line').innerHTML='愿你的愿望，<br>都在路上。';document.getElementById('wish-small').textContent='26岁，生日快乐，我的宝贝。';status.textContent='蜡烛吹灭了。愿你的愿望都在路上。';layout();document.dispatchEvent(new Event('scene:complete'));}
+ function illuminate(){if(state!=='ready')return;state='lit';globalThis.BirthdaySound?.play('match');match.hidden=true;matchHint.hidden=true;scene.classList.add('lit');light.hidden=true;blow.hidden=false;candle.setAttribute('aria-label','许好愿后吹灭蜡烛');document.getElementById('plate-caption').hidden=true;status.textContent='蜡烛点亮了。许好愿后，点击吹灭蜡烛。';layout();}
+ function extinguish(){if(state!=='lit')return;state='finished';globalThis.BirthdaySound?.play('blow');scene.classList.remove('lit');scene.classList.add('finished');blow.hidden=true;replay.hidden=false;document.getElementById('birthday-card').hidden=false;candle.disabled=true;document.getElementById('wish-line').innerHTML='愿你的愿望，<br>都在路上。';document.getElementById('wish-small').textContent='26岁，生日快乐，我的宝贝。';status.textContent='蜡烛吹灭了。愿你的愿望都在路上。';layout();document.dispatchEvent(new Event('scene:complete'));}
  function finish(e,cancel=false){
   if(!drag||drag.id!==e.pointerId)return;
   if(!cancel)move(e);
