@@ -23,7 +23,7 @@
  tickets.forEach((t,i)=>t.querySelector('.slot-ticket-copy').textContent=prizes[i]);
  let state='ready',generation=0,drag=null,angle=0,returnFocus=null;const animations=new Set();
  function release(){const id=drag?.id;drag=null;if(id!==undefined&&lever.hasPointerCapture(id))lever.releasePointerCapture(id);}
- function cancel(){generation++;release();for(const a of animations)a.cancel();animations.clear();}
+ function cancel(){globalThis.BirthdaySound?.end?.('reels');generation++;release();for(const a of animations)a.cancel();animations.clear();}
  async function motion(element,frames,duration){
   const last=frames[frames.length-1];
   if(reduce.matches){for(const [key,value] of Object.entries(last))if(key!=='offset')element.style[key]=value;return;}
@@ -46,14 +46,14 @@
   try{
    await motion(lever,[{transform:`rotate(${angle}deg)`},{transform:'rotate(38deg)'}],230);
    const leverReturn=motion(lever,[{transform:'rotate(38deg)'},{transform:'rotate(0deg)'}],480);
-   const reels=tracks.map((track,i)=>motion(track,[{transform:'translateY(0%)'},{transform:'translateY(-533.333333%)'}],1800+i*430).then(()=>{if(token===generation)status.textContent=`${i+1} 个爱心停好了。`;}));
+   const reels=tracks.map((track,i)=>motion(track,[{transform:'translateY(0%)'},{transform:'translateY(-533.333333%)'}],1800+i*430).then(()=>{if(token===generation){globalThis.BirthdaySound?.play('reelstop');status.textContent=`${i+1} 个爱心停好了。`;}}));
    await Promise.all([leverReturn,...reels]);if(token!==generation)return;
-   state='issuing';status.textContent='三个爱心！小奖券正在出来。';
+   globalThis.BirthdaySound?.end?.('reels');state='issuing';status.textContent='三个爱心！小奖券正在出来。';
    for(let i=0;i<tickets.length;i++){
     if(token!==generation)return;
     const ticket=tickets[i],r=ticket.getBoundingClientRect(),mouth=dialog.querySelector('.slot-mouth').getBoundingClientRect();
     const dx=mouth.left+mouth.width/2-r.left-r.width/2,dy=mouth.top+mouth.height/2-r.top-r.height/2;
-    globalThis.BirthdaySound?.play('paper');ticket.classList.add('is-issued');ticket.setAttribute('aria-hidden','false');
+    globalThis.BirthdaySound?.play('voucher');ticket.classList.add('is-issued');ticket.setAttribute('aria-hidden','false');
     await motion(ticket,[{transform:`translate(${dx}px,${dy}px) scale(.18) rotate(-12deg)`,opacity:0},{opacity:1,offset:.2},{transform:`translate(0,0) scale(1) rotate(${[-4,2,-2][i]}deg)`,opacity:1}],680);
    }
    if(token!==generation)return;

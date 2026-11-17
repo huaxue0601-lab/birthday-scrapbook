@@ -36,6 +36,7 @@
  }
  function paint(){
   if(!layout)return;
+  globalThis.BirthdaySound?.flight?.(elapsed/1000,dialog.open&&!paused&&!document.hidden&&!reduce.matches);
   const flight=clamp(elapsed/timing.takeoff),trace=clamp((elapsed-timing.takeoff)/timing.trace),grow=clamp((elapsed-timing.takeoff-timing.trace)/timing.expand);
   const scale=layout.small+(1-layout.small)*ease(grow);
   route.style.strokeDashoffset=String(length*(1-flight));
@@ -59,7 +60,7 @@
   last=now;paint();if(!finished)raf=requestAnimationFrame(tick);
  }
  function restart(){
-  globalThis.BirthdaySound?.play('flight');cancelAnimationFrame(raf);elapsed=0;last=null;paused=false;finished=false;
+  globalThis.BirthdaySound?.end?.('flight');cancelAnimationFrame(raf);elapsed=0;last=null;paused=false;finished=false;
   dialog.classList.remove('heart-arrived');document.body.classList.remove('flight-heart-ready');
   pause.hidden=false;pause.textContent='暂停飞行';pause.setAttribute('aria-pressed','false');replay.hidden=true;next.hidden=false;next.textContent='跳过飞行，继续 →';
   document.getElementById('flight-status').textContent='小飞机起飞，红色航迹正在画出爱心。';
@@ -72,7 +73,7 @@
   mapNext.hidden=false;document.body.classList.add('flight-active');dialog.showModal();restart();
  }
  function close(){
-  cancelAnimationFrame(raf);dialog.close();document.body.classList.remove('flight-active','flight-heart-ready');
+  globalThis.BirthdaySound?.end?.('flight');cancelAnimationFrame(raf);dialog.close();document.body.classList.remove('flight-active','flight-heart-ready');
   dock.focus({preventScroll:true});
  }
  document.addEventListener('boarding:complete',open);
@@ -83,9 +84,9 @@
  next.addEventListener('click',continueToScratch);mapNext.addEventListener('click',continueToScratch);
  pause.addEventListener('click',()=>{
   paused=!paused;pause.textContent=paused?'继续飞行':'暂停飞行';pause.setAttribute('aria-pressed',String(paused));
-  cancelAnimationFrame(raf);last=null;if(!paused)raf=requestAnimationFrame(tick);
+  globalThis.BirthdaySound?.flight?.(elapsed/1000,!paused&&!document.hidden);cancelAnimationFrame(raf);last=null;if(!paused)raf=requestAnimationFrame(tick);
  });
  addEventListener('resize',()=>{if(dialog.open)measure()});
- document.addEventListener('visibilitychange',()=>{last=null});
+ document.addEventListener('visibilitychange',()=>{last=null;globalThis.BirthdaySound?.flight?.(elapsed/1000,dialog.open&&!paused&&!finished&&!document.hidden);});
  reduce.addEventListener('change',()=>{if(dialog.open&&reduce.matches){cancelAnimationFrame(raf);elapsed=timing.takeoff+timing.trace+timing.expand;paint();}});
 })();

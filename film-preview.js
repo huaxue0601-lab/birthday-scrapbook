@@ -96,7 +96,7 @@
  gestureArea.addEventListener('pointermove',move);
  function end(e,cancelled=false){
   if(!start||e.pointerId!==start.id)return;
-  if(!cancelled)move(e);flush();
+  if(!cancelled)move(e);globalThis.BirthdaySound?.end?.('film');flush();
   const gesture=start;suppressClick=gesture.moved;start=null;viewport.classList.remove('dragging');
   if(gestureArea.hasPointerCapture(e.pointerId))gestureArea.releasePointerCapture(e.pointerId);
   if(!cancelled&&gesture.moved&&innerWidth<=700){

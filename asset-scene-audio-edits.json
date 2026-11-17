@@ -1,0 +1,130 @@
+[
+  {
+    "clip": "tear",
+    "source": "paper_03.ogg",
+    "start": 0,
+    "duration": 0.55,
+    "filters": "highpass=f=280",
+    "bytes": 3933
+  },
+  {
+    "clip": "ticket",
+    "source": "paper_01.ogg",
+    "start": 0,
+    "duration": 0.42,
+    "filters": "highpass=f=650",
+    "bytes": 3069
+  },
+  {
+    "clip": "paper",
+    "source": "paper_04.ogg",
+    "start": 0,
+    "duration": 0.6,
+    "filters": "lowpass=f=4800",
+    "bytes": 4149
+  },
+  {
+    "clip": "stick",
+    "source": "paper_02.ogg",
+    "start": 0,
+    "duration": 0.18,
+    "filters": "highpass=f=500",
+    "bytes": 1557
+  },
+  {
+    "clip": "camera",
+    "source": "camera.ogg",
+    "start": 0,
+    "duration": 0.879751,
+    "filters": "highpass=f=140",
+    "bytes": 5877
+  },
+  {
+    "clip": "motor",
+    "source": "machine_01.ogg",
+    "start": 0,
+    "duration": 0.55,
+    "filters": "lowpass=f=2200",
+    "bytes": 3933
+  },
+  {
+    "clip": "reel",
+    "source": "machine_03.ogg",
+    "start": 0,
+    "duration": 0.46,
+    "filters": "highpass=f=180,lowpass=f=3000",
+    "bytes": 3285
+  },
+  {
+    "clip": "lever",
+    "source": "switch_02.ogg",
+    "start": 0,
+    "duration": 0.45,
+    "filters": "lowpass=f=4500",
+    "bytes": 3285
+  },
+  {
+    "clip": "stop",
+    "source": "switch_01.ogg",
+    "start": 0,
+    "duration": 0.23,
+    "filters": "lowpass=f=3500",
+    "bytes": 1989
+  },
+  {
+    "clip": "glass",
+    "source": "glass_05.ogg",
+    "start": 0,
+    "duration": 1.03,
+    "filters": "highpass=f=500",
+    "bytes": 6741
+  },
+  {
+    "clip": "liquid",
+    "source": "splash_01.ogg",
+    "start": 0,
+    "duration": 0.5,
+    "filters": "lowpass=f=3000",
+    "bytes": 3501
+  },
+  {
+    "clip": "scratch",
+    "source": "paper.wav",
+    "start": 1.0,
+    "duration": 0.55,
+    "filters": "highpass=f=1600,lowpass=f=7000",
+    "bytes": 3933
+  },
+  {
+    "clip": "match",
+    "source": "tools_03.ogg",
+    "start": 0,
+    "duration": 0.35,
+    "filters": "highpass=f=1600",
+    "bytes": 2637
+  },
+  {
+    "clip": "blow",
+    "source": "noise_02.ogg",
+    "start": 0,
+    "duration": 0.5,
+    "filters": "lowpass=f=1400",
+    "bytes": 3501
+  },
+  {
+    "clip": "bell",
+    "source": "bell_01.ogg",
+    "start": 0,
+    "duration": 1.29,
+    "filters": "lowpass=f=6000",
+    "bytes": 8253
+  },
+  {
+    "clip": "flight",
+    "source": "aircraft.ogg",
+    "start": 39,
+    "duration": 5.2,
+    "filters": "highpass=f=100,lowpass=f=2800",
+    "bytes": 31797
+  }
+]

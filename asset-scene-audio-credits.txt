@@ -1,0 +1,32 @@
+SCENE AUDIO CREDITS / LICENSES
+
+Recorded foley: rubberduck, "100 CC0 SFX"
+https://opengameart.org/content/100-cc0-sfx
+https://opengameart.org/sites/default/files/100-CC0-SFX_0.zip
+License: CC0 1.0 https://creativecommons.org/publicdomain/zero/1.0/
+Used: paper_01..04, machine_01/03, switch_01/02, glass_05, splash_01,
+tools_03, noise_02, bell_01. Match/blow are designed from tool/noise recordings;
+film/reel/printer sounds are designed from recorded machinery and paper.
+
+Camera: themightyglider, "Camera", arranged from CC0 CameraShutterSound.
+https://opengameart.org/content/camera
+https://archive.org/details/CameraShutterSound
+License: CC0 1.0 https://creativecommons.org/publicdomain/zero/1.0/
+
+Paper texture: Scorcher24, "Scorcher's Foley Sounds"
+https://opengameart.org/content/scorchers-foley-sounds
+License: CC0 1.0 https://creativecommons.org/publicdomain/zero/1.0/
+Used paper_rustling.wav, filtered into scratch friction.
+
+Aircraft: Free To Use Sounds / freetousesounds,
+"LAX Airport Landing Sound - LA City Sounds"
+https://opengameart.org/content/lax-airport-landing-sound-la-city-sounds
+https://opengameart.org/sites/default/files/LAX%20Aiport%20Landing%20Sound%20Two.ogg
+License: Creative Commons Attribution 4.0 International
+https://creativecommons.org/licenses/by/4.0/
+Recorded behind the LAX landing field. Edited: excerpt, mono downmix,
+band limiting, loudness normalization, fade, MP3 compression. Playback adds
+an animation-synchronized gain envelope. No endorsement is implied.
+
+All clips trimmed, filtered, normalized, faded and encoded for this website.
+Exact clip source filenames and edit points: edits.json.

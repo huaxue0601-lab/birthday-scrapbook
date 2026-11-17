@@ -41,7 +41,7 @@
   ctx.strokeStyle='#e8e4db66';ctx.beginPath();ctx.moveTo(w*.34,h/2+57);ctx.lineTo(w*.66,h/2+57);ctx.stroke();
  }
  function stopPointer(slot){
-  const id=slot.pointer;slot.pointer=null;slot.previous=null;
+  globalThis.BirthdaySound?.end?.('scratch');const id=slot.pointer;slot.pointer=null;slot.previous=null;
   if(id!==null&&slot.button.hasPointerCapture(id))slot.button.releasePointerCapture(id);
  }
  function complete(slot){
