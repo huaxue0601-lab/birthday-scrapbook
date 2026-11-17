@@ -23,7 +23,7 @@
    item.resolveLoaded();resolve();
   },{once:true}));
   item.loaded=new Promise(resolve=>{item.resolveLoaded=resolve;});records.set(index,item);const embedded=index===0?document.getElementById('opening-document')?.textContent:null;
-  if(embedded){try{frame.srcdoc=JSON.parse(embedded);}catch{frame.src=scenes[index].file+'?v=b423dde52fe8';}}else frame.src=scenes[index].file+'?v=b423dde52fe8';host.append(frame);return item;
+  if(embedded){try{frame.srcdoc=JSON.parse(embedded);}catch{frame.src=scenes[index].file+'?v=ecf7748a1bc5';}}else frame.src=scenes[index].file+'?v=ecf7748a1bc5';host.append(frame);return item;
  }
  function navigationState(){
   const item=records.get(current);if(!item)return;

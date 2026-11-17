@@ -538,17 +538,43 @@ body[data-scene="camera"] .eject{pointer-events:none}body[data-scene="camera"] .
  try{if(embedded)engine=parent.BirthdaySound;}catch{}
  const visible=()=>!document.hidden&&(!embedded||!window.frameElement?.hidden);
  if(engine){
-  window.BirthdaySound={play:name=>{if(visible())engine.play(name)},unlock:()=>engine.unlock(),warm:scene=>{if(visible())engine.warm(scene)},end:name=>engine.end(name),flight:(seconds,active)=>{if(visible())engine.flight(seconds,active)}};
+  window.BirthdaySound={play:name=>{if(visible())engine.play(name)},unlock:()=>engine.unlock(true),warm:scene=>{if(visible())engine.warm(scene)},end:name=>engine.end(name),flight:(seconds,active)=>{if(visible())engine.flight(seconds,active)}};
  }else{
   let ctx,master,noise,muted=false,button,resuming=false,pending=null,failed=false;const voices=new Set(),last=new Map();let epoch=0;const buffers=new Map(),loads=new Map(),loops=new Map();
   try{muted=localStorage.getItem('birthday-sound-muted')==='1'}catch{}
   function stop(){epoch++;pending=null;for(const name of [...loops.keys()])end(name);for(const node of voices){try{node.stop()}catch{}}voices.clear();}
+  // One streamed media element lives in the parent, outside scene cleanup.
+  // No src, request or decode of the two-minute track before user activation.
+  let music,musicGain,musicWanted=false,musicStarting=false,musicFailed=false,musicToken=0;
+  function pauseMusic(){musicToken++;musicStarting=false;try{music?.pause();}catch{}label();}
+  function startMusic(){
+   if(muted||document.hidden||!musicWanted||!ctx||typeof window.Audio!=='function')return;
+   if(musicStarting||(music&&!music.paused&&!musicFailed))return;
+   const token=++musicToken;
+   try{
+    if(!music){
+     music=new window.Audio();music.preload='none';music.loop=true;music.setAttribute('playsinline','');
+     music.src='asset-background-music-birthday.m4a?v=0912ce7282';
+     // iOS ignores media.volume: use a dedicated Web Audio gain instead.
+     musicGain=ctx.createGain();musicGain.gain.value=.24;
+     ctx.createMediaElementSource(music).connect(musicGain);musicGain.connect(ctx.destination);
+     music.addEventListener('playing',()=>{if(muted||document.hidden||!musicWanted){pauseMusic();return;}musicFailed=false;label();});
+     music.addEventListener('error',()=>{musicFailed=true;musicStarting=false;label();});
+    }
+    if(music.error)music.load();
+    musicStarting=true;musicFailed=false;
+    Promise.resolve(music.play()).then(()=>{
+     if(token!==musicToken)return;musicStarting=false;
+     if(muted||document.hidden||!musicWanted){pauseMusic();return;}musicFailed=false;label();
+    },()=>{if(token!==musicToken)return;musicStarting=false;musicFailed=true;label();});
+   }catch{musicStarting=false;musicFailed=true;label();}
+  }
   function resumed(){
    label();if(muted||document.hidden||ctx?.state!=='running')return;
    const cue=pending;pending=null;
    if(cue&&Date.now()-cue.at<1500)play(cue.name);
   }
-  function unlock(){
+  function unlock(withMusic=false){
    if(muted||document.hidden)return;
    try{
     // Supported iOS versions can route this as media playback instead of an
@@ -563,7 +589,7 @@ body[data-scene="camera"] .eject{pointer-events:none}body[data-scene="camera"] .
     if(ctx.state!=='running'&&ctx.state!=='closed'&&!resuming){
      resuming=true;Promise.resolve(ctx.resume()).then(()=>{resuming=false;failed=false;resumed();},()=>{resuming=false;pending=null;failed=true;label();});
     }
-    label();
+    if(withMusic){musicWanted=true;startMusic();}label();
    }catch{failed=true;label();}
   }
   function voice(source,filter,gain,duration,delay=0){
@@ -668,25 +694,27 @@ body[data-scene="camera"] .eject{pointer-events:none}body[data-scene="camera"] .
    }}catch{/* Sound must never break a gesture or animation. */}
   }
   window.BirthdaySound={play,unlock,stop,warm,end,flight};
-  function label(){if(!button)return;const running=!muted&&ctx?.state==='running';button.textContent=running?'♪ 开 / เปิด':failed?'♪ 重试 / ลองใหม่':'♪ 点此开启 / เปิดเสียง';button.setAttribute('aria-label',running?'关闭音效 · ปิดเสียง':'开启并试听音效 · เปิดและลองฟังเสียง');button.setAttribute('aria-pressed',String(running));button.dataset.audioState=muted?'muted':failed?'blocked':ctx?.state||'locked';}
+  function label(){if(!button)return;const running=!muted&&ctx?.state==='running'&&!musicFailed;button.textContent=running?'♪ 开 / เปิด':(failed||musicFailed)?'♪ 重试 / ลองใหม่':'♪ 点此开启 / เปิดเสียง';button.setAttribute('aria-label',running?'关闭音乐和音效 · ปิดเพลงและเสียงเอฟเฟกต์':'开启音乐和音效 · เปิดเพลงและเสียงเอฟเฟกต์');button.setAttribute('aria-pressed',String(running));button.dataset.audioState=muted?'muted':(failed||musicFailed)?'blocked':ctx?.state||'locked';button.dataset.musicState=muted?'muted':musicFailed?'blocked':musicStarting?'loading':music&&!music.paused?'playing':music?'paused':'idle';}
   function mount(){
    button=document.createElement('button');button.type='button';button.id='sound-toggle';button.setAttribute('data-no-translate','');
    button.style.cssText='position:fixed;right:max(10px,env(safe-area-inset-right));top:max(8px,env(safe-area-inset-top));z-index:20001;border:1px solid #b4a18b66;border-radius:20px;padding:7px 11px;min-height:36px;background:#fff9efdb;color:#715f4e;font:12px/1.2 system-ui;cursor:pointer;box-shadow:0 1px 5px #49331a12';
    button.onclick=()=>{
     // Before the context runs this button enables sound, rather than turning
     // off an "on" preference which never actually produced audio.
-    const running=!muted&&ctx?.state==='running';muted=running;
+    const running=!muted&&ctx?.state==='running'&&!musicFailed;muted=running;
     try{localStorage.setItem('birthday-sound-muted',muted?'1':'0')}catch{}
-    if(muted){stop();if(master)master.gain.value=0;}
-    else{failed=false;unlock();if(master)master.gain.value=.32;play('test');}label();
+    if(muted){musicWanted=false;pauseMusic();stop();if(master)master.gain.value=0;}
+    else{failed=false;unlock(true);if(master)master.gain.value=.32;play('test');}label();
    };label();document.body.append(button);
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount,{once:true});else mount();
-  document.addEventListener('visibilitychange',()=>{if(document.hidden)stop()});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden){pauseMusic();stop();}else if(musicWanted&&!muted){unlock();startMusic();}});
+  window.addEventListener?.('pagehide',()=>{pauseMusic();stop();});
+  window.addEventListener?.('pageshow',()=>{if(musicWanted&&!muted&&!document.hidden){unlock();startMusic();}});
  }
  // Calling the shared context directly within a real iframe gesture preserves
  // mobile autoplay activation; asynchronous postMessage cannot do that reliably.
- for(const event of ['pointerdown','touchend','click','keydown'])document.addEventListener(event,e=>{if(e.isTrusted&&visible()&&!e.target?.closest?.('#sound-toggle'))window.BirthdaySound.unlock()},true);
+ for(const event of ['pointerdown','touchend','click','keydown'])document.addEventListener(event,e=>{if(e.isTrusted&&visible()&&!e.target?.closest?.('#sound-toggle'))window.BirthdaySound.unlock(true)},true);
  const warmScene=()=>{if(!visible())return;const path=window.location?.pathname||'';const scene=document.body?.dataset?.scene||path.split('/').pop().replace('-preview.html','')||'opening';window.BirthdaySound.warm(scene);};
  for(const event of ['pointerdown','touchend','keydown'])document.addEventListener(event,e=>{if(e.isTrusted)warmScene()});
  window.addEventListener?.('message',e=>{if(e.source===parent&&e.origin===window.location.origin&&e.data?.type==='journey:activate')warmScene()});
