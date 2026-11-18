@@ -456,31 +456,69 @@ dialog.memory-viewer::backdrop{background:#29221ce0;backdrop-filter:blur(5px)}
   let ctx,master,noise,muted=false,button,resuming=false,pending=null,failed=false;const voices=new Set(),last=new Map();let epoch=0;const buffers=new Map(),loads=new Map(),loops=new Map();
   try{muted=localStorage.getItem('birthday-sound-muted')==='1'}catch{}
   function stop(){epoch++;pending=null;for(const name of [...loops.keys()])end(name);for(const node of voices){try{node.stop()}catch{}}voices.clear();}
-  // One streamed media element lives in the parent, outside scene cleanup.
-  // No src, request or decode of the two-minute track before user activation.
-  let music,musicGain,musicWanted=false,musicStarting=false,musicFailed=false,musicToken=0;
-  function pauseMusic(){musicToken++;musicStarting=false;try{music?.pause();}catch{}label();}
-  function startMusic(){
-   if(muted||document.hidden||!musicWanted||!ctx||typeof window.Audio!=='function')return;
-   if(musicStarting||(music&&!music.paused&&!musicFailed))return;
-   const token=++musicToken;
-   try{
-    if(!music){
-     music=new window.Audio();music.preload='none';music.loop=true;music.setAttribute('playsinline','');
-     music.src='asset-background-music-birthday.m4a?v=0912ce7282';
-     // iOS ignores media.volume: use a dedicated Web Audio gain instead.
-     musicGain=ctx.createGain();musicGain.gain.value=.24;
-     ctx.createMediaElementSource(music).connect(musicGain);musicGain.connect(ctx.destination);
-     music.addEventListener('playing',()=>{if(muted||document.hidden||!musicWanted){pauseMusic();return;}musicFailed=false;label();});
-     music.addEventListener('error',()=>{musicFailed=true;musicStarting=false;label();});
+  // Bounded ten-second downloads, never an unbounded media-element preload.
+  const musicParts=[{url:'asset-background-music-part-00.m4a?v=3079513af2',duration:10},{url:'asset-background-music-part-01.m4a?v=58e34759d6',duration:10},{url:'asset-background-music-part-02.m4a?v=893989eb80',duration:10},{url:'asset-background-music-part-03.m4a?v=0538bc5c62',duration:10},{url:'asset-background-music-part-04.m4a?v=dc907f0152',duration:10},{url:'asset-background-music-part-05.m4a?v=142d1e3de1',duration:10},{url:'asset-background-music-part-06.m4a?v=52a72c708b',duration:10},{url:'asset-background-music-part-07.m4a?v=8c9ace9424',duration:10},{url:'asset-background-music-part-08.m4a?v=7e89cd2473',duration:10},{url:'asset-background-music-part-09.m4a?v=1ac4430b59',duration:10},{url:'asset-background-music-part-10.m4a?v=f2ee04c0f4',duration:10},{url:'asset-background-music-part-11.m4a?v=16ccb29a61',duration:10},{url:'asset-background-music-part-12.m4a?v=53fba31d6d',duration:3.041094000000001}];
+  let musicGain,musicWanted=false,musicStarting=false,musicFailed=false,musicTimer=0,musicRequest=null,musicRequestId=0,networkBusy=false;
+  let musicCursor={index:0,offset:0},musicCurrent=null,musicNext=null;
+  const musicBuffers=new Map();
+  function cancelMusicRequest(){musicRequestId++;musicRequest?.abort();musicRequest=null;}
+  function updateMusicPosition(){
+   if(musicNext&&ctx.currentTime>=musicNext.start){musicCurrent=musicNext;musicNext=null;}
+   if(musicCurrent&&ctx.currentTime>=musicCurrent.end){musicCursor={index:(musicCurrent.index+1)%musicParts.length,offset:0};musicCurrent=null;}
+  }
+  function pauseMusic(){
+   clearTimeout(musicTimer);musicTimer=0;cancelMusicRequest();
+   if(ctx){updateMusicPosition();if(musicCurrent)musicCursor={index:musicCurrent.index,offset:musicCurrent.offset+Math.max(0,ctx.currentTime-musicCurrent.start)};}
+   for(const item of [musicCurrent,musicNext])if(item){try{item.source.stop();item.source.disconnect();}catch{}}
+   musicCurrent=musicNext=null;musicStarting=false;label();
+  }
+  function scheduleMusic(index,offset,start){
+   const source=ctx.createBufferSource(),duration=musicParts[index].duration-offset;
+   source.buffer=musicBuffers.get(index);source.connect(musicGain);source.onended=()=>source.disconnect();
+   source.start(start,offset,duration);source.stop(start+duration);
+   return {index,offset,start,end:start+duration,source};
+  }
+  function requestMusic(index){
+   if(networkBusy||musicRequest||musicFailed)return;
+   const controller=new AbortController(),requestId=++musicRequestId;musicRequest=controller;
+   const timeout=setTimeout(()=>controller.abort(),12000);
+   window.fetch(musicParts[index].url,{signal:controller.signal,priority:'low'}).then(response=>{
+    if(!response.ok)throw Error('music');return response.arrayBuffer();
+   }).then(bytes=>new Promise((resolve,reject)=>ctx.decodeAudioData(bytes,resolve,reject))).then(buffer=>{
+    if(requestId!==musicRequestId||muted||document.hidden||!musicWanted)return;
+    // At most the playing segment plus the next one remain decoded.
+    for(const key of musicBuffers.keys())if(key!==musicCurrent?.index&&key!==index)musicBuffers.delete(key);
+    musicBuffers.set(index,buffer);musicFailed=false;
+   }).catch(()=>{if(requestId===musicRequestId){musicFailed=true;musicStarting=false;}}).finally(()=>{
+    clearTimeout(timeout);if(requestId!==musicRequestId)return;musicRequest=null;musicPump();
+   });
+  }
+  function musicPump(){
+   clearTimeout(musicTimer);musicTimer=0;
+   if(muted||document.hidden||!musicWanted||!ctx||typeof window.fetch!=='function')return;
+   if(ctx.state==='running'){
+    updateMusicPosition();
+    if(!musicCurrent){
+     const {index,offset}=musicCursor;
+     if(musicBuffers.has(index))musicCurrent=scheduleMusic(index,offset,ctx.currentTime+.025);else requestMusic(index);
     }
-    if(music.error)music.load();
-    musicStarting=true;musicFailed=false;
-    Promise.resolve(music.play()).then(()=>{
-     if(token!==musicToken)return;musicStarting=false;
-     if(muted||document.hidden||!musicWanted){pauseMusic();return;}musicFailed=false;label();
-    },()=>{if(token!==musicToken)return;musicStarting=false;musicFailed=true;label();});
-   }catch{musicStarting=false;musicFailed=true;label();}
+    if(musicCurrent&&!musicNext&&musicCurrent.end-ctx.currentTime<=4){
+     const index=(musicCurrent.index+1)%musicParts.length;
+     if(musicBuffers.has(index))musicNext=scheduleMusic(index,0,musicCurrent.end);else requestMusic(index);
+    }
+   }
+   musicStarting=!musicCurrent&&!musicFailed;label();
+   musicTimer=setTimeout(musicPump,250);
+  }
+  function startMusic(){
+   if(muted||document.hidden||!musicWanted||!ctx||typeof window.fetch!=='function')return;
+   if(!musicGain){musicGain=ctx.createGain();musicGain.gain.value=.24;musicGain.connect(ctx.destination);}
+   musicFailed=false;musicPump();
+  }
+  function prioritizeScene(busy){
+   networkBusy=busy;
+   if(busy){cancelMusicRequest();for(const controller of foleyRequests)controller.abort();}
+   else if(musicWanted&&!muted)musicPump();
   }
   function resumed(){
    label();if(muted||document.hidden||ctx?.state!=='running')return;
@@ -517,19 +555,20 @@ dialog.memory-viewer::backdrop{background:#29221ce0;backdrop-filter:blur(5px)}
   // fetched until a user gesture has created the shared AudioContext.
   const clips={tear:'asset-scene-audio-tear.mp3?v=0731ef549d',ticket:'asset-scene-audio-ticket.mp3?v=260ead459d',paper:'asset-scene-audio-paper.mp3?v=af0d0f6e2c',stick:'asset-scene-audio-stick.mp3?v=74c33baad4',camera:'asset-scene-audio-camera.mp3?v=a5d5846e6f',motor:'asset-scene-audio-motor.mp3?v=e8ad679090',reel:'asset-scene-audio-reel.mp3?v=6072278246',lever:'asset-scene-audio-lever.mp3?v=363b1fb9aa',stop:'asset-scene-audio-stop.mp3?v=8a4b0dd061',glass:'asset-scene-audio-glass.mp3?v=06e1fc713e',liquid:'asset-scene-audio-liquid.mp3?v=eb88d116ae',scratch:'asset-scene-audio-scratch.mp3?v=1488768f5b',match:'asset-scene-audio-match.mp3?v=e16b697b90',blow:'asset-scene-audio-blow.mp3?v=65534313f1',bell:'asset-scene-audio-bell.mp3?v=05c47c2f6c',flight:'asset-scene-audio-flight.mp3?v=15338a1090'};
   const scenes={opening:['tear','paper'],birthday:['camera','motor','stick'],camera:['camera','motor','stick','paper','glass','liquid'],toast:['glass','liquid','stick'],film:['paper','reel'],map:['ticket','flight','scratch','stick','bell','lever','reel','stop','motor','paper'],scratch:['scratch','stick','bell'],slot:['lever','reel','stop','motor','paper','bell'],childhood:['stick','bell'],wish:['stick','match','blow'],gift:['paper','bell']};
-  let queue=Promise.resolve();
+  let queue=Promise.resolve();const foleyRequests=new Set();
   function load(name){
    if(!ctx||typeof fetch!=='function'||!clips[name])return Promise.resolve(null);
    if(buffers.has(name))return Promise.resolve(buffers.get(name));
    if(loads.has(name))return loads.get(name);
    // Serial, low-priority fetches avoid competing with photos and scene HTML.
    const job=queue.then(async()=>{
-    const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),5000);
+    if(networkBusy||muted||document.hidden)return null;
+    const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),5000);foleyRequests.add(controller);
     try{const response=await fetch(clips[name],{signal:controller.signal,priority:'low'});if(!response.ok)throw Error('audio');
      const bytes=await response.arrayBuffer();const buffer=await new Promise((resolve,reject)=>ctx.decodeAudioData(bytes,resolve,reject));buffers.set(name,buffer);return buffer;
-    }catch{return null;}finally{clearTimeout(timer);}
+    }catch{return null;}finally{clearTimeout(timer);foleyRequests.delete(controller);}
    });
-   queue=job.then(()=>{});loads.set(name,job);return job;
+   queue=job.then(()=>{if(!buffers.has(name))loads.delete(name)});loads.set(name,job);return job;
   }
   function warm(scene){if(!muted&&ctx)for(const name of scenes[scene]||scenes.opening)load(name);}
   function sample(name,gain=.7,delay=0,rate=1){
@@ -606,8 +645,8 @@ dialog.memory-viewer::backdrop{background:#29221ce0;backdrop-filter:blur(5px)}
     default:rustle(.14,.17,1000);
    }}catch{/* Sound must never break a gesture or animation. */}
   }
-  window.BirthdaySound={play,unlock,stop,warm,end,flight};
-  function label(){if(!button)return;const running=!muted&&ctx?.state==='running'&&!musicFailed;button.textContent=running?'♪ 开 / เปิด':(failed||musicFailed)?'♪ 重试 / ลองใหม่':'♪ 点此开启 / เปิดเสียง';button.setAttribute('aria-label',running?'关闭音乐和音效 · ปิดเพลงและเสียงเอฟเฟกต์':'开启音乐和音效 · เปิดเพลงและเสียงเอฟเฟกต์');button.setAttribute('aria-pressed',String(running));button.dataset.audioState=muted?'muted':(failed||musicFailed)?'blocked':ctx?.state||'locked';button.dataset.musicState=muted?'muted':musicFailed?'blocked':musicStarting?'loading':music&&!music.paused?'playing':music?'paused':'idle';}
+  window.BirthdaySound={play,unlock,stop,warm,end,flight,prioritizeScene};
+  function label(){if(!button)return;const running=!muted&&ctx?.state==='running'&&!musicFailed;button.textContent=running?'♪ 开 / เปิด':(failed||musicFailed)?'♪ 重试 / ลองใหม่':'♪ 点此开启 / เปิดเสียง';button.setAttribute('aria-label',running?'关闭音乐和音效 · ปิดเพลงและเสียงเอฟเฟกต์':'开启音乐和音效 · เปิดเพลงและเสียงเอฟเฟกต์');button.setAttribute('aria-pressed',String(running));button.dataset.audioState=muted?'muted':(failed||musicFailed)?'blocked':ctx?.state||'locked';button.dataset.musicState=muted?'muted':musicFailed?'blocked':musicStarting?'loading':musicCurrent?'playing':musicWanted?'paused':'idle';}
   function mount(){
    button=document.createElement('button');button.type='button';button.id='sound-toggle';button.setAttribute('data-no-translate','');
    button.style.cssText='position:fixed;right:max(10px,env(safe-area-inset-right));top:max(8px,env(safe-area-inset-top));z-index:20001;border:1px solid #b4a18b66;border-radius:20px;padding:7px 11px;min-height:36px;background:#fff9efdb;color:#715f4e;font:12px/1.2 system-ui;cursor:pointer;box-shadow:0 1px 5px #49331a12';

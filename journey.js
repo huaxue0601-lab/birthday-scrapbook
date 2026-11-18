@@ -23,7 +23,7 @@
    item.resolveLoaded();resolve();
   },{once:true}));
   item.loaded=new Promise(resolve=>{item.resolveLoaded=resolve;});records.set(index,item);const embedded=index===0?document.getElementById('opening-document')?.textContent:null;
-  if(embedded){try{frame.srcdoc=JSON.parse(embedded);}catch{frame.src=scenes[index].file+'?v=ecf7748a1bc5';}}else frame.src=scenes[index].file+'?v=ecf7748a1bc5';host.append(frame);return item;
+  if(embedded){try{frame.srcdoc=JSON.parse(embedded);}catch{frame.src=scenes[index].file+'?v=4cc29a0b6bfd';}}else frame.src=scenes[index].file+'?v=4cc29a0b6bfd';host.append(frame);return item;
  }
  function navigationState(){
   const item=records.get(current);if(!item)return;
@@ -33,11 +33,13 @@
  async function show(index){
   if(index<0||index>=scenes.length)return;
   if(index===0&&records.get(0)?.ready){records.get(0).frame.remove();records.delete(0);}
+  globalThis.BirthdaySound?.prioritizeScene?.(true);
   const token=++navigation,item=record(index);pendingIndex=index;previous.disabled=next.disabled=true;
   loading.hidden=false;retry.hidden=true;loadingCopy.textContent='正在翻开下一页……';
   // DOM readiness is enough: hidden dialogs may still be downloading large artwork.
   const delayed=setTimeout(()=>{if(token!==navigation)return;loadingCopy.textContent='加载有点慢，请再试一次。';retry.hidden=false;previous.disabled=current<0;},12000);
   await item.loaded;clearTimeout(delayed);if(token!==navigation)return;
+  item.resourcesLoaded.then(()=>{if(token===navigation)globalThis.BirthdaySound?.prioritizeScene?.(false);});
   globalThis.BirthdaySound?.stop();loading.hidden=true;pendingIndex=null;
   for(const [key,other] of records){other.frame.hidden=key!==index;other.frame.inert=key!==index;}
   current=index;previous.disabled=next.disabled=false;navigationState();status.textContent=scenes[index].title;
