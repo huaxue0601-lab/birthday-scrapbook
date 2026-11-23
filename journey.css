@@ -7,3 +7,10 @@
 @media(prefers-reduced-motion:reduce){.journey-frame{animation:none}}
 
 .journey-loading{position:fixed;inset:0;z-index:9;display:grid;place-content:center;justify-items:center;background:#eee8dcf5;text-align:center;padding:30px;color:#756957}.journey-loading[hidden]{display:none}.journey-loading p{font-size:19px}.journey-loading button{font:inherit;min-height:44px;padding:8px 20px;color:inherit;border:1px dashed #a38e6c;background:#f8f1e5}.journey-loading button[hidden]{display:none}
+
+/* Separate control rails prevent parent controls from covering child text. */
+:root{--journey-top:max(48px,calc(env(safe-area-inset-top) + 44px));--journey-bottom:max(72px,calc(env(safe-area-inset-bottom) + 64px))}
+#journey{top:var(--journey-top);bottom:var(--journey-bottom)}
+.journey-nav{height:var(--journey-bottom);bottom:0;padding:8px 18px max(10px,env(safe-area-inset-bottom));align-items:center!important;background:#eee8dc}
+.journey-nav button{max-width:46%}
+.toast-scene{background:#211d20}.toast-scene .journey-nav{background:#211d20}
